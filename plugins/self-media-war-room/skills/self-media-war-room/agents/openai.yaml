@@ -1,4 +1,4 @@
 interface:
   display_name: "自媒体作战室"
-  short_description: "串联选题、调研、写稿、制作、发布和复盘的完整自媒体工作流"
+  short_description: "串联定位、选题、对标拆解、写稿、制作、成片评分和复盘的完整工作流"
   default_prompt: "使用 $self-media-war-room 为我完整推进这一条自媒体内容任务。"

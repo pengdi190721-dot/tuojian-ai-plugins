@@ -1,8 +1,28 @@
 {
-  "schema_version": 1,
-  "policy": "external-adapter",
-  "note": "这些项目不复制进插件。基础流程始终可用；只有用户明确同意后，才按各自许可证和安装说明部署外部增强能力。",
+  "schema_version": 2,
+  "policy": "bundled-routing-with-external-adapters",
+  "note": "第三方源码不复制进插件。视频解析器由插件按锁定版本自动调用；其他增强能力只有用户明确同意后，才按各自许可证和安装说明部署。",
   "dependencies": [
+    {
+      "name": "mcp-video-analyzer",
+      "repository": "https://github.com/guimatheus92/mcp-video-analyzer",
+      "license": "MIT",
+      "role": "视频字幕读取、关键画面、文字识别、时间线和元数据解析",
+      "package": "mcp-video-analyzer@0.10.0",
+      "package_integrity": "sha512-DPjlu/sPWKJYYomxzDH7nOEjF9Orspz0xAVRsnI1IerklbzUdGr9hLEeTGApCzrFnKNiIEkZCC7UbKF7yqDrUQ==",
+      "minimum_runtime": "Node.js 22.12.0",
+      "api_token_required": false
+    },
+    {
+      "name": "scrybe",
+      "repository": "https://github.com/coroboros/scrybe",
+      "license": "MIT",
+      "role": "当视频没有字幕时进行本地中文语音转写",
+      "package": "@coroboros/scrybe@0.2.0",
+      "package_integrity": "sha512-j9NIxf7y+pQqx7BHHQFaQ3juz1PWrq43gimmMJBAH6pPm/NVkxEqfb22DSuE0qllfpB+qUUiZFtS109xGoLFCA==",
+      "model": "base",
+      "api_token_required": false
+    },
     {
       "name": "Agent Reach",
       "repository": "https://github.com/Panniantong/Agent-Reach",

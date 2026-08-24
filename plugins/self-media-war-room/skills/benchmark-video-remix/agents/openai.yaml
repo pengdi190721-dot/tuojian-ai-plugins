@@ -1,0 +1,4 @@
+interface:
+  display_name: "对标视频拆解改写"
+  short_description: "按时间码拆结构、节奏和镜头逻辑，再换成学员自己的真实内容"
+  default_prompt: "使用 $benchmark-video-remix 拆解这条对标视频，并改成符合我定位和说话方式的原创版本。"

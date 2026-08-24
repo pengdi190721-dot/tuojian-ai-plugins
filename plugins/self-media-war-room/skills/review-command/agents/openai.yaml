@@ -1,4 +1,4 @@
 interface:
-  display_name: "发布复盘台"
-  short_description: "完成视频号与小红书发布适配、质量检查、数据记录和周期复盘"
-  default_prompt: "使用 $review-command 检查成片、生成发布包装并记录复盘数据。"
+  display_name: "成片评分教练"
+  short_description: "解析成片并按时间码给出100分评分、三项优先修改和发布复盘"
+  default_prompt: "使用 $review-command 给我的成片打分，并告诉我下一遍只改哪三件事。"

@@ -5,7 +5,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
+import subprocess
 from pathlib import Path
 
 
@@ -27,16 +29,65 @@ def command_or_path(commands: list[str], paths: list[Path]) -> dict[str, object]
     return {"available": False, "location": None}
 
 
+def command_version(command: str) -> tuple[int, int, int] | None:
+    found = shutil.which(command)
+    if not found:
+        return None
+    completed = subprocess.run(
+        [found, "--version"], capture_output=True, text=True, check=False
+    )
+    output = f"{completed.stdout}\n{completed.stderr}"
+    match = re.search(r"v?(\d+)\.(\d+)\.(\d+)", output)
+    if completed.returncode or not match:
+        return None
+    return tuple(int(value) for value in match.groups())
+
+
 def inspect_environment() -> dict[str, object]:
     home = Path.home()
 
     required = {
-        name: command_or_path([name], [])
-        for name in ("codex", "python3", "git")
+        "内置创作工作流": {
+            "available": True,
+            "location": "随插件安装",
+        }
+    }
+    clients = {
+        "Codex": command_or_path(["codex"], []),
+        "WorkBuddy": command_or_path(
+            ["codebuddy", "workbuddy"],
+            [Path("/Applications/WorkBuddy.app")],
+        ),
     }
     optional_runtime = {
         name: command_or_path([name], [])
-        for name in ("node", "npm", "docker", "ffmpeg")
+        for name in (
+            "python3",
+            "git",
+            "node",
+            "npm",
+            "npx",
+            "yt-dlp",
+            "whisper",
+            "ffmpeg",
+        )
+    }
+    node_version = command_version("node")
+    minimum_node = (22, 12, 0)
+    video_analysis_available = bool(
+        optional_runtime["npx"]["available"]
+        and node_version
+        and node_version >= minimum_node
+    )
+    video_analysis = {
+        "available": video_analysis_available,
+        "mode": "本地语音识别，不需要付费接口密钥",
+        "engine": "mcp-video-analyzer@0.10.0 + scrybe@0.2.0",
+        "node_version": (
+            ".".join(str(value) for value in node_version) if node_version else None
+        ),
+        "minimum_node": "22.12.0",
+        "public_link_support": bool(optional_runtime["yt-dlp"]["available"]),
     }
     adapters = {
         "Agent Reach": command_or_path(
@@ -98,19 +149,23 @@ def inspect_environment() -> dict[str, object]:
         if not item["available"]
     ]
     status = "blocked" if missing_required else (
-        "ready_with_fallbacks" if missing_optional else "ready"
+        "ready" if video_analysis_available else "ready_with_fallbacks"
     )
 
     return {
         "plugin": "自媒体作战室",
         "status": status,
         "required": required,
+        "clients": clients,
+        "video_analysis": video_analysis,
         "optional_runtime": optional_runtime,
         "external_adapters": adapters,
         "missing_required": missing_required,
         "missing_optional": missing_optional,
         "notes": [
-            "外部能力缺失不会阻止基础的选题、调研、写稿和复盘流程。",
+            "外部能力缺失不会阻止基础的定位、选题、调研和写稿流程。",
+            "视频解析就绪后，成片评分和对标拆解会自动读取转写、关键画面与时间线。",
+            "首次解析可能需要联网下载本地识别组件；不会要求提供付费接口密钥。",
             "发现外部工具只代表本机存在；账号登录、渠道权限和接口额度仍需单独验证。",
             "剪辑工具只处理机械工作，发布前必须人工检查事实、画面、字幕、节奏和隐私。",
         ],
@@ -135,6 +190,22 @@ def render_markdown(report: dict[str, object]) -> str:
         mark = "已就绪" if item["available"] else "缺失"
         location = f"（{item['location']}）" if item["location"] else ""
         lines.append(f"- {name}：{mark}{location}")
+
+    lines.extend(["", "## 成片评分与对标拆解", ""])
+    video_analysis = report["video_analysis"]
+    if video_analysis["available"]:
+        lines.append("- 视频解析：已就绪，上传视频后会自动处理")
+        lines.append(f"- 语音识别：{video_analysis['mode']}")
+        public_link = "可直接处理" if video_analysis["public_link_support"] else "可能需要改为上传本地视频"
+        lines.append(f"- 单条公开视频链接：{public_link}")
+    else:
+        lines.append("- 视频解析：基础组件未就绪，可先用转写和截图做局部分析")
+        lines.append("- 下一步：只有需要排障时再查看下面的组件明细")
+
+    lines.extend(["", "## 当前平台", ""])
+    for name, item in report["clients"].items():
+        mark = "已发现" if item["available"] else "本机未发现"
+        lines.append(f"- {name}：{mark}")
 
     lines.extend(["", "## 可选运行环境", ""])
     for name, item in report["optional_runtime"].items():

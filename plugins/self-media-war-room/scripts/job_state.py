@@ -16,13 +16,14 @@ STAGES = (
     "positioning",
     "setup",
     "topic",
+    "benchmark",
     "research",
     "persona",
     "script",
     "production",
     "review",
 )
-STATUSES = ("pending", "in_progress", "completed", "blocked")
+STATUSES = ("pending", "in_progress", "completed", "skipped", "blocked")
 
 
 def now() -> str:
@@ -41,13 +42,17 @@ def read_state(path: Path) -> dict[str, object]:
 
     previous_stages = state.get("stages", {})
     positioning_default = "completed" if previous_stages else "pending"
-    state["stages"] = {
-        stage: previous_stages.get(
-            stage, positioning_default if stage == "positioning" else "pending"
-        )
-        for stage in STAGES
-    }
-    state["schema_version"] = 2
+    state["stages"] = {}
+    for stage in STAGES:
+        if stage in previous_stages:
+            state["stages"][stage] = previous_stages[stage]
+        elif stage == "positioning":
+            state["stages"][stage] = positioning_default
+        elif stage == "benchmark":
+            state["stages"][stage] = "skipped"
+        else:
+            state["stages"][stage] = "pending"
+    state["schema_version"] = 3
     state["current_stage"] = next_stage(state["stages"])
     return state
 
@@ -84,7 +89,7 @@ def parse_key_value(items: list[str]) -> dict[str, str]:
 
 def next_stage(stage_status: dict[str, str]) -> str | None:
     for stage in STAGES:
-        if stage_status[stage] != "completed":
+        if stage_status[stage] not in {"completed", "skipped"}:
             return stage
     return None
 
@@ -95,13 +100,19 @@ def init_command(args: argparse.Namespace) -> int:
         raise SystemExit(f"任务已存在：{path}。如需重建，请明确使用 --force。")
     created = now()
     state = {
-        "schema_version": 2,
+        "schema_version": 3,
         "title": args.title,
         "created_at": created,
         "updated_at": created,
         "current_stage": "positioning",
         "stages": {
-            stage: "in_progress" if stage == "positioning" else "pending"
+            stage: (
+                "in_progress"
+                if stage == "positioning"
+                else "skipped"
+                if stage == "benchmark"
+                else "pending"
+            )
             for stage in STAGES
         },
         "artifacts": {},

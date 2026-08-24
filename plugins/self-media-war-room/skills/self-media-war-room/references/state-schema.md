@@ -4,12 +4,14 @@
 
 ```json
 {
+  "schema_version": 3,
   "title": "项目名称",
   "current_stage": "positioning",
   "stages": {
     "positioning": "in_progress",
     "setup": "pending",
     "topic": "pending",
+    "benchmark": "skipped",
     "research": "pending",
     "persona": "pending",
     "script": "pending",
@@ -22,4 +24,4 @@
 }
 ```
 
-使用 `../../scripts/job_state.py` 新建、读取或更新。定位完成后，把档案路径记录为 `creator_profile` 交付物并将 `positioning` 标记为完成。不要覆盖用户已有的同名文件；新建前先检查。
+使用 `../../scripts/job_state.py` 新建、读取或更新。没有对标视频时，`benchmark` 保持 `skipped`；收到对标视频后改为 `in_progress`，完成对标卡和原创映射后标记为 `completed`。定位完成后，把档案路径记录为 `creator_profile` 交付物并将 `positioning` 标记为完成。不要覆盖用户已有的同名文件；新建前先检查。
