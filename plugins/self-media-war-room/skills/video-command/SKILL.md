@@ -5,7 +5,7 @@ description: 处理真人口播和Vlog的剪辑与画面包装。当用户上传
 
 # 剪辑与包装
 
-读取 [制作边界](references/production-boundaries.md) 和 [底层视频解析路由](../../references/video-analysis-routing.md)。
+读取 [制作边界](references/production-boundaries.md) 和 [底层视频解析路由](../../references/video-analysis-routing.md)。涉及封面设计、封面改版或封面评审时，必须再读取 [封面视觉锤](../../references/cover-visual-hammer.md)。
 
 ## 工具路由
 
@@ -21,5 +21,7 @@ description: 处理真人口播和Vlog的剪辑与画面包装。当用户上传
 3. 口播可以机械删除明显口误和无意义长停顿；情绪停顿、真实转折和可能改变原意的片段必须人工确认。
 4. Vlog必须先整理故事线和素材证据，再剪时间线。
 5. 任何生成、转码或导出都要检查实际文件、尺寸、时长和可播放性。
+
+制作封面时，先明确唯一视觉锤，再安排标题、人物和辅助信息。没有通过一秒缩略图检查，不进入最终成图。
 
 输出成片时同时交付人工复核清单，不把自动结果称为最终高质量成片。
