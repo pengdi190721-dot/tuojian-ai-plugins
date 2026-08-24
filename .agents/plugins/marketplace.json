@@ -1,0 +1,20 @@
+{
+  "name": "tuojian-ai",
+  "interface": {
+    "displayName": "拓见AI学员工具"
+  },
+  "plugins": [
+    {
+      "name": "self-media-war-room",
+      "source": {
+        "source": "local",
+        "path": "./plugins/self-media-war-room"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

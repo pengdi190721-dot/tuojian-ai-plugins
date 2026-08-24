@@ -1,0 +1,4 @@
+interface:
+  display_name: "视频制作台"
+  short_description: "根据真实素材规划内容粗剪、字幕、信息图、动效、封面和人工复核"
+  default_prompt: "使用 $video-command 根据现有素材制定并执行视频制作方案。"

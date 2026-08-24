@@ -1,0 +1,4 @@
+interface:
+  display_name: "人设表达库"
+  short_description: "从真实素材中沉淀个人判断、说话习惯、语气边界和多场景表达规范"
+  default_prompt: "使用 $persona-command 从我的真实素材中更新个人表达规范。"

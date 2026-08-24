@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "policy": "external-adapter",
+  "note": "这些项目不复制进插件。基础流程始终可用；只有用户明确同意后，才按各自许可证和安装说明部署外部增强能力。",
+  "dependencies": [
+    {
+      "name": "Agent Reach",
+      "repository": "https://github.com/Panniantong/Agent-Reach",
+      "license": "MIT",
+      "role": "跨平台检索与素材收集",
+      "inspected_commit": "93ae1d1"
+    },
+    {
+      "name": "TrendRadar",
+      "repository": "https://github.com/sansan0/TrendRadar",
+      "license": "GPL-3.0",
+      "role": "热点聚合与候选选题",
+      "inspected_commit": null
+    },
+    {
+      "name": "huashu-design",
+      "repository": "https://github.com/alchaincyf/huashu-design",
+      "license": "MIT",
+      "role": "信息图、演示与视觉素材",
+      "inspected_commit": "d3a4685"
+    },
+    {
+      "name": "nuwa-skill",
+      "repository": "https://github.com/alchaincyf/nuwa-skill",
+      "license": "MIT",
+      "role": "个人表达风格沉淀",
+      "inspected_commit": "27642f5"
+    },
+    {
+      "name": "brand-voice",
+      "repository": "https://github.com/anthropics/knowledge-work-plugins",
+      "license": "MIT",
+      "role": "品牌语气发现、规范生成和内容边界检查",
+      "inspected_commit": "16d1ab5"
+    },
+    {
+      "name": "HyperFrames",
+      "repository": "https://github.com/hyperframes-dev/hyperframes",
+      "license": "Apache-2.0",
+      "role": "程序化视频包装和动效",
+      "inspected_commit": "f575bda"
+    }
+  ]
+}

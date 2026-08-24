@@ -1,0 +1,4 @@
+interface:
+  display_name: "选题指挥台"
+  short_description: "从热点、自定义方向和真实业务素材中筛选并排序最值得拍摄的选题"
+  default_prompt: "使用 $topic-command 帮我筛选这周最值得拍的三个选题。"

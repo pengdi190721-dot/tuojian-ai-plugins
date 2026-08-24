@@ -1,0 +1,4 @@
+interface:
+  display_name: "作战室体检"
+  short_description: "检查本机工具、第三方能力和平台渠道，明确哪些功能当前可以正常使用"
+  default_prompt: "使用 $war-room-setup 检查我的自媒体作战室当前是否可以开工。"

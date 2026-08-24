@@ -1,0 +1,24 @@
+{
+  "name": "tuojian-ai",
+  "owner": {
+    "name": "彭迪",
+    "url": "https://github.com/pengdi190721-dot"
+  },
+  "description": "拓见AI面向学员提供的实用插件集合。",
+  "plugins": [
+    {
+      "name": "self-media-war-room",
+      "source": "./plugins/self-media-war-room",
+      "description": "从首次获客定位到选题、调研、写稿、制作、发布和复盘的自媒体工作流。",
+      "author": {
+        "name": "彭迪"
+      },
+      "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+      "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+      "license": "MIT",
+      "keywords": ["自媒体", "获客", "视频号", "小红书"],
+      "category": "Productivity",
+      "strict": true
+    }
+  ]
+}

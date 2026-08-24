@@ -1,0 +1,4 @@
+interface:
+  display_name: "调研情报站"
+  short_description: "围绕候选选题查找可靠来源、核实关键事实并整理可直接用于创作的角度"
+  default_prompt: "使用 $research-command 为这个选题查资料并形成内容情报简报。"

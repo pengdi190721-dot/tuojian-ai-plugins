@@ -1,0 +1,14 @@
+{
+  "name": "self-media-war-room",
+  "version": "0.2.0",
+  "description": "从首次获客定位到选题、调研、写稿、制作、发布和复盘的自媒体工作流。",
+  "author": {
+    "name": "彭迪",
+    "url": "https://github.com/pengdi190721-dot"
+  },
+  "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+  "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+  "license": "MIT",
+  "keywords": ["自媒体", "获客", "视频号", "小红书"],
+  "skills": "./skills/"
+}
