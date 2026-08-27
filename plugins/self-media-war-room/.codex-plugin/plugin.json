@@ -1,26 +1,29 @@
 {
   "name": "self-media-war-room",
-  "version": "0.3.1",
-  "description": "\u4ece\u9996\u6b21\u83b7\u5ba2\u5b9a\u4f4d\u3001\u9009\u9898\u8c03\u7814\u3001\u5bf9\u6807\u62c6\u89e3\u3001\u4eba\u8bbe\u5199\u7a3f\u3001\u62cd\u6444\u5236\u4f5c\u5230\u6210\u7247\u8bc4\u5206\u590d\u76d8\u7684\u4e00\u4f53\u5316\u81ea\u5a92\u4f53\u5de5\u4f5c\u6d41\u3002",
+  "version": "0.4.0",
+  "description": "从首次获客定位、选题调研、对标拆解、人设写稿、拍摄制作、九式封面到成片评分复盘的一体化自媒体工作流。",
   "author": {
-    "name": "\u5f6d\u8fea",
+    "name": "彭迪",
     "url": "https://github.com/pengdi190721-dot"
   },
   "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
   "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
   "license": "MIT",
   "keywords": [
-    "\u81ea\u5a92\u4f53",
-    "\u89c6\u9891\u53f7",
-    "\u5c0f\u7ea2\u4e66",
-    "\u5185\u5bb9\u521b\u4f5c",
-    "\u89c6\u9891\u5de5\u4f5c\u6d41"
+    "自媒体",
+    "视频号",
+    "小红书",
+    "内容创作",
+    "视频工作流",
+    "封面设计"
   ],
   "skills": "./skills/",
   "mcpServers": {
     "video-analyzer": {
       "command": "node",
-      "args": ["./scripts/video_analyzer_mcp.mjs"],
+      "args": [
+        "./scripts/video_analyzer_mcp.mjs"
+      ],
       "cwd": ".",
       "env": {
         "OPENAI_API_KEY": "",
@@ -30,23 +33,25 @@
     }
   },
   "interface": {
-    "displayName": "\u81ea\u5a92\u4f53\u4f5c\u6218\u5ba4",
-    "shortDescription": "\u5148\u627e\u5230\u5bb9\u6613\u83b7\u5ba2\u7684\u5b9a\u4f4d\uff0c\u518d\u628a\u9009\u9898\u3001\u5bf9\u6807\u62c6\u89e3\u3001\u5199\u7a3f\u3001\u5236\u4f5c\u548c\u6210\u7247\u8bc4\u5206\u4e32\u6210\u5de5\u4f5c\u6d41",
-    "longDescription": "\u9762\u5411\u53e3\u64ad\u4e0eVlog\u521b\u4f5c\u8005\u7684\u81ea\u5a92\u4f53\u5de5\u4f5c\u53f0\u3002\u9996\u6b21\u4f7f\u7528\u4f1a\u4ece\u73b0\u6709\u4ea7\u54c1\u548c\u5ba2\u6237\u5012\u63a8\u83b7\u5ba2\u578b\u5185\u5bb9\u5b9a\u4f4d\uff1b\u4e4b\u540e\u53ef\u5b8c\u6574\u63a8\u8fdb\u9009\u9898\u3001\u8c03\u7814\u3001\u5bf9\u6807\u89c6\u9891\u62c6\u89e3\u6539\u5199\u3001\u4eba\u8bbe\u6821\u51c6\u3001\u811a\u672c\u3001\u5236\u4f5c\u3001\u6210\u7247\u8bc4\u5206\u548c\u53d1\u5e03\u590d\u76d8\u3002",
-    "developerName": "\u5f6d\u8fea",
+    "displayName": "自媒体作战室",
+    "shortDescription": "先找到容易获客的定位，再把选题、对标拆解、写稿、制作、九式封面和成片评分串成工作流",
+    "longDescription": "面向口播与Vlog创作者的自媒体工作台。首次使用会从现有产品和客户倒推获客型内容定位；之后可完整推进选题、调研、对标视频拆解改写、人设校准、脚本、制作、九式封面、成片评分和发布复盘。",
+    "developerName": "彭迪",
     "category": "Productivity",
     "capabilities": [
       "Research",
       "Content creation",
-      "Video workflow"
+      "Video workflow",
+      "Cover design"
     ],
     "brandColor": "#D97706",
     "defaultPrompt": [
-      "\u7b2c\u4e00\u6b21\u4f7f\u7528\u81ea\u5a92\u4f53\u4f5c\u6218\u5ba4\uff0c\u8bf7\u9010\u9898\u5e2e\u6211\u627e\u5230\u6700\u9002\u5408\u83b7\u5ba2\u7684\u81ea\u5a92\u4f53\u5b9a\u4f4d\uff0c\u6bcf\u6b21\u53ea\u95ee\u4e00\u4e2a\u95ee\u9898\u3002",
-      "\u6253\u5f00\u81ea\u5a92\u4f53\u4f5c\u6218\u5ba4\uff0c\u5e2e\u6211\u628a\u4eca\u5929\u7684\u60f3\u6cd5\u63a8\u8fdb\u6210\u4e00\u6761\u53ef\u62cd\u89c6\u9891\u3002",
-      "\u8fd9\u662f\u6211\u62cd\u5b8c\u7684\u89c6\u9891\uff0c\u8bf7\u7528\u6210\u7247\u8bc4\u5206\u6559\u7ec3\u6253\u5206\uff0c\u5e76\u544a\u8bc9\u6211\u4e0b\u4e00\u904d\u53ea\u6539\u54ea\u4e09\u4ef6\u4e8b\u3002",
-      "\u8fd9\u662f\u6211\u7684\u5bf9\u6807\u89c6\u9891\uff0c\u8bf7\u62c6\u89e3\u5b83\u7684\u7ed3\u6784\u548c\u8282\u594f\uff0c\u518d\u6539\u6210\u7b26\u5408\u6211\u5b9a\u4f4d\u7684\u539f\u521b\u7248\u672c\u3002",
-      "\u68c0\u67e5\u6211\u7684\u81ea\u5a92\u4f53\u5de5\u5177\u662f\u5426\u5c31\u7eea\uff0c\u5e76\u544a\u8bc9\u6211\u7f3a\u4ec0\u4e48\u3002"
+      "第一次使用自媒体作战室，请逐题帮我找到最适合获客的自媒体定位，每次只问一个问题。",
+      "打开自媒体作战室，帮我把今天的想法推进成一条可拍视频。",
+      "这是我拍完的视频，请用成片评分教练打分，并告诉我下一遍只改哪三件事。",
+      "这是我的对标视频，请拆解它的结构和节奏，再改成符合我定位的原创版本。",
+      "请用九式封面设计，按我的主图、标题和发布平台生成一张可直接发布的封面。",
+      "检查我的自媒体工具是否就绪，并告诉我缺什么。"
     ]
   }
 }

@@ -1,8 +1,17 @@
 {
   "schema_version": 2,
   "policy": "bundled-routing-with-external-adapters",
-  "note": "第三方源码不复制进插件。视频解析器由插件按锁定版本自动调用；其他增强能力只有用户明确同意后，才按各自许可证和安装说明部署。",
+  "note": "除已在第三方声明中列明的封面模板、生成规则和参考图外，其他第三方源码不复制进插件。视频解析器由插件按锁定版本自动调用；其他增强能力只有用户明确同意后，才按各自许可证和安装说明部署。",
   "dependencies": [
+    {
+      "name": "gary-liujianwei-xhs-cover-skills",
+      "repository": "https://github.com/vanmyl904-sketch/gary-liujianwei-xhs-cover-skills",
+      "license": "MIT",
+      "role": "九种中文社交媒体封面模板、真人还原与成图规则",
+      "inspected_commit": "b5d07ee7e5d90468121261395f2350f4aa24c1d0",
+      "bundled_assets": true,
+      "license_path": "licenses/gary-liujianwei-xhs-cover-skills/LICENSE"
+    },
     {
       "name": "mcp-video-analyzer",
       "repository": "https://github.com/guimatheus92/mcp-video-analyzer",

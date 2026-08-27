@@ -1,7 +1,7 @@
 {
   "name": "self-media-war-room",
-  "version": "0.3.1",
-  "description": "从首次获客定位到选题、调研、对标拆解、写稿、制作、成片评分和复盘的自媒体工作流。",
+  "version": "0.4.0",
+  "description": "从首次获客定位到选题、调研、对标拆解、写稿、制作、九式封面、成片评分和复盘的自媒体工作流。",
   "author": {
     "name": "彭迪",
     "url": "https://github.com/pengdi190721-dot"

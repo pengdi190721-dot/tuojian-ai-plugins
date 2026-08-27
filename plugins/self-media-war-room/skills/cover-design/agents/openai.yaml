@@ -1,0 +1,4 @@
+interface:
+  display_name: "九式封面设计"
+  short_description: "用九种模板生成可直接发布的中文社交媒体封面"
+  default_prompt: "请根据我的主图、标题和发布平台，选择合适模板并生成一张可直接发布的封面。"

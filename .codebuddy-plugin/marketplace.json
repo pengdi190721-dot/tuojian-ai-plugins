@@ -9,8 +9,8 @@
     {
       "name": "self-media-war-room",
       "source": "./plugins/self-media-war-room",
-      "description": "从获客定位到选题、对标拆解、写稿、制作、成片评分和复盘的自媒体工作流。",
-      "version": "0.3.1",
+      "description": "从获客定位到选题、对标拆解、写稿、制作、九式封面、成片评分和复盘的自媒体工作流。",
+      "version": "0.4.0",
       "author": {
         "name": "彭迪"
       },

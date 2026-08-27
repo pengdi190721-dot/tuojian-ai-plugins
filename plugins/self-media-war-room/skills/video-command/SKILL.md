@@ -5,13 +5,14 @@ description: 处理真人口播和Vlog的剪辑与画面包装。当用户上传
 
 # 剪辑与包装
 
-读取 [制作边界](references/production-boundaries.md) 和 [底层视频解析路由](../../references/video-analysis-routing.md)。涉及封面设计、封面改版或封面评审时，必须再读取 [封面视觉锤](../../references/cover-visual-hammer.md)。
+读取 [制作边界](references/production-boundaries.md) 和 [底层视频解析路由](../../references/video-analysis-routing.md)。涉及封面设计、封面改版或封面评审时，改用内置的 `cover-design` 技能及其 [九种封面风格](../cover-design/references/styles.md)。
 
 ## 工具路由
 
 - FFmpeg可用时：用于素材检查、转码、抽取音频等机械处理，不代替内容判断。
 - HyperFrames可用时：用于字幕、重点提示、信息卡和确定性动效。
-- huashu-design可用时：用于封面、知识卡片、数据图和解释性画面。
+- 内置 `cover-design`：用于九种模板选择、真人还原、封面生成和一秒缩略图验收。
+- huashu-design可用时：用于知识卡片、数据图和解释性画面。
 - 工具不可用时：给出可执行剪辑清单，或使用当前环境已有能力完成可验证部分。
 
 ## 工作方式
@@ -22,6 +23,6 @@ description: 处理真人口播和Vlog的剪辑与画面包装。当用户上传
 4. Vlog必须先整理故事线和素材证据，再剪时间线。
 5. 任何生成、转码或导出都要检查实际文件、尺寸、时长和可播放性。
 
-制作封面时，先明确唯一视觉锤，再安排标题、人物和辅助信息。没有通过一秒缩略图检查，不进入最终成图。
+制作封面时只使用一种选定模板，主标题保持唯一第一注意力，并检查真人身份、中文错字、平台比例和一秒缩略图。没有通过验收，不进入最终成图。
 
 输出成片时同时交付人工复核清单，不把自动结果称为最终高质量成片。
