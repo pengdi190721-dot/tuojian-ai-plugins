@@ -1,0 +1,6 @@
+interface:
+  display_name: "真实故事短剧化"
+  short_description: "把真实经历改成有冲突、有看点、守住事实边界的AI短剧脚本"
+  default_prompt: "使用 $true-story-drama 把我提供的真实故事改成一条可拍摄、可生成的中文AI短剧脚本。"
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,20 @@
+{
+  "name": "true-story-drama",
+  "version": "0.1.0",
+  "description": "把真实经历、客户案例和人物口述改编成有戏剧冲突、可拍摄、可继续生成AI视频的中文短剧脚本，同时守住事实、隐私与名誉边界。",
+  "author": {
+    "name": "彭迪",
+    "url": "https://github.com/pengdi190721-dot"
+  },
+  "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+  "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+  "license": "MIT",
+  "keywords": [
+    "真实故事",
+    "短剧",
+    "AI视频",
+    "剧本改编",
+    "戏剧冲突"
+  ],
+  "skills": "./skills/"
+}

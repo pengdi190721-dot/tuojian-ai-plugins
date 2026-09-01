@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "policy": "adapted-methodology-with-attribution",
+  "dependencies": [
+    {
+      "name": "zenstory-ai/drama-skills",
+      "repository": "https://github.com/zenstory-ai/drama-skills",
+      "license": "MIT",
+      "inspected_commit": "5ca7d5a32332e9b0dfd8fdd1a4bdf081476aa974",
+      "inspected_date": "2026-09-01",
+      "role": "短剧开发、短剧写作和证据式审查的方法底座",
+      "source_paths": [
+        "skills/short-drama-develop",
+        "skills/short-drama-write",
+        "skills/short-drama-review"
+      ],
+      "distribution": "adapted_instructions",
+      "license_path": "licenses/zenstory-ai-drama-skills/LICENSE"
+    }
+  ]
+}

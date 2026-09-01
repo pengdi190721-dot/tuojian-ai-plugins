@@ -20,6 +20,26 @@
       "keywords": ["自媒体", "获客", "视频号", "小红书"],
       "category": "Productivity",
       "strict": true
+    },
+    {
+      "name": "true-story-drama",
+      "source": "./plugins/true-story-drama",
+      "description": "把真实经历、客户案例和人物口述改编成有戏剧冲突、可拍摄、可继续生成AI视频的中文短剧脚本，同时守住事实、隐私与名誉边界。",
+      "version": "0.1.0",
+      "author": {
+        "name": "彭迪"
+      },
+      "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+      "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+      "license": "MIT",
+      "keywords": [
+        "真实故事",
+        "短剧",
+        "AI视频",
+        "剧本改编"
+      ],
+      "category": "Productivity",
+      "strict": true
     }
   ]
 }

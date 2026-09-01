@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 .self-media-creator-profile.json
 .self-media-job.json
+/output/
