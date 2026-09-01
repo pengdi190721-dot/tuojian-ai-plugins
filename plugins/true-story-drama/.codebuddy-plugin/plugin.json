@@ -1,7 +1,7 @@
 {
   "name": "true-story-drama",
-  "version": "0.1.0",
-  "description": "把真实经历、客户案例和人物口述改编成有戏剧冲突、可拍摄、可继续生成AI视频的中文短剧脚本，同时守住事实、隐私与名誉边界。",
+  "version": "0.2.0",
+  "description": "先理解真实故事、采访录音或逐字稿并确认主题，再生成可拍短剧、GPT Image 2图片提示词和Seedance图生视频提示词。",
   "author": {
     "name": "彭迪",
     "url": "https://github.com/pengdi190721-dot"

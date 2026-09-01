@@ -1,7 +1,7 @@
 {
   "name": "true-story-drama",
-  "version": "0.1.0",
-  "description": "把真实经历、客户案例和人物口述改编成有戏剧冲突、可拍摄、可继续生成AI视频的中文短剧脚本，同时守住事实、隐私与名誉边界。",
+  "version": "0.2.0",
+  "description": "先理解真实故事、采访录音或逐字稿并确认主题，再生成可拍短剧、GPT Image 2图片提示词和Seedance图生视频提示词。",
   "author": {
     "name": "彭迪",
     "url": "https://github.com/pengdi190721-dot"
@@ -19,21 +19,23 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "真实故事短剧化",
-    "shortDescription": "把真实故事改成有冲突、有看点、守住事实边界的AI短剧脚本",
-    "longDescription": "面向真实经历、客户案例、人物访谈和事件复盘的短剧改编工作流。先建立事实底稿与改编边界，再设计目标、阻力、选择、代价和转折，输出可拍剧本、角色一致性卡、逐镜分镜、AI视频提示词、改编台账和审查结论。",
+    "shortDescription": "先确认真实故事和主题，再生成图片与图生视频执行稿",
+    "longDescription": "面向真实经历、客户案例、采访录音和逐字稿的分阶段短剧改编工作流。先回传故事大意、事实边界和主题候选，等待用户确认后，再设计冲突与选择，输出可拍剧本、角色一致性卡、逐镜GPT Image 2图片提示词、图片验收项、Seedance图生视频提示词、改编台账和审查结论。",
     "developerName": "彭迪",
     "category": "Productivity",
     "capabilities": [
       "Story development",
       "Script writing",
       "Storyboard planning",
+      "Image prompting",
+      "Video prompting",
       "Content review"
     ],
     "brandColor": "#B45309",
     "defaultPrompt": [
-      "把我接下来提供的真实故事短剧化，先守住事实，再输出完整可拍脚本和逐镜AI视频提示词。",
-      "这段真实经历太平了，请给我三个戏剧化方向，并直接完成你最推荐的一版。",
-      "审查这份真实故事短剧脚本，重点检查失真、硬造反转、隐私风险和AI生成连续性。"
+      "理解我接下来提供的真实故事、采访录音或逐字稿。先给我故事大意和主题候选，等我确认后再写短剧。",
+      "故事主题确认后，生成完整短剧、逐镜GPT Image 2图片提示词和Seedance图生视频提示词。",
+      "根据我确认的镜头图片，定稿Seedance图生视频提示词。"
     ]
   }
 }
