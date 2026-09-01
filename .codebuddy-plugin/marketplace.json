@@ -24,8 +24,8 @@
     {
       "name": "true-story-drama",
       "source": "./plugins/true-story-drama",
-      "description": "先理解真实故事、采访录音或逐字稿并确认主题，再生成可拍短剧、GPT Image 2图片提示词和Seedance图生视频提示词。",
-      "version": "0.2.0",
+      "description": "先确认真实故事主题和事实底稿，再生成以人物行动和自然对话推进的可拍短剧、GPT Image 2图片提示词和Seedance图生视频提示词。",
+      "version": "0.2.1",
       "author": {
         "name": "彭迪"
       },
