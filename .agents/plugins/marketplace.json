@@ -1,7 +1,7 @@
 {
   "name": "tuojian-ai",
   "interface": {
-    "displayName": "拓见AI学员工具"
+    "displayName": "\u62d3\u89c1AI\u5b66\u5458\u5de5\u5177"
   },
   "plugins": [
     {
@@ -21,6 +21,18 @@
       "source": {
         "source": "local",
         "path": "./plugins/true-story-drama"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "ai-short-drama-director",
+      "source": {
+        "source": "local",
+        "path": "./plugins/ai-short-drama-director"
       },
       "policy": {
         "installation": "AVAILABLE",

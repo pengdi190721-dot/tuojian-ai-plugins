@@ -1,0 +1,38 @@
+{
+  "name": "ai-short-drama-director",
+  "version": "0.1.0",
+  "description": "从故事方向、人物小传到角色造型、分镜、图片和视频提示词、逐段验收与剪辑交付的AI短剧制作流程。",
+  "author": {
+    "name": "彭迪",
+    "url": "https://github.com/pengdi190721-dot"
+  },
+  "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/ai-short-drama-director",
+  "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+  "license": "MIT",
+  "keywords": [
+    "AI短剧",
+    "人物小传",
+    "群像",
+    "分镜",
+    "视频提示词"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "AI短剧导演台",
+    "shortDescription": "从故事和人物小传，到分镜制作与剪辑验收",
+    "longDescription": "按阶段确认故事、人物和图片，依据实际成图写视频提示词；素材用途说明在前，模型提示词整段可复制。支持角色一致性、图像复用、连续运镜、声线与中文检查、局部修改和版本同步。",
+    "developerName": "彭迪",
+    "category": "Productivity",
+    "capabilities": [
+      "故事与人物小传",
+      "角色与分镜",
+      "图片与视频提示词",
+      "剪辑与验收"
+    ],
+    "defaultPrompt": [
+      "请使用AI短剧导演台，先了解我的故事想法，给我故事方向，等我确认后再推进。",
+      "我已有角色小传和图片，请沿用已确认设定，继续当前短剧项目。",
+      "根据这批已确认分镜图，生成素材说明在前、正文可整段复制的视频提示词。"
+    ]
+  }
+}

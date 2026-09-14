@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI短剧导演台"
+  short_description: "从故事与人物小传到分镜、图片、视频提示词和剪辑验收的分阶段制作流程"
+  default_prompt: "请使用 $ai-short-drama-director，先了解我的故事想法和已有素材，给我故事方向，等我确认后再推进。"

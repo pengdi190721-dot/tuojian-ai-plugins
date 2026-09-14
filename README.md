@@ -1,9 +1,10 @@
 # 拓见AI学员插件市场｜安装说明
 
-当前包含两个可独立安装的双平台插件：
+当前包含三个可独立安装的双平台插件：
 
 - **自媒体作战室**：从定位、选题、写稿、制作到成片评分和复盘；
-- **真实故事短剧化**：把真实经历、客户案例和人物口述改成有冲突、有看点、守住事实边界的AI短剧脚本。
+- **真实故事短剧化**：把真实经历、客户案例和人物口述改成有冲突、有看点、守住事实边界的AI短剧脚本；
+- **[AI短剧导演台](plugins/ai-short-drama-director/README.md)**：从故事和人物小传，到角色造型、分镜图片、视频提示词、逐段验收和剪辑交付。素材用途说明在前，模型提示词整段可复制。
 
 ## 插件一：自媒体作战室
 
@@ -171,5 +172,26 @@ codex plugin add true-story-drama@tuojian-ai
 WorkBuddy学员进入 `/plugin` 查看更新；没有刷新时重新添加插件市场再安装。
 
 完整说明见 `plugins/true-story-drama/README.md`。
+
+## 插件三：AI短剧导演台
+
+人物小传是独立核心模块。完整流程按阶段确认，已有项目可以从当前进度继续，修改片段会同步更新素材映射和剪辑稿。
+
+Codex在终端安装：
+
+```bash
+codex plugin marketplace add pengdi190721-dot/tuojian-ai-plugins
+codex plugin add ai-short-drama-director@tuojian-ai
+```
+
+已添加该市场但看不到新插件时，先运行 `codex plugin marketplace upgrade tuojian-ai`，再安装。安装后新建任务，必要时重启Codex。
+
+WorkBuddy推荐从[发布页](https://github.com/pengdi190721-dot/tuojian-ai-plugins/releases/tag/ai-short-drama-director-v0.1.0)下载独立技能包，在“技能→添加技能→上传技能”导入。也提供插件市场方式；详见[完整双平台安装说明与启动口令](plugins/ai-short-drama-director/README.md)。
+
+安装后输入：
+
+```text
+请使用AI短剧导演台，先了解我的故事想法和已有素材，给我故事方向，等我确认后再推进。人物小传独立确认；上传参考素材及用途放第一步，第二步只放能整段复制的完整提示词。
+```
 
 项目维护者：彭迪

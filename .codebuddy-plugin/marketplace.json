@@ -17,7 +17,12 @@
       "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
       "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
       "license": "MIT",
-      "keywords": ["自媒体", "获客", "视频号", "小红书"],
+      "keywords": [
+        "自媒体",
+        "获客",
+        "视频号",
+        "小红书"
+      ],
       "category": "Productivity",
       "strict": true
     },
@@ -38,6 +43,28 @@
         "AI视频",
         "剧本改编"
       ],
+      "category": "Productivity",
+      "strict": true
+    },
+    {
+      "name": "ai-short-drama-director",
+      "version": "0.1.0",
+      "description": "从故事方向、人物小传到角色造型、分镜、图片和视频提示词、逐段验收与剪辑交付的AI短剧制作流程。",
+      "author": {
+        "name": "彭迪",
+        "url": "https://github.com/pengdi190721-dot"
+      },
+      "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/ai-short-drama-director",
+      "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+      "license": "MIT",
+      "keywords": [
+        "AI短剧",
+        "人物小传",
+        "群像",
+        "分镜",
+        "视频提示词"
+      ],
+      "source": "./plugins/ai-short-drama-director",
       "category": "Productivity",
       "strict": true
     }
