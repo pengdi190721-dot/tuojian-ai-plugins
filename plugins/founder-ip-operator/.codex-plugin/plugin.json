@@ -1,0 +1,29 @@
+{
+  "name": "founder-ip-operator",
+  "version": "1.5.0",
+  "description": "结合老板资料完成经营诊断、专属文案与提问卡、视频数据复盘、优化改稿及已采纳规则沿用。",
+  "author": {
+    "name": "彭迪"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "创始人IP操盘手",
+    "shortDescription": "专属文案配提问卡，截图与视频复盘，采纳建议后持续用于新稿",
+    "longDescription": "依据真实逐字稿建立独立人物与表达档案，结合经营诊断、平台策略和实际视频数据完成策划。每条文案配现场提问卡；上传截图后核对数据、结合视频定位问题、交付改稿和下次验证建议；用户采纳后保存到客户档案，后续写稿主动沿用。官方资料与运营经验按日期核查，定期任务依当前环境创建。保留报告、三档服务与影像方法。",
+    "developerName": "彭迪",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "准备首访提纲，结合经营目标、真实故事和本人表达采样。",
+      "依据逐字稿与业务资料诊断优先卡点，给出30天行动与首访报告。",
+      "沿用人物档案，生成本人风格的完整可拍稿，每条配套现场提问或提示卡，并给出三平台适配和影像方案。",
+      "结合上传的后台截图与视频复盘，给改稿、提问卡和下次验证建议；我采纳后保存到客户规则供后续新稿使用。"
+    ],
+    "brandColor": "#246854"
+  },
+  "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/founder-ip-operator",
+  "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins"
+}

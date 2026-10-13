@@ -67,6 +67,19 @@
       "source": "./plugins/ai-short-drama-director",
       "category": "Productivity",
       "strict": true
+    },
+    {
+      "name": "founder-ip-operator",
+      "version": "1.5.0",
+      "description": "结合老板资料完成经营诊断、专属文案与提问卡、视频数据复盘、优化改稿及已采纳规则沿用。",
+      "author": {
+        "name": "彭迪"
+      },
+      "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/founder-ip-operator",
+      "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+      "source": "./plugins/founder-ip-operator",
+      "category": "Productivity",
+      "strict": true
     }
   ]
 }
