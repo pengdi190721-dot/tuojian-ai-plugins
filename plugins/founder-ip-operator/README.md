@@ -1,14 +1,14 @@
 # 创始人 IP 操盘手｜学员安装
 
-当前版本：**1.5.0**。
+当前版本：**1.6.0**。
 
-帮助创始人完成访谈建档、本人表达提炼、定位与内容计划、口播稿及现场提问卡；上传后台截图和视频后，核对数据、定位问题、修改文案并安排下次验证。用户采纳建议后，保存到该创始人的档案，后续写稿主动沿用。
+帮助创始人完成访谈建档、本人表达提炼、定位与内容计划、口播稿及现场提问卡，开头、结构与封面按期待、维持、兑现检查；上传后台截图和视频后，核对数据、定位问题、修改文案并安排下次验证。用户采纳建议后，保存到该创始人的档案，后续写稿主动沿用。
 
 ## 最简单的安装方式
 
 把本页链接和下面这段话一起发给你的智能体：
 
-> 请从这个仓库安装“创始人 IP 操盘手”1.5.0。插件位于 plugins/founder-ip-operator，独立技能位于 plugins/founder-ip-operator/skills/founder-ip-operator。按你当前环境支持的方式安装，保留所有配套文件。已有旧版时先备份，避免留下两个同时启用的同名版本。安装后检查版本及附件完整性，告诉我如何调用；不支持持久安装时如实说明。
+> 请从这个仓库安装“创始人 IP 操盘手”1.6.0。插件位于 plugins/founder-ip-operator，独立技能位于 plugins/founder-ip-operator/skills/founder-ip-operator。按你当前环境支持的方式安装，保留所有配套文件。已有旧版时先备份，避免留下两个同时启用的同名版本。安装后检查版本及附件完整性，告诉我如何调用；不支持持久安装时如实说明。
 
 ## Codex 插件安装
 
@@ -32,11 +32,11 @@ codex plugin add founder-ip-operator@tuojian-ai
 codex plugin list --marketplace tuojian-ai --json
 ```
 
-应看到 founder-ip-operator，版本1.5.0，已安装并启用。安装后新建对话，必要时重启应用。当前无法访问GitHub时，先解决网络访问或使用下载的完整技能包，不能把安装失败当成功。
+应看到 founder-ip-operator，版本1.6.0，已安装并启用。安装后新建对话，必要时重启应用。当前无法访问GitHub时，先解决网络访问或使用下载的完整技能包，不能把安装失败当成功。
 
 ## 独立技能包
 
-在[1.5.0发布页](https://github.com/pengdi190721-dot/tuojian-ai-plugins/releases/tag/founder-ip-operator-v1.5.0)下载 `founder-ip-operator-skill-1.5.0.zip`。支持上传技能的工具可以导入；支持本地技能目录的工具可解压后安装整个 founder-ip-operator 文件夹。具体入口以当前工具为准。
+在[发布页](https://github.com/pengdi190721-dot/tuojian-ai-plugins/releases)下载最新的独立技能包（1.6.0发布前为 `founder-ip-operator-skill-1.5.0.zip`），也可以在 SkillHub 搜索“创始人 IP 操盘手”安装。支持上传技能的工具可以导入；支持本地技能目录的工具可解压后安装整个 founder-ip-operator 文件夹。具体入口以当前工具为准。
 
 WorkBuddy也可使用插件市场方式，在其对话或命令输入框运行（不是电脑终端）：
 
