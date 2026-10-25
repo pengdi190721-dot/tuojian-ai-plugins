@@ -7,24 +7,27 @@
   "description": "拓见AI面向学员提供的实用插件集合。",
   "plugins": [
     {
-      "name": "self-media-war-room",
-      "source": "./plugins/self-media-war-room",
-      "description": "从获客定位到选题、对标拆解、写稿、制作、九式封面、成片评分和复盘的自媒体工作流。",
-      "version": "0.4.0",
+      "name": "founder-ip-operator",
+      "version": "2.0.0",
+      "description": "定位、经营诊断、选题评分、对标拆解、本人风格文案与提问卡、剪辑包装、九式封面、成片评分、视频数据复盘及已采纳规则沿用，一个技能全包；已并入自媒体作战室。",
       "author": {
         "name": "彭迪"
       },
-      "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+      "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/founder-ip-operator",
       "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
-      "license": "MIT",
-      "keywords": [
-        "自媒体",
-        "获客",
-        "视频号",
-        "小红书"
-      ],
+      "source": "./plugins/founder-ip-operator",
       "category": "Productivity",
-      "strict": true
+      "strict": true,
+      "keywords": [
+        "创始人IP",
+        "自媒体",
+        "视频号",
+        "选题",
+        "对标拆解",
+        "封面设计",
+        "成片评分",
+        "复盘"
+      ]
     },
     {
       "name": "true-story-drama",
@@ -65,19 +68,6 @@
         "视频提示词"
       ],
       "source": "./plugins/ai-short-drama-director",
-      "category": "Productivity",
-      "strict": true
-    },
-    {
-      "name": "founder-ip-operator",
-      "version": "1.7.0",
-      "description": "结合老板资料完成经营诊断、专属文案与提问卡、视频数据复盘、优化改稿及已采纳规则沿用。",
-      "author": {
-        "name": "彭迪"
-      },
-      "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/founder-ip-operator",
-      "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
-      "source": "./plugins/founder-ip-operator",
       "category": "Productivity",
       "strict": true
     }

@@ -5,10 +5,10 @@
   },
   "plugins": [
     {
-      "name": "self-media-war-room",
+      "name": "founder-ip-operator",
       "source": {
         "source": "local",
-        "path": "./plugins/self-media-war-room"
+        "path": "./plugins/founder-ip-operator"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -33,18 +33,6 @@
       "source": {
         "source": "local",
         "path": "./plugins/ai-short-drama-director"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    },
-    {
-      "name": "founder-ip-operator",
-      "source": {
-        "source": "local",
-        "path": "./plugins/founder-ip-operator"
       },
       "policy": {
         "installation": "AVAILABLE",
