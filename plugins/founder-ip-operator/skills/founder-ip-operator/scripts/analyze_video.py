@@ -226,7 +226,7 @@ def main() -> int:
     environment["OPENAI_API_KEY"] = ""
     environment.pop("WHISPER_HF_MODEL", None)
     bridge_name = (
-        "whisper_bridge.cmd"
+        "whisper_bridge.bat"
         if platform.system() == "Windows"
         else "whisper_bridge.mjs"
     )

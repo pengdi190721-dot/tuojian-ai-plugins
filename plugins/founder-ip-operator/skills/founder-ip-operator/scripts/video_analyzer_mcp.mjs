@@ -8,7 +8,7 @@ const PACKAGE = "mcp-video-analyzer@0.10.0";
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const bridge = join(
   scriptDir,
-  process.platform === "win32" ? "whisper_bridge.cmd" : "whisper_bridge.mjs",
+  process.platform === "win32" ? "whisper_bridge.bat" : "whisper_bridge.mjs",
 );
 const environment = { ...process.env };
 environment.OPENAI_API_KEY = "";
