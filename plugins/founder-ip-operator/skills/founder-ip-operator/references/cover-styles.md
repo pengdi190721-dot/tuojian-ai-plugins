@@ -18,6 +18,8 @@
 
 选择风格时，展示下面九张本地参考图；如果当前界面无法直接预览，明确说明限制并给出对应名称，不假装用户已经看见。
 
+本地没有这九张图时（比如从SkillHub安装，平台会跳过图片），把GitHub上的样图文件夹发给用户自己打开看：https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/founder-ip-operator/skills/founder-ip-operator/assets/cover-styles ，图的编号和下面一致；同时照样给出名称和文字说明。
+
 1. ![技能清单爆款](../assets/cover-styles/01-skill-checklist.jpg)
 2. ![粉色杂志拼贴](../assets/cover-styles/02-pink-editorial.jpg)
 3. ![搜索引导大字](../assets/cover-styles/03-search-guide.jpg)

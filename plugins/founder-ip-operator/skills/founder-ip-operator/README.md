@@ -14,6 +14,8 @@
 
 Codex 可放入用户技能目录 `~/.codex/skills/founder-ip-operator/`。其他工具以实际支持的目录为准，本包不含通用自动安装程序。独立技能不以出现在“插件列表”为验收标准，应验证是否能读取并执行本包流程。
 
+从SkillHub安装时，平台不收图片和PDF，会跳过9张封面样图和2份PDF（首次面谈必问清单、老板重点版模拟报告），文字规则和流程不受影响。要看这些文件，到GitHub上本技能的文件夹里打开：https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/founder-ip-operator/skills/founder-ip-operator
+
 无法持久安装时，保留完整资料包供当前对话读取；仅复制 `SKILL.md` 的文字会缺少附件方法。新对话无法访问文件时，需要重新提供资料包。
 
 ## 从哪里开始
