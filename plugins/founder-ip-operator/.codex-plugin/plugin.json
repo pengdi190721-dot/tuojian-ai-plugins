@@ -39,7 +39,7 @@
     "video-analyzer": {
       "command": "node",
       "args": [
-        "./skills/founder-ip-operator/scripts/video_analyzer_mcp.mjs"
+        "./skills/founder-ip-operator/scripts/video_analyzer_mcp.js"
       ],
       "cwd": ".",
       "env": {

@@ -23,6 +23,19 @@ MINIMUM_NODE = (22, 12, 0)
 LOCAL_WHISPER_MODEL = "base"
 
 
+def whisper_bridge(root: Path) -> Path:
+    # 技能平台不收 .bat，Windows 上的启动文件在用时现写到缓存目录。
+    bridge = Path(__file__).with_name("whisper_bridge.js").resolve()
+    if platform.system() != "Windows":
+        return bridge
+    launcher = root / "whisper_bridge.bat"
+    launcher.parent.mkdir(parents=True, exist_ok=True)
+    launcher.write_bytes(
+        f'@echo off\r\nchcp 65001 >nul\r\nnode "{bridge}" %*\r\n'.encode("utf-8")
+    )
+    return launcher
+
+
 def cache_root() -> Path:
     # 沿用原“自媒体作战室”的缓存目录名，迁移过来的学员不用重新下载识别组件。
     override = os.environ.get("FOUNDER_IP_VIDEO_CACHE") or os.environ.get(
@@ -225,12 +238,7 @@ def main() -> int:
     environment = os.environ.copy()
     environment["OPENAI_API_KEY"] = ""
     environment.pop("WHISPER_HF_MODEL", None)
-    bridge_name = (
-        "whisper_bridge.bat"
-        if platform.system() == "Windows"
-        else "whisper_bridge.mjs"
-    )
-    environment["WHISPER_BIN"] = str(Path(__file__).with_name(bridge_name).resolve())
+    environment["WHISPER_BIN"] = str(whisper_bridge(root))
     environment["WHISPER_MODEL"] = LOCAL_WHISPER_MODEL
     environment.setdefault("WHISPER_LANGUAGE", args.language)
     environment.setdefault("MCP_CACHE_DIR", str(root / "engine-cache"))

@@ -12,7 +12,7 @@
     "video-analyzer": {
       "command": "node",
       "args": [
-        "${CODEBUDDY_PLUGIN_ROOT}/skills/founder-ip-operator/scripts/video_analyzer_mcp.mjs"
+        "${CODEBUDDY_PLUGIN_ROOT}/skills/founder-ip-operator/scripts/video_analyzer_mcp.js"
       ],
       "cwd": "${CODEBUDDY_PLUGIN_ROOT}",
       "env": {
