@@ -1,30 +1,50 @@
 {
   "name": "founder-ip-operator",
-  "version": "1.7.0",
-  "description": "结合老板资料完成经营诊断、专属文案与提问卡、视频数据复盘、优化改稿及已采纳规则沿用。",
+  "version": "2.0.0",
+  "description": "定位、经营诊断、选题评分、对标拆解、本人风格文案与提问卡、剪辑包装、九式封面、成片评分、视频数据复盘及已采纳规则沿用，一个技能全包。",
   "author": {
     "name": "彭迪"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "创始人IP操盘手",
-    "shortDescription": "专属文案配提问卡，截图与视频复盘，采纳建议后持续用于新稿",
-    "longDescription": "依据真实逐字稿建立独立人物与表达档案，结合经营诊断、平台策略和实际视频数据完成策划。每条文案配现场提问卡；上传截图后核对数据、结合视频定位问题、交付改稿和下次验证建议；用户采纳后保存到客户档案，后续写稿主动沿用。官方资料与运营经验按日期核查，定期任务依当前环境创建。保留报告、三档服务与影像方法。",
+    "shortDescription": "定位、选题、文案与提问卡、对标拆解、封面、成片评分和数据复盘，一个技能全包",
+    "longDescription": "以经验丰富的短视频操盘手身份工作，不一味顺着用户。依据真实逐字稿建立独立人物与表达档案，结合经营诊断、平台策略和实际视频数据完成策划。2.0.0并入自媒体作战室：选题雷达与评分、选题调研、对标视频拆解改写、口播与Vlog结构、剪辑包装与重点大字、九式封面、发布前成片评分、本地视频解析和环境体检。每条文案配现场提问卡；上传截图后核对数据、结合视频定位问题、交付改稿和下次验证建议；用户采纳后保存到客户档案，后续写稿主动沿用。保留报告、三档服务与影像方法。",
     "developerName": "彭迪",
     "category": "Productivity",
     "capabilities": [
       "Read",
-      "Write"
+      "Write",
+      "Research",
+      "Content creation",
+      "Video workflow",
+      "Cover design"
     ],
     "defaultPrompt": [
       "帮我做IP定位：先查已有资料，再问我几个能用语音回答的问题，答完直接给定位报告。",
-      "准备首访提纲，结合经营目标、真实故事和本人表达采样。",
-      "依据逐字稿与业务资料诊断优先卡点，给出30天行动与首访报告。",
+      "按我的定位档案给我选题，按评分分成现在拍、储备、不建议拍。",
+      "这是我的对标视频，请拆解它的结构和节奏，再用我的真实素材改成原创稿。",
       "沿用人物档案，生成本人风格的完整可拍稿，每条配套现场提问或提示卡，并给出三平台适配和影像方案。",
+      "这是我拍好的视频，请用成片评分教练打分，告诉我下一遍只改哪三件事。",
+      "请用九式封面，按我的主图、封面字和发布平台出一张能直接发的封面。",
       "结合上传的后台截图与视频复盘，给改稿、提问卡和下次验证建议；我采纳后保存到客户规则供后续新稿使用。"
     ],
     "brandColor": "#246854"
   },
   "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/founder-ip-operator",
-  "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins"
+  "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+  "mcpServers": {
+    "video-analyzer": {
+      "command": "node",
+      "args": [
+        "./skills/founder-ip-operator/scripts/video_analyzer_mcp.mjs"
+      ],
+      "cwd": ".",
+      "env": {
+        "OPENAI_API_KEY": "",
+        "WHISPER_LANGUAGE": "zh",
+        "MCP_WRITE_SIDECARS": "0"
+      }
+    }
+  }
 }

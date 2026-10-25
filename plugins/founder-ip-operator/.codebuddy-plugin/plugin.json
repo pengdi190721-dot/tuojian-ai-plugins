@@ -1,11 +1,25 @@
 {
   "name": "founder-ip-operator",
-  "version": "1.7.0",
-  "description": "结合老板资料完成经营诊断、专属文案与提问卡、视频数据复盘、优化改稿及已采纳规则沿用。",
+  "version": "2.0.0",
+  "description": "定位、经营诊断、选题评分、对标拆解、本人风格文案与提问卡、剪辑包装、九式封面、成片评分、视频数据复盘及已采纳规则沿用，一个技能全包。",
   "author": {
     "name": "彭迪"
   },
   "skills": "./skills/",
   "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/founder-ip-operator",
-  "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins"
+  "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+  "mcpServers": {
+    "video-analyzer": {
+      "command": "node",
+      "args": [
+        "${CODEBUDDY_PLUGIN_ROOT}/skills/founder-ip-operator/scripts/video_analyzer_mcp.mjs"
+      ],
+      "cwd": "${CODEBUDDY_PLUGIN_ROOT}",
+      "env": {
+        "OPENAI_API_KEY": "",
+        "WHISPER_LANGUAGE": "zh",
+        "MCP_WRITE_SIDECARS": "0"
+      }
+    }
+  }
 }
