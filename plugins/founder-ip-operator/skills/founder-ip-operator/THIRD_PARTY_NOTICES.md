@@ -10,6 +10,8 @@
 - brand-voice：品牌语言规范，MIT。
 - HyperFrames：确定性视频包装，Apache-2.0。
 - huashu-design：设计和可视化素材，MIT。
+- douyin-mcp-server：抖音分享页解析思路参考，Apache-2.0。2.1.0的 `scripts/fetch_video.py` 为重写，没有复制其源码。
+- wx_channels_download：视频号链接解析与下载，MIT附加 Commons Clause（不得用于售卖该软件本身）。不随技能分发，由用户自行决定是否安装；技能只调用其本机服务或工具。
 
 本技能按MIT许可证改编并随包分发以下素材：
 

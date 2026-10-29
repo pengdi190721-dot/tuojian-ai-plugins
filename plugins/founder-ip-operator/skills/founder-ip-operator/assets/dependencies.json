@@ -73,6 +73,21 @@
       "license": "Apache-2.0",
       "role": "程序化视频包装和动效",
       "inspected_commit": "f575bda"
+    },
+    {
+      "name": "douyin-mcp-server",
+      "repository": "https://github.com/yzfly/douyin-mcp-server",
+      "license": "Apache-2.0",
+      "role": "抖音分享页解析思路参考（scripts/fetch_video.py 为重写，未复制源码）",
+      "bundled_assets": false
+    },
+    {
+      "name": "wx_channels_download",
+      "repository": "https://github.com/ltaoo/wx_channels_download",
+      "license": "MIT with Commons Clause",
+      "role": "视频号链接解析与下载：用户自行安装后，技能通过其本机服务或 MCP 工具调用；不随技能分发",
+      "bundled_assets": false,
+      "requires_user_install": true
     }
   ]
 }
