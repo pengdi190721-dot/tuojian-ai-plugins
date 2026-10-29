@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { spawn } from "node:child_process";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { chmodSync, mkdirSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -12,6 +12,8 @@ const scriptDir = dirname(fileURLToPath(import.meta.url));
 function whisperBridge() {
   const bridge = join(scriptDir, "whisper_bridge.js");
   if (process.platform !== "win32") {
+    // 压缩包和技能平台常把执行权限丢掉，用前补上。
+    chmodSync(bridge, statSync(bridge).mode | 0o755);
     return bridge;
   }
   const launcherDir = join(tmpdir(), "founder-ip-operator");

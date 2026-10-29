@@ -8,6 +8,7 @@ import json
 import re
 import shutil
 import subprocess
+import urllib.request
 from pathlib import Path
 
 
@@ -41,6 +42,17 @@ def command_version(command: str) -> tuple[int, int, int] | None:
     if completed.returncode or not match:
         return None
     return tuple(int(value) for value in match.groups())
+
+
+def channels_downloader_running() -> bool:
+    # 视频号链接靠本机的开源视频号下载器，默认在 127.0.0.1:2022。
+    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+    try:
+        with opener.open("http://127.0.0.1:2022/api/channels/status", timeout=3) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except (OSError, ValueError):
+        return False
+    return bool((payload.get("data") or {}).get("available"))
 
 
 def inspect_environment() -> dict[str, object]:
@@ -88,6 +100,8 @@ def inspect_environment() -> dict[str, object]:
         ),
         "minimum_node": "22.12.0",
         "public_link_support": bool(optional_runtime["yt-dlp"]["available"]),
+        "douyin_link_support": bool(optional_runtime["python3"]["available"]),
+        "channels_downloader_running": channels_downloader_running(),
     }
     adapters = {
         "Agent Reach": command_or_path(

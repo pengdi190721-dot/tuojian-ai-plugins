@@ -44,9 +44,10 @@ metadata:
 | 收到逐字稿、建立档案、写得像本人 | [逐字稿与表达规范](references/transcript-and-voice.md) | 人物档案、证据索引、说话方式、故事及补访 |
 | 首访报告、内容计划、三档服务 | [报告主次与阅读顺序](references/report-hierarchy.md)、[报告与服务范围](references/report-and-services.md) | 决策与行动优先、完整材料可查、约定文案及责任边界 |
 | 今天拍什么、热点跟不跟、建选题池和内容日历 | [选题雷达与评分](references/topic-radar.md) | 三类信号、100分评分、现在拍／储备／不建议拍及原因 |
+| 想不出新花样、嫌创意普通、选题定了不知道怎么拍才有意思 | [创意发散](references/creative-ideation.md) | 先问真事和现场，划掉平均答案，十二招各想两三个，四问砍到三个，记下老板选中和否掉的口味 |
 | 写稿前查来源、核实观点、找案例 | [选题调研与事实核验](references/topic-research.md) | 研究简报：结论带已验证／样本观察／推断／待核实标记、反方证据、可说与不可说 |
 | 一个想法推进成一条能发的视频，或一次涉及三个以上环节 | [单条内容：从选题到发布](references/content-production-flow.md) | 各环节产物与通过条件，进度记在客户目录 |
-| 上传对标视频或链接，学结构、改成本人原创 | [对标视频拆解改写](references/benchmark-remix.md)、[对标卡模板](assets/benchmark-card.md) | 值不值得学、时间码拆解、能借不能借、素材映射、原创稿与差异自检 |
+| 上传对标视频或发来抖音、视频号链接，学结构、改成本人原创 | [对标视频拆解改写](references/benchmark-remix.md)、[对标卡模板](assets/benchmark-card.md) | 值不值得学、时间码拆解、能借不能借、素材映射、原创稿与差异自检 |
 | 生成或修改口播文案、现场问答及提示卡 | [现场提问与提示卡](references/on-set-interview.md)、[口播与Vlog结构](references/script-structures.md) | 每条文案逐段对应主问题、回答要点、备用追问；改稿同步更新；开头备选、字幕重点和平台改写 |
 | 写开头、排结构、配封面，或复盘开头与中段流失 | [开头、结构与封面配合](references/opening-and-structure.md) | 开头检查、期待维持兑现对照、关注理由位置、封面与开头配合、开头备选 |
 | 粗剪、删口误、字幕、重点大字和音效、交给剪映的素材 | [剪辑与包装](references/editing-and-packaging.md) | 先剪内容再包装；可自动与必须人工的边界；透明底与绿幕；人工复核清单 |

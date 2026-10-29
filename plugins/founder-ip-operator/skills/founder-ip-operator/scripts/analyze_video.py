@@ -27,6 +27,9 @@ def whisper_bridge(root: Path) -> Path:
     # 技能平台不收 .bat，Windows 上的启动文件在用时现写到缓存目录。
     bridge = Path(__file__).with_name("whisper_bridge.js").resolve()
     if platform.system() != "Windows":
+        # 压缩包和技能平台常把执行权限丢掉，用前补上。
+        if not os.access(bridge, os.X_OK):
+            bridge.chmod(bridge.stat().st_mode | 0o755)
         return bridge
     launcher = root / "whisper_bridge.bat"
     launcher.parent.mkdir(parents=True, exist_ok=True)
