@@ -52,25 +52,10 @@
       "inspected_commit": "16d1ab5"
     },
     {
-      "name": "douyin-mcp-server",
-      "repository": "https://github.com/yzfly/douyin-mcp-server",
-      "license": "Apache-2.0",
-      "role": "抖音分享页解析思路参考（scripts/fetch_video.py 为重写，未复制源码）",
-      "bundled_assets": false
-    },
-    {
-      "name": "wx_channels_download",
-      "repository": "https://github.com/ltaoo/wx_channels_download",
-      "license": "MIT with Commons Clause",
-      "role": "视频号链接解析与下载：用户自行安装后，技能通过其本机服务或 MCP 工具调用；不随技能分发",
-      "bundled_assets": false,
-      "requires_user_install": true
-    },
-    {
       "name": "getnote-cli",
       "repository": "https://www.npmjs.com/package/@getnote/cli",
       "package": "@getnote/cli",
-      "role": "可选：连接得到大脑，存资料、语义搜索、读笔记全文转写；需要用户本人的得到大脑会员和授权",
+      "role": "读视频链接：用户发来的视频链接一律存进得到大脑读文字稿，也可存资料、搜和读笔记；需要用户本人注册得到大脑、开会员并授权",
       "bundled_assets": false,
       "api_token_required": false
     },

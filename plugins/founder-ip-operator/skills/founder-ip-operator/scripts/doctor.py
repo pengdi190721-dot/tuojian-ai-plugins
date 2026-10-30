@@ -8,7 +8,6 @@ import json
 import re
 import shutil
 import subprocess
-import urllib.request
 from pathlib import Path
 
 
@@ -55,15 +54,19 @@ def python_module(name: str) -> bool:
     return completed.returncode == 0
 
 
-def channels_downloader_running() -> bool:
-    # 视频号链接靠本机的开源视频号下载器，默认在 127.0.0.1:2022。
-    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
-    try:
-        with opener.open("http://127.0.0.1:2022/api/channels/status", timeout=3) as response:
-            payload = json.loads(response.read().decode("utf-8"))
-    except (OSError, ValueError):
+def getnote_authenticated() -> bool:
+    # 读视频链接只走得到大脑：命令行装了还不够，要老板本人授权过。
+    found = shutil.which("getnote") or shutil.which("gnote")
+    if not found:
         return False
-    return bool((payload.get("data") or {}).get("available"))
+    try:
+        completed = subprocess.run(
+            [found, "auth", "status"], capture_output=True, text=True, timeout=15, check=False
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+    output = f"{completed.stdout}\n{completed.stderr}".lower()
+    return completed.returncode == 0 and "authenticated" in output and "not authenticated" not in output
 
 
 def inspect_environment() -> dict[str, object]:
@@ -90,7 +93,6 @@ def inspect_environment() -> dict[str, object]:
             "node",
             "npm",
             "npx",
-            "yt-dlp",
             "whisper",
             "ffmpeg",
         )
@@ -110,11 +112,14 @@ def inspect_environment() -> dict[str, object]:
             ".".join(str(value) for value in node_version) if node_version else None
         ),
         "minimum_node": "22.12.0",
-        "public_link_support": bool(optional_runtime["yt-dlp"]["available"]),
-        "douyin_link_support": bool(optional_runtime["python3"]["available"]),
-        "channels_downloader_running": channels_downloader_running(),
         "voice_check_support": bool(optional_runtime["ffmpeg"]["available"] and python_module("numpy")),
         "voice_check_plot": python_module("matplotlib"),
+    }
+    getnote_installed = bool(shutil.which("getnote") or shutil.which("gnote"))
+    link_reading = {
+        "via": "得到大脑",
+        "cli_installed": getnote_installed,
+        "authenticated": getnote_authenticated() if getnote_installed else False,
     }
     adapters = {
         "Agent Reach": command_or_path(
@@ -133,7 +138,6 @@ def inspect_environment() -> dict[str, object]:
                 home / "Documents/TrendRadar",
             ],
         ),
-        "得到大脑命令行": command_or_path(["getnote", "gnote"], []),
         "nuwa-skill": command_or_path(
             [],
             [
@@ -171,6 +175,7 @@ def inspect_environment() -> dict[str, object]:
         "required": required,
         "clients": clients,
         "video_analysis": video_analysis,
+        "link_reading": link_reading,
         "optional_runtime": optional_runtime,
         "external_adapters": adapters,
         "missing_required": missing_required,
@@ -216,15 +221,21 @@ def render_markdown(report: dict[str, object]) -> str:
         lines.append(f"- 读视频：还不能用，因为{reason}")
         lines.append("- 下一步：打开 nodejs.org，下载页面上推荐的那个版本，双击安装，装完再说一句“帮我检查一下”")
         lines.append("- 装好之前：可以先把视频里说的话（文字稿）和几张截图发过来，能做一部分分析")
-    douyin = "能试着直接读" if video_analysis["douyin_link_support"] else "还不能读（要先装 Python 3，去 python.org 下载安装）"
-    lines.append(f"- 发抖音链接：{douyin}；读不出来时，把视频保存到手机或录屏，直接发文件")
-    channels = "已连上视频号下载器" if video_analysis["channels_downloader_running"] else "读不了链接，请在手机上录屏后把视频文件发过来"
-    lines.append(f"- 发视频号链接：{channels}")
     if video_analysis["voice_check_support"]:
         plot = "会出曲线图" if video_analysis["voice_check_plot"] else "只出文字报告；想要曲线图，在终端输入 python3 -m pip install matplotlib"
         lines.append(f"- 口播体检：能用，{plot}")
     else:
         lines.append("- 口播体检：还不能用。要装 ffmpeg，再在终端输入 python3 -m pip install numpy matplotlib")
+
+    lines.extend(["", "## 发视频链接（走得到大脑）", ""])
+    link = report["link_reading"]
+    if link["authenticated"]:
+        lines.append("- 发链接：能用，链接会存进你的得到大脑，再读出文字稿")
+    elif link["cli_installed"]:
+        lines.append("- 发链接：还差一步，得到大脑还没授权。说一句“帮我连上得到大脑”，它会给你一个链接和8位码，你本人点确认就行")
+    else:
+        lines.append("- 发链接：还不能用。先注册或登录得到大脑并开通会员，再说一句“帮我连上得到大脑”，它会一步一步带你装好、授权")
+    lines.append("- 得到大脑只给文字稿，没有画面；要看画面，把视频文件直接发过来")
 
     lines.extend(["", "## 当前平台", ""])
     for name, item in report["clients"].items():
