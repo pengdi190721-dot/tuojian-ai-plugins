@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""创始人IP操盘手的视频解析适配器；技术细节不直接暴露给学员。"""
+"""创始人IP操盘手的视频解析适配器；技术细节不直接暴露给用户。"""
 
 from __future__ import annotations
 
@@ -40,7 +40,7 @@ def whisper_bridge(root: Path) -> Path:
 
 
 def cache_root() -> Path:
-    # 沿用原“自媒体作战室”的缓存目录名，迁移过来的学员不用重新下载识别组件。
+    # 沿用原“自媒体作战室”的缓存目录名，迁移过来的用户不用重新下载识别组件。
     override = os.environ.get("FOUNDER_IP_VIDEO_CACHE") or os.environ.get(
         "SELF_MEDIA_VIDEO_CACHE"
     )
@@ -64,7 +64,7 @@ def node_version(node: str) -> tuple[int, int, int]:
     )
     match = re.search(r"v?(\d+)\.(\d+)\.(\d+)", completed.stdout.strip())
     if completed.returncode or not match:
-        raise SystemExit("视频解析基础组件版本无法识别，请运行环境体检。")
+        raise SystemExit("读视频的工具版本认不出来。说一句“帮我检查一下”，我告诉你缺什么、怎么装。")
     return tuple(int(value) for value in match.groups())
 
 
@@ -74,7 +74,7 @@ def normalized_source(source: str) -> str:
         return source
     path = Path(source).expanduser().resolve()
     if not path.is_file():
-        raise SystemExit(f"没有找到视频文件：{path}")
+        raise SystemExit(f"没找到这个视频文件：{path}。请把视频文件直接发过来再试。")
     return str(path)
 
 
@@ -206,11 +206,11 @@ def main() -> int:
     node = shutil.which("node")
     npx = shutil.which("npx")
     if not node or not npx:
-        raise SystemExit("视频解析基础组件尚未就绪，请先运行环境体检。")
+        raise SystemExit("读视频的工具还没装好。说一句“帮我检查一下”，我告诉你缺什么、怎么装。")
     installed_version = node_version(node)
     if installed_version < MINIMUM_NODE:
         current = ".".join(str(value) for value in installed_version)
-        raise SystemExit(f"视频解析基础组件版本过旧（当前{current}），请先运行环境体检。")
+        raise SystemExit(f"电脑上的 Node.js 版本太旧（现在是{current}，要22.12以上）。打开 nodejs.org 下载推荐的版本装上，再试一次。")
 
     source = normalized_source(args.source)
     root = cache_root()
@@ -252,7 +252,7 @@ def main() -> int:
     )
     if completed.returncode:
         detail = completed.stderr.strip() or completed.stdout.strip()
-        print("视频解析没有完成。请改用本地原始视频，或运行环境体检。", file=sys.stderr)
+        print("这条视频没读完。可以换成原始视频文件再试，或者说一句“帮我检查一下”看看缺什么。", file=sys.stderr)
         if detail:
             print(detail, file=sys.stderr)
         return completed.returncode
@@ -260,7 +260,7 @@ def main() -> int:
     try:
         payload = json.loads(completed.stdout)
     except json.JSONDecodeError:
-        print("视频解析结果格式异常，请运行环境体检。", file=sys.stderr)
+        print("读视频的结果不对劲。说一句“帮我检查一下”，我看看哪里出了问题。", file=sys.stderr)
         return 2
 
     add_local_transcript(payload, source, npx, args.language, output_dir)

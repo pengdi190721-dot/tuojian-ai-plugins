@@ -8,14 +8,11 @@
 - Agent Reach：互联网调研路由，MIT。
 - nuwa-skill：人设和思维方式提炼，MIT。
 - brand-voice：品牌语言规范，MIT。
-- HyperFrames：确定性视频包装，Apache-2.0。
-- huashu-design：设计和可视化素材，MIT。
 - douyin-mcp-server：抖音分享页解析思路参考，Apache-2.0。2.1.0的 `scripts/fetch_video.py` 为重写，没有复制其源码。
 - wx_channels_download：视频号链接解析与下载，MIT附加 Commons Clause（不得用于售卖该软件本身）。不随技能分发，由用户自行决定是否安装；技能只调用其本机服务或工具。
+- @getnote/cli（得到大脑命令行）：可选，用来连接得到大脑。不随技能分发，由用户本人决定是否安装和授权，需要得到大脑会员。
+- numpy、matplotlib：口播体检用来计算和画图，BSD类许可。不随技能分发，由用户自行安装。
 
-本技能按MIT许可证改编并随包分发以下素材：
-
-- Gary刘坚伟小红书封面设计技能：九种封面模板说明、生成规则和九张风格参考图（2.0.0压缩为较小的图片文件，画面内容未改），作者刘坚伟，MIT。来源仓库：https://github.com/vanmyl904-sketch/gary-liujianwei-xhs-cover-skills ，核验提交：b5d07ee7e5d90468121261395f2350f4aa24c1d0。
-- 原始许可证全文保存在 `licenses/gary-liujianwei-xhs-cover-skills/LICENSE.txt`。参考图只用于选择视觉语言，不得复制其中的人物、原文、品牌或具体场景。
+2.2.0删掉九种风格封面后，技能包里不再随包分发任何第三方素材。
 
 视频解析器首次使用时由运行环境按需下载；其源码、模型和传递依赖仍分别遵循上游许可。启用其他外部能力时以其官方仓库、当前版本和许可为准。对外分发修改版或提供联网服务前，需要单独检查相应开源义务。

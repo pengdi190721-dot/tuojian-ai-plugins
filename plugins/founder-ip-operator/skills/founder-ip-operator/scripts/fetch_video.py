@@ -5,12 +5,14 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import http.client
 import json
 import re
 import shutil
 import ssl
 import subprocess
 import sys
+import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -32,9 +34,14 @@ DESKTOP_AGENT = (
 # 开源视频号下载器 wx_channels_download 的本机默认地址。
 CHANNELS_DOWNLOADER = "http://127.0.0.1:2022"
 TIMEOUT = 30
+# 网络偶尔断一下很常见，自动再试两次，不让用户手动重来。
+RETRIES = 2
+NETWORK_ERRORS = (urllib.error.URLError, TimeoutError, ConnectionError, http.client.IncompleteRead)
 DOUYIN_EMPTY_HINT = (
-    "最常见的原因是电脑开着代理或VPN软件的全局模式、出口在境外（抖音对境外只给空壳页面），"
-    "把它切到按规则分流（国内网站直连）或先关掉再试；也可能作品已删除、仅自己可见。"
+    "可以这样办：一、电脑开着代理或VPN软件的全局模式时，抖音只给空页面，把软件切到按规则分流"
+    "（国内网站直连）或先关掉，再发一次；二、有得到大脑会员的话，把链接存进得到大脑再读文字稿；"
+    "三、在抖音里把视频保存到手机或录屏，直接把视频文件发过来，这样画面也能看。"
+    "作品删了或仅自己可见时，只能用第三个办法。"
 )
 
 
@@ -94,7 +101,17 @@ def request(
         # 国内平台和本机服务都直连，不走代理软件；走境外线路时抖音不给作品数据。
         handlers.append(urllib.request.ProxyHandler({}))
     opener = urllib.request.build_opener(*handlers)
-    return opener.open(urllib.request.Request(url, headers=headers), timeout=TIMEOUT)
+    for attempt in range(RETRIES + 1):
+        try:
+            return opener.open(urllib.request.Request(url, headers=headers), timeout=TIMEOUT)
+        except urllib.error.HTTPError:
+            # 跳转和平台明确拒绝不是网络抖动，再试也没用。
+            raise
+        except NETWORK_ERRORS:
+            if attempt == RETRIES or urlparse(url).hostname == "127.0.0.1":
+                raise
+            time.sleep(2 * (attempt + 1))
+    raise AssertionError("unreachable")
 
 
 def resolve_douyin(url: str) -> str:
@@ -132,7 +149,7 @@ def douyin_item(item_id: str) -> dict:
         html = response.read().decode("utf-8", errors="replace")
     match = ROUTER_PATTERN.search(html)
     if not match:
-        raise SystemExit(f"抖音分享页没有返回作品信息。{DOUYIN_EMPTY_HINT}")
+        raise SystemExit(f"抖音没有给出这条视频的内容。{DOUYIN_EMPTY_HINT}")
     loader = json.loads(match.group(1).strip()).get("loaderData") or {}
     for key in sorted(loader):
         page = loader[key]
@@ -141,17 +158,25 @@ def douyin_item(item_id: str) -> dict:
         items = (page.get("videoInfoRes") or {}).get("item_list") or []
         if items:
             return items[0]
-    raise SystemExit(f"抖音分享页里没有作品数据。{DOUYIN_EMPTY_HINT}")
+    raise SystemExit(f"抖音没有给出这条视频的内容。{DOUYIN_EMPTY_HINT}")
 
 
 def download(url: str, target: Path, agent: str, *, direct: bool = False) -> Path:
     target.parent.mkdir(parents=True, exist_ok=True)
     temporary = target.with_suffix(target.suffix + ".part")
-    with request(url, agent, direct=direct) as response, temporary.open("wb") as handle:
-        shutil.copyfileobj(response, handle)
+    for attempt in range(RETRIES + 1):
+        try:
+            with request(url, agent, direct=direct) as response, temporary.open("wb") as handle:
+                shutil.copyfileobj(response, handle)
+            break
+        except NETWORK_ERRORS:
+            # 下到一半断了，从头再下；request 自己已经重试过连接。
+            if attempt == RETRIES:
+                raise
+            time.sleep(2 * (attempt + 1))
     if temporary.stat().st_size < 1024:
         temporary.unlink()
-        raise SystemExit("下载到的文件是空的，平台可能限制了这条作品，请改为上传视频文件。")
+        raise SystemExit("下载到的文件是空的，平台可能限制了这条作品。请在App里把视频保存到手机或录屏，直接把视频文件发过来。")
     temporary.replace(target)
     return target
 
@@ -164,7 +189,7 @@ def first_url(value: object) -> str:
 def fetch_douyin(url: str, folder: Path) -> dict:
     item_id = douyin_item_id(url) or douyin_item_id(resolve_douyin(url))
     if not item_id:
-        raise SystemExit("这条抖音链接没解析出作品编号，请换成作品页的分享链接再试。")
+        raise SystemExit("这条抖音链接没认出是哪条视频。请在抖音里点视频右下角的“分享”，选“复制链接”，把整段复制过来再试。")
     item = douyin_item(item_id)
     statistics = item.get("statistics") or {}
     video = item.get("video") or {}
@@ -196,7 +221,7 @@ def fetch_douyin(url: str, folder: Path) -> dict:
         return result
     play_url = first_url(video.get("play_addr")).replace("/playwm/", "/play/")
     if not play_url:
-        raise SystemExit("这条抖音作品没有拿到播放地址，请改为上传视频文件。")
+        raise SystemExit("这条抖音视频没拿到播放地址。请在抖音里把视频保存到手机或录屏，直接把视频文件发过来。")
     result["类型"] = "视频"
     result["本地视频"] = str(download(play_url, folder / f"{item_id}.mp4", DESKTOP_AGENT, direct=True))
     return result
@@ -222,7 +247,7 @@ def channels_guide(url: str) -> dict:
             "然后对本地文件运行 analyze_video.py。"
             if ready
             else "视频号链接只能在微信里打开，网页拿不到视频。请对方在手机上录屏后把视频文件发过来；"
-            "或按 references/video-analysis.md 的“视频号链接”一节，在电脑上装视频号下载器后再发链接。"
+            "或按 references/video-analysis.md 的“发来链接时”一节，在电脑上装视频号下载器后再发链接。"
         ),
     }
 
@@ -230,7 +255,7 @@ def channels_guide(url: str) -> dict:
 def fetch_other(url: str, folder: Path) -> dict:
     tool = shutil.which("yt-dlp")
     if not tool:
-        raise SystemExit("这个平台的链接需要本机装 yt-dlp 才能下载；也可以直接上传视频文件。")
+        raise SystemExit("这个平台的链接暂时读不了。最省事的办法：在App里把视频保存到手机或录屏，直接把视频文件发过来。")
     folder.mkdir(parents=True, exist_ok=True)
     completed = subprocess.run(
         [tool, "--no-playlist", "-f", "mp4/best", "-o", str(folder / "%(id)s.%(ext)s"),
@@ -239,7 +264,7 @@ def fetch_other(url: str, folder: Path) -> dict:
     )
     lines = [line for line in completed.stdout.splitlines() if line.strip()]
     if completed.returncode or not lines:
-        raise SystemExit("这个链接没下载下来（可能要登录或有地区限制），请改为上传视频文件。")
+        raise SystemExit("这个链接没下载下来（可能要登录或有地区限制）。请在App里把视频保存到手机或录屏，直接把视频文件发过来。")
     return {"平台": "其他", "链接": url, "类型": "视频", "本地视频": lines[-1]}
 
 
@@ -272,8 +297,16 @@ def main() -> int:
             result = channels_guide(url)
         else:
             result = fetch_other(url, folder)
-    except urllib.error.URLError as error:
-        raise SystemExit(f"连不上{platform_name}（{error}），请检查网络，或改为上传视频文件。")
+    except urllib.error.HTTPError as error:
+        raise SystemExit(
+            f"{platform_name}这次拒绝了读取（错误码{error.code}）。过几分钟再试一次；"
+            "还不行就在App里把视频保存到手机或录屏，直接把视频文件发过来。"
+        )
+    except NETWORK_ERRORS as error:
+        raise SystemExit(
+            f"试了三次还是连不上{platform_name}（{error}）。先看看网络通不通；"
+            "电脑开着代理或VPN的话，切到按规则分流再试；实在不行，就把视频文件直接发过来。"
+        )
 
     if args.analyze and result.get("本地视频"):
         result["解析结果"] = analyze(str(result["本地视频"]), args.detail)

@@ -1,17 +1,8 @@
 {
   "schema_version": 2,
   "policy": "bundled-routing-with-external-adapters",
-  "note": "除已在第三方声明中列明的封面模板、生成规则和参考图外，其他第三方源码不复制进技能。视频解析器由技能按锁定版本自动调用；其他增强能力只有用户明确同意后，才按各自许可证和安装说明部署。",
+  "note": "技能不复制第三方源码。视频解析器由技能按锁定版本自动调用；其他增强能力只有用户明确同意后，才按各自许可证和安装说明部署。",
   "dependencies": [
-    {
-      "name": "gary-liujianwei-xhs-cover-skills",
-      "repository": "https://github.com/vanmyl904-sketch/gary-liujianwei-xhs-cover-skills",
-      "license": "MIT",
-      "role": "九种中文社交媒体封面模板、真人还原与成图规则",
-      "inspected_commit": "b5d07ee7e5d90468121261395f2350f4aa24c1d0",
-      "bundled_assets": true,
-      "license_path": "licenses/gary-liujianwei-xhs-cover-skills/LICENSE.txt"
-    },
     {
       "name": "mcp-video-analyzer",
       "repository": "https://github.com/guimatheus92/mcp-video-analyzer",
@@ -47,13 +38,6 @@
       "inspected_commit": null
     },
     {
-      "name": "huashu-design",
-      "repository": "https://github.com/alchaincyf/huashu-design",
-      "license": "MIT",
-      "role": "信息图、演示与视觉素材",
-      "inspected_commit": "d3a4685"
-    },
-    {
       "name": "nuwa-skill",
       "repository": "https://github.com/alchaincyf/nuwa-skill",
       "license": "MIT",
@@ -66,13 +50,6 @@
       "license": "MIT",
       "role": "品牌语气发现、规范生成和内容边界检查",
       "inspected_commit": "16d1ab5"
-    },
-    {
-      "name": "HyperFrames",
-      "repository": "https://github.com/hyperframes-dev/hyperframes",
-      "license": "Apache-2.0",
-      "role": "程序化视频包装和动效",
-      "inspected_commit": "f575bda"
     },
     {
       "name": "douyin-mcp-server",
@@ -88,6 +65,21 @@
       "role": "视频号链接解析与下载：用户自行安装后，技能通过其本机服务或 MCP 工具调用；不随技能分发",
       "bundled_assets": false,
       "requires_user_install": true
+    },
+    {
+      "name": "getnote-cli",
+      "repository": "https://www.npmjs.com/package/@getnote/cli",
+      "package": "@getnote/cli",
+      "role": "可选：连接得到大脑，存资料、语义搜索、读笔记全文转写；需要用户本人的得到大脑会员和授权",
+      "bundled_assets": false,
+      "api_token_required": false
+    },
+    {
+      "name": "numpy",
+      "repository": "https://github.com/numpy/numpy",
+      "license": "BSD-3-Clause",
+      "role": "口播体检计算声音大小、停顿和语速；matplotlib（可选）画曲线图",
+      "bundled_assets": false
     }
   ]
 }
