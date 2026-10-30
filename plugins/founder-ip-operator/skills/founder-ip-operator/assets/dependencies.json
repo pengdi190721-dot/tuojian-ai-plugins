@@ -55,7 +55,7 @@
       "name": "getnote-cli",
       "repository": "https://www.npmjs.com/package/@getnote/cli",
       "package": "@getnote/cli",
-      "role": "读视频链接：用户发来的视频链接一律存进得到大脑读文字稿，也可存资料、搜和读笔记；需要用户本人注册得到大脑、开会员并授权",
+      "role": "读视频链接：用户发来的视频链接一律存进得到大脑读文字稿，也可存资料、搜和读笔记；需要用户本人注册得到大脑（免费账号即可）并授权",
       "bundled_assets": false,
       "api_token_required": false
     },

@@ -234,7 +234,7 @@ def render_markdown(report: dict[str, object]) -> str:
     elif link["cli_installed"]:
         lines.append("- 发链接：还差一步，得到大脑还没授权。说一句“帮我连上得到大脑”，它会给你一个链接和8位码，你本人点确认就行")
     else:
-        lines.append("- 发链接：还不能用。先注册或登录得到大脑并开通会员，再说一句“帮我连上得到大脑”，它会一步一步带你装好、授权")
+        lines.append("- 发链接：还不能用。先注册或登录得到大脑（免费的），再说一句“帮我连上得到大脑”，它会一步一步带你装好、授权")
     lines.append("- 得到大脑只给文字稿，没有画面；要看画面，把视频文件直接发过来")
 
     lines.extend(["", "## 当前平台", ""])
