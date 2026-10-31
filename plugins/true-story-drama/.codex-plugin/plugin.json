@@ -1,42 +1,41 @@
 {
   "name": "true-story-drama",
-  "version": "0.2.1",
-  "description": "先确认真实故事主题和事实底稿，再生成以人物行动和自然对话推进的可拍短剧、GPT Image 2图片提示词和Seedance图生视频提示词。",
+  "version": "1.0.0",
+  "description": "把想讲的真实故事改编成大众爱看、守住事实的短剧剧本，再出人物定妆图、场景图、定帧图提示词和按秒分段的LibTV视频提示词。",
   "author": {
     "name": "彭迪",
     "url": "https://github.com/pengdi190721-dot"
   },
-  "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+  "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/true-story-drama",
   "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
   "license": "MIT",
   "keywords": [
     "真实故事",
-    "短剧",
-    "AI视频",
-    "剧本改编",
-    "戏剧冲突"
+    "故事改编",
+    "短剧剧本",
+    "LibTV",
+    "视频提示词"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "真实故事短剧化",
-    "shortDescription": "先确认主题和事实，再生成对话演绎型真实短剧",
-    "longDescription": "面向真实经历、客户案例、采访录音和逐字稿的分阶段短剧改编工作流。先回传故事大意与主题候选，主题确认后单独生成事实底稿供用户删改确认；事实确认后再设计冲突与选择，以人物行动和自然对话推进剧情，旁白只在必要处出现。视频提示词按连续秒数分段，逐段写清景别、机位、运镜、可见情绪和结束状态。",
+    "shortDescription": "把平平无奇的真实故事，改成大众爱看的短剧和LibTV提示词",
+    "longDescription": "用户上传想讲的真实故事、采访录音或逐字稿。先确认故事大意和主题，再确认事实底稿；然后诊断故事为什么平，给出三个改编方向；选定后写成以人物行动和自然对白推进、开场抓人、情绪有回报的短剧剧本。剧本确认后，出人物定妆图、场景图、定帧图的图片提示词，以及按秒分段、单段不超过15秒、适配LibTV里Seedance 2.0全能参考的视频提示词。技法只改讲法，不改事实。",
     "developerName": "彭迪",
     "category": "Productivity",
     "capabilities": [
       "Story development",
       "Script writing",
-      "Storyboard planning",
       "Image prompting",
       "Video prompting",
       "Content review"
     ],
     "brandColor": "#B45309",
     "defaultPrompt": [
-      "理解我接下来提供的真实故事、采访录音或逐字稿。先给我故事大意和主题候选，等我确认后再整理事实底稿。",
-      "故事主题确认后，只生成事实底稿，等我删改确认后再写短剧。",
-      "事实底稿确认后，用人物行动和自然对话生成完整短剧，旁白只在必要处出现，再输出逐镜GPT Image 2图片提示词和Seedance图生视频提示词。",
-      "根据我确认的镜头图片，按连续秒数分段，定稿包含景别、机位、运镜、可见情绪和结束状态的Seedance图生视频提示词。"
+      "请用真实故事短剧化。我先发一个真实故事，你只给我故事大意和主题候选，等我确认。",
+      "主题确认了，请整理事实底稿，等我删改确认。",
+      "事实确认了，告诉我这个故事为什么平，给三个改编方向并推荐一个。",
+      "按推荐方向写完整短剧剧本，再出人物定妆图、场景图、定帧图和LibTV视频提示词。"
     ]
   }
 }

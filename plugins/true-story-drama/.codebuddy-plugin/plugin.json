@@ -1,20 +1,20 @@
 {
   "name": "true-story-drama",
-  "version": "0.2.1",
-  "description": "先确认真实故事主题和事实底稿，再生成以人物行动和自然对话推进的可拍短剧、GPT Image 2图片提示词和Seedance图生视频提示词。",
+  "version": "1.0.0",
+  "description": "把想讲的真实故事改编成大众爱看、守住事实的短剧剧本，再出人物定妆图、场景图、定帧图提示词和按秒分段的LibTV视频提示词。",
   "author": {
     "name": "彭迪",
     "url": "https://github.com/pengdi190721-dot"
   },
-  "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+  "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/true-story-drama",
   "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
   "license": "MIT",
   "keywords": [
     "真实故事",
-    "短剧",
-    "AI视频",
-    "剧本改编",
-    "戏剧冲突"
+    "故事改编",
+    "短剧剧本",
+    "LibTV",
+    "视频提示词"
   ],
   "skills": "./skills/"
 }
