@@ -66,7 +66,7 @@ codex plugin list --marketplace tuojian-ai
 - 苹果电脑：~/.agents/skills/
 - Windows：用户目录下的 .agents/skills/
 
-最终目录应为 .agents/skills/ai-short-drama-director/SKILL.md，保留同级 references、assets、agents 和 LICENSE。这些路径是电脑文件夹位置，不是在对话里发送的命令。
+最终目录应为 .agents/skills/ai-short-drama-director/SKILL.md，保留同级 references、assets、agents 和许可证文件。这些路径是电脑文件夹位置，不是在对话里发送的命令。
 
 也可以将下文“请帮我安装”口令连同仓库地址发给Codex，由它读取并安装。插件安装和独立技能包二选一，避免同名技能重复出现。
 

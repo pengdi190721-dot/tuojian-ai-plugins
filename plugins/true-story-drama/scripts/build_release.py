@@ -54,7 +54,7 @@ def validate(plugin):
         if "__pycache__" in path.parts:
             continue
         if path.is_file():
-            require(path.suffix in ALLOWED or path.name == "LICENSE", "技能含有非交付文件：" + path.name)
+            require(path.suffix in ALLOWED, "技能里有技能市场不收的文件（要带后缀的文字文件）：" + path.name)
             text = path.read_text(encoding="utf-8")
             require("[TODO:" not in text, "仍有未完成脚手架")
             if path.suffix == ".md":

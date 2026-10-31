@@ -44,8 +44,8 @@ def validate(plugin):
     for path in sorted(skill.rglob("*")):
         require(not path.is_symlink(), "技能包含符号链接：" + str(path.name))
         if path.is_file():
-            require(path.suffix in {".md", ".yaml"} or path.name == "LICENSE",
-                    "技能含有非交付文件：" + str(path.name))
+            require(path.suffix in {".md", ".yaml"},
+                    "技能里有技能市场不收的文件（要带后缀的文字文件）：" + str(path.name))
             text = path.read_text(encoding="utf-8")
             require("[TODO:" not in text, "仍有未完成脚手架")
             if path.suffix == ".md":
