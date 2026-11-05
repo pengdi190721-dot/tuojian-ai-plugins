@@ -342,18 +342,61 @@ def creator_subtitles(item: dict, headers: dict[str, str]) -> list[dict]:
     return []
 
 
-def audio_sources(item: dict) -> list[str]:
-    # 作者原声就是视频里说的话，只取这段声音，比下整条视频小得多；不是原声再退回视频地址。
-    sources = []
+def video_seconds(item: dict) -> float:
+    return ((item.get("video") or {}).get("duration") or 0) / 1000
+
+
+def own_original_sound(item: dict) -> str:
+    # 作者原声就是这条视频里说的话，只取这段声音最省。用的是别人的原声（热门配音）、
+    # 或者原声长度跟视频对不上，就不是这条说的话，不用。
     music = item.get("music") or {}
-    if music.get("is_original_sound"):
-        sources.append(first_url(music.get("play_url")))
-    address = (item.get("video") or {}).get("play_addr") or {}
-    sources.append(first_url(address))
+    if not music.get("is_original_sound"):
+        return ""
+    owner, uid = music.get("owner_id"), (item.get("author") or {}).get("uid")
+    if owner and uid and str(owner) != str(uid):
+        return ""
+    sound_seconds, seconds = music.get("duration") or 0, video_seconds(item)
+    if sound_seconds and seconds and abs(sound_seconds - seconds) > 3:
+        return ""
+    return first_url(music.get("play_url"))
+
+
+def url_from(value: object) -> str:
+    # 抖音有的地方给地址列表，有的给“主地址、备用地址”，两种都认。
+    if isinstance(value, list) and value:
+        return value[0] if isinstance(value[0], str) else ""
+    if isinstance(value, dict):
+        return value.get("main_url") or value.get("backup_url") or first_url(value)
+    return ""
+
+
+def audio_sources(item: dict) -> list[str]:
+    # 从小到大排：作者原声 → 单独的声音轨 → 最小清晰度的视频 → 低清晰度播放地址 → 原播放地址。
+    # 只为听写，越小越快，下到一半断的机会也越小。
+    video = item.get("video") or {}
+    sources = [own_original_sound(item)]
+    for track in video.get("bit_rate_audio") or []:
+        if isinstance(track, dict):
+            sources.append(url_from((track.get("audio_meta") or {}).get("url_list")))
+    variants = [
+        variant for variant in video.get("bit_rate") or []
+        if isinstance(variant, dict) and first_url(variant.get("play_addr"))
+    ]
+    if variants:
+        smallest = min(variants, key=lambda variant: variant.get("bit_rate") or 0)
+        sources.append(first_url(smallest.get("play_addr")))
+    address = video.get("play_addr") or {}
     uri = address.get("uri") if isinstance(address, dict) else None
     if uri:
+        sources.append(f"{PLAY_ENDPOINT}?video_id={uri}&ratio=360p")
+    sources.append(first_url(address))
+    if uri:
         sources.append(f"{PLAY_ENDPOINT}?video_id={uri}&ratio=720p")
-    return [source for source in sources if source]
+    unique = []
+    for source in sources:
+        if source and source not in unique:
+            unique.append(source)
+    return unique
 
 
 MEDIA_SUFFIXES = {".mp3": ".mp3", ".m4a": ".m4a", ".aac": ".aac", ".mp4": ".mp4"}
@@ -368,23 +411,45 @@ def media_suffix(url: str, content_type: str) -> str:
     return MEDIA_TYPES.get(content_type.split(";")[0].strip().lower(), ".mp4")
 
 
+class Truncated(Exception):
+    """下到一半断了：拿到的比服务器说的少。"""
+
+
 def download(url: str, stem: Path, headers: dict[str, str]) -> Path:
     target = stem
     for attempt in range(RETRIES + 1):
         try:
             with open_url(url, headers) as response:
                 target = stem.with_suffix(media_suffix(url, response.headers.get("Content-Type", "")))
+                expected = response.headers.get("Content-Length")
                 with target.open("wb") as handle:
                     shutil.copyfileobj(response, handle)
+            # 连接中途断开时 Python 不报错，只是数据少了一截，所以自己对一下大小。
+            if expected and expected.isdigit() and target.stat().st_size < int(expected):
+                raise Truncated(f"只拿到{target.stat().st_size}字节，应该有{expected}字节")
             break
-        except NETWORK_ERRORS:
-            # 下到一半断了，从头再下；open_url 自己已经重试过连接。
+        except (*NETWORK_ERRORS, Truncated):
             if attempt == RETRIES:
-                raise
+                raise Unreadable("声音下到一半断了，试了几次都没下全")
             time.sleep(2 * (attempt + 1))
     if target.stat().st_size < 1024:
         raise Unreadable("取到的声音是空的")
     return target
+
+
+def media_seconds(path: Path) -> float | None:
+    # 有 ffprobe 就量一下实际有多长，跟作品时长对不上说明没下全。没有就不量。
+    probe = shutil.which("ffprobe")
+    if not probe:
+        return None
+    completed = subprocess.run(
+        [probe, "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(path)],
+        capture_output=True, text=True, check=False,
+    )
+    try:
+        return float(completed.stdout.strip())
+    except ValueError:
+        return None
 
 
 def transcriber() -> tuple[str | None, str]:
@@ -429,21 +494,42 @@ def spoken_words(item: dict, item_id: str, cookie: str | None) -> tuple[list[dic
     npx, problem = transcriber()
     if not npx:
         return [], "", problem
+    expected = video_seconds(item)
     with tempfile.TemporaryDirectory(prefix="douyin-") as folder:
         workdir = Path(folder)
-        media = None
+        media, longest, longest_seconds, measured = None, None, 0.0, False
         for index, source in enumerate(audio_sources(item)):
             try:
-                media = download(source, workdir / f"sound-{index}", headers)
-                break
+                candidate = download(source, workdir / f"sound-{index}", headers)
             except (urllib.error.HTTPError, Unreadable):
                 continue
+            seconds = media_seconds(candidate)
+            if seconds is None or not expected or seconds >= expected - 10:
+                media, measured = candidate, seconds is not None
+                break
+            # 比作品短了一大截，多半没下全：先留着，换下一个地址再试。
+            if seconds > longest_seconds:
+                longest, longest_seconds = candidate, seconds
+        short_hint = ""
+        if media is None and longest is not None:
+            media = longest
+            short_hint = (
+                f"声音只取到前{int(longest_seconds)}秒（作品有{int(expected)}秒），后面没下全，"
+                "文字稿只到这里。换个网络再发一次链接试试。"
+            )
         if media is None:
             return [], "", "作品的声音没取到。" + FALLBACK_HINT
         segments = transcribe(media, npx, workdir)
     if not segments:
         return [], "", "这次没听写出说的话（多半是听写组件没下载下来，或者视频里没人说话）。换个网络再发一次链接试试；还不行，" + FALLBACK_HINT
-    return segments, "本地听写（只取声音，用完就删）", ""
+    last = segments[-1].get("结束") or segments[-1].get("开始") or 0
+    if not short_hint and not measured and expected > 30 and isinstance(last, (int, float)) and last < expected * 0.6:
+        # 量不了声音长度时，看听写停在哪：停得太早，提醒可能没取全（也可能后面只有音乐）。
+        short_hint = (
+            f"文字稿停在第{int(last)}秒，作品有{int(expected)}秒。后面可能只有音乐，"
+            "也可能声音没取全；对不上的话换个网络再发一次链接。"
+        )
+    return segments, "本地听写（只取声音，用完就删）", short_hint
 
 
 def preview_sheets(video: dict) -> list[dict]:
