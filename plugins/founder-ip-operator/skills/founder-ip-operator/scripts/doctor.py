@@ -8,6 +8,7 @@ import json
 import re
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 
@@ -54,22 +55,19 @@ def python_module(name: str) -> bool:
     return completed.returncode == 0
 
 
-def getnote_authenticated() -> bool:
-    # 读视频链接只走得到大脑：命令行装了还不够，要老板本人授权过。
-    found = shutil.which("getnote") or shutil.which("gnote")
-    if not found:
-        return False
+def douyin_reachable() -> bool:
+    # 只试一下能不能领到抖音的匿名访问凭证：领得到说明网络通，真能不能读要发一条链接试。
+    sys.dont_write_bytecode = True
     try:
-        completed = subprocess.run(
-            [found, "auth", "status"], capture_output=True, text=True, timeout=15, check=False
-        )
-    except (OSError, subprocess.TimeoutExpired):
+        import read_douyin_link as reader
+    except ImportError:
         return False
-    output = f"{completed.stdout}\n{completed.stderr}".lower()
-    return completed.returncode == 0 and "authenticated" in output and "not authenticated" not in output
+    reader.RETRIES = 0
+    reader.TIMEOUT = 8
+    return bool(reader.register_ttwid())
 
 
-def inspect_environment() -> dict[str, object]:
+def inspect_environment(check_network: bool = True) -> dict[str, object]:
     home = Path.home()
 
     required = {
@@ -115,11 +113,10 @@ def inspect_environment() -> dict[str, object]:
         "voice_check_support": bool(optional_runtime["ffmpeg"]["available"] and python_module("numpy")),
         "voice_check_plot": python_module("matplotlib"),
     }
-    getnote_installed = bool(shutil.which("getnote") or shutil.which("gnote"))
-    link_reading = {
-        "via": "得到大脑",
-        "cli_installed": getnote_installed,
-        "authenticated": getnote_authenticated() if getnote_installed else False,
+    douyin_direct = {
+        "script": "scripts/read_douyin_link.py",
+        "checked": check_network,
+        "reachable": douyin_reachable() if check_network else None,
     }
     adapters = {
         "Agent Reach": command_or_path(
@@ -175,7 +172,7 @@ def inspect_environment() -> dict[str, object]:
         "required": required,
         "clients": clients,
         "video_analysis": video_analysis,
-        "link_reading": link_reading,
+        "douyin_direct": douyin_direct,
         "optional_runtime": optional_runtime,
         "external_adapters": adapters,
         "missing_required": missing_required,
@@ -227,17 +224,19 @@ def render_markdown(report: dict[str, object]) -> str:
     else:
         lines.append("- 口播体检：还不能用。要装 ffmpeg，再在终端输入 python3 -m pip install numpy matplotlib")
 
-    lines.extend(["", "## 发视频链接（走得到大脑）", ""])
-    link = report["link_reading"]
-    if link["authenticated"]:
-        lines.append("- 发链接：能用，链接会存进你的得到大脑，再读出文字稿")
-    elif link["cli_installed"]:
-        lines.append("- 发链接：还差一步，得到大脑还没授权。说一句“帮我连上得到大脑”，它会给你一个链接和8位码，你本人点确认就行")
+    lines.extend(["", "## 发抖音链接（直接读，不用注册，不下载视频）", ""])
+    douyin = report["douyin_direct"]
+    if not douyin["checked"]:
+        lines.append("- 发抖音链接：这次没联网检查，直接发一条链接试试")
+    elif douyin["reachable"]:
+        lines.append("- 发抖音链接：能连上抖音，直接发一条链接试试")
     else:
-        lines.append("- 发链接：还不能用。先注册或登录得到大脑（免费的），再说一句“帮我连上得到大脑”，它会一步一步带你装好、授权")
-    if not link["authenticated"]:
-        lines.append("- 实在不想注册：在抖音里点“分享”、再点“保存本地”，把视频文件发过来（要上面的“读视频”能用）")
-    lines.append("- 得到大脑只给文字稿，没有画面；要看画面，把视频文件直接发过来")
+        lines.append("- 发抖音链接：这台电脑现在连不上抖音。开着加速器或翻墙软件的，关掉再查一次")
+    if video_analysis["available"]:
+        lines.append("- 听写视频里说了什么：能用，只取声音在本机听写，听完就删")
+    else:
+        lines.append("- 直接读能拿到标题文案、互动数和封面；要听写视频里说了什么，要装好上面说的 Node.js")
+    lines.append("- 读不出来，或者是小红书、B站、视频号的视频：在App里把视频保存下来发过来（抖音是点“分享”、再点“保存本地”；要上面的“读视频”能用）")
 
     lines.extend(["", "## 当前平台", ""])
     for name, item in report["clients"].items():
@@ -271,9 +270,10 @@ def main() -> int:
         action="store_true",
         help="缺少必需环境时以非零状态退出",
     )
+    parser.add_argument("--offline", action="store_true", help="不联网检查能不能连上抖音")
     args = parser.parse_args()
 
-    report = inspect_environment()
+    report = inspect_environment(check_network=not args.offline)
     if args.output_format == "markdown":
         print(render_markdown(report))
     else:

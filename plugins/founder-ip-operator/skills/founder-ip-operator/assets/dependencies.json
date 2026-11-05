@@ -52,11 +52,12 @@
       "inspected_commit": "16d1ab5"
     },
     {
-      "name": "getnote-cli",
-      "repository": "https://www.npmjs.com/package/@getnote/cli",
-      "package": "@getnote/cli",
-      "role": "读视频链接：用户发来的视频链接一律存进得到大脑读文字稿，也可存资料、搜和读笔记；需要用户本人注册得到大脑（免费账号即可）并授权",
-      "bundled_assets": false,
+      "name": "read-douyin-link",
+      "repository": "scripts/read_douyin_link.py",
+      "license": "随技能",
+      "role": "直接读抖音分享链接：领抖音发的匿名访问凭证，读公开分享页里的作品数据；有字幕读字幕，没有就只取声音交给 scrybe 本地听写，听完就删，不下载视频；只用 Python 3 自带的库，不登录、不要账号",
+      "method_reference": "https://github.com/Healock/nekro_plugin_media/pull/5",
+      "bundled_assets": true,
       "api_token_required": false
     },
     {
