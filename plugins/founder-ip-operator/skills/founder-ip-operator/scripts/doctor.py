@@ -236,7 +236,7 @@ def render_markdown(report: dict[str, object]) -> str:
     else:
         lines.append("- 发链接：还不能用。先注册或登录得到大脑（免费的），再说一句“帮我连上得到大脑”，它会一步一步带你装好、授权")
     if not link["authenticated"]:
-        lines.append("- 不想注册也行：在抖音里点“分享”、再点“保存本地”，把视频文件发过来（要上面的“读视频”能用）")
+        lines.append("- 实在不想注册：在抖音里点“分享”、再点“保存本地”，把视频文件发过来（要上面的“读视频”能用）")
     lines.append("- 得到大脑只给文字稿，没有画面；要看画面，把视频文件直接发过来")
 
     lines.extend(["", "## 当前平台", ""])
