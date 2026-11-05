@@ -15,12 +15,26 @@ import sys
 import tempfile
 from pathlib import Path
 from urllib.parse import urlparse
+from urllib.request import Request, urlopen
 
 
 PACKAGE = "mcp-video-analyzer@0.10.0"
 TRANSCRIBER_PACKAGE = "@coroboros/scrybe@0.2.0"
 MINIMUM_NODE = (22, 12, 0)
 LOCAL_WHISPER_MODEL = "base"
+# 国内多数网络连不上 huggingface.co，第一次下语音识别模型会失败；连不上就换国内镜像，
+# 识别组件按固定校验值核对下载内容，换地址不影响文件是不是原版。
+MODEL_MIRROR = "https://hf-mirror.com"
+
+
+def use_model_mirror_if_blocked() -> None:
+    if os.environ.get("HF_ENDPOINT"):
+        return
+    try:
+        with urlopen(Request("https://huggingface.co", method="HEAD"), timeout=6):
+            return
+    except Exception:
+        os.environ["HF_ENDPOINT"] = MODEL_MIRROR
 
 
 def whisper_bridge(root: Path) -> Path:
@@ -213,6 +227,7 @@ def main() -> int:
         raise SystemExit(f"电脑上的 Node.js 版本太旧（现在是{current}，要22.12以上）。打开 nodejs.org 下载推荐的版本装上，再试一次。")
 
     source = normalized_source(args.source)
+    use_model_mirror_if_blocked()
     root = cache_root()
     key = hashlib.sha256(source.encode("utf-8")).hexdigest()[:16]
     output_dir = Path(args.out).expanduser().resolve() if args.out else root / key / "frames"
@@ -250,6 +265,15 @@ def main() -> int:
     completed = subprocess.run(
         command, capture_output=True, text=True, env=environment, check=False
     )
+    frames_skipped = False
+    if completed.returncode and "tesseract" in (completed.stderr + completed.stdout).lower():
+        # 认画面上的字要先下载识别数据，下载不了会整条中断；退一步只读说的话，不看画面。
+        brief = command[:]
+        brief[brief.index("--detail") + 1] = "brief"
+        completed = subprocess.run(
+            brief, capture_output=True, text=True, env=environment, check=False
+        )
+        frames_skipped = completed.returncode == 0
     if completed.returncode:
         detail = completed.stderr.strip() or completed.stdout.strip()
         print("这条视频没读完。可以换成原始视频文件再试，或者说一句“帮我检查一下”看看缺什么。", file=sys.stderr)
@@ -263,6 +287,10 @@ def main() -> int:
         print("读视频的结果不对劲。说一句“帮我检查一下”，我看看哪里出了问题。", file=sys.stderr)
         return 2
 
+    if frames_skipped:
+        payload.setdefault("warnings", []).append(
+            "这次只读了说的话，没看画面：认画面上的字要下载一个识别组件，没下下来。要看画面，换个网络再试一次。"
+        )
     add_local_transcript(payload, source, npx, args.language, output_dir)
 
     if args.json_output:
