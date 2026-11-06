@@ -1,0 +1,23 @@
+/* 风格二：黑金发布会 —— 深色底、金色点缀、标题用宋体，适合投大屏、发布会、高端分享 */
+:root{
+ --bg:#0C0C0E;
+ --stage-bg:radial-gradient(1000px 640px at 85% -12%,rgba(201,164,92,.20) 0%,rgba(201,164,92,0) 70%),radial-gradient(900px 600px at -10% 112%,rgba(201,164,92,.12) 0%,rgba(201,164,92,0) 70%),linear-gradient(180deg,#111114,#0A0A0C);
+ --ink:#F2EDE3;--term:#F5E6C4;--sub:#A8A196;--mute:#6E685F;--line:#2E2B26;--soft2:#1F1F24;
+ --card:#17171B;--card-bd:1px solid #3A3226;--radius:26px;--pill:999px;
+ --shadow:0 30px 70px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.04);--shadow-s:0 12px 30px rgba(0,0,0,.45);
+ --acc:#C9A45C;--acc-d:#E2C58A;--acc-s:#241F15;--acc-m:rgba(201,164,92,.38);--on-acc:#141210;--hi:#F0D59A;--line-acc:#C9A45C;
+ --badge-bg:linear-gradient(135deg,#EBD39C,#B8913F);--badge-fg:#141210;--ch-on-bg:#C9A45C;--ch-on-fg:#141210;
+ --note-bg:linear-gradient(135deg,#EBD39C,#B8913F);--note-fg:#141210;--note-b:#000;--notew-bg:#17171B;--notew-fg:#F2EDE3;
+ --danger:#D9534F;--mk:#E2C58A;--cam-bd:2px solid #8A7140;
+ --qbg:linear-gradient(160deg,#18181C,#0E0E11);--qfg:#F2EDE3;--qem:#F0D59A;--qsub:#8C8578;--qradius:28px;--qbd:2px solid #B8913F;--qshadow:0 40px 100px rgba(0,0,0,.7);
+ --dim:rgba(8,8,10,.78);
+ --sub-fg:#F2EDE3;--sub-k:#F0D59A;--sub-kbg:rgba(201,164,92,.35);
+ --bot-ink:#EDE6D6;--bot-face:#141210;--bot-eye:#F0D59A;--skin:#E8C9A8;
+ --font:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;
+ --font-t:"Noto Serif CJK SC","Songti SC","STSong","SimSun",serif;--font-q:var(--font-t);
+}
+.badge,.badge2{background:var(--badge-bg)}
+.term,.h-huge,.tile b,.panel h3{background:linear-gradient(180deg,#FFF3D6 0%,#E2C58A 55%,#B8913F 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mark{color:#F0D59A}
+.quote em{background:linear-gradient(180deg,#FFF0C8,#D9B26A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ch{background:#141417}

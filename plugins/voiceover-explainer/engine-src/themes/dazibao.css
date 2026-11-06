@@ -1,0 +1,28 @@
+/* 风格四：撞色大字报 —— 黄黑撞色、粗黑边、硬阴影，冲击力强，适合短视频抓眼球 */
+:root{
+ --bg:#FFF6D8;
+ --stage-bg:repeating-linear-gradient(-45deg,rgba(17,17,17,.035) 0 2px,transparent 2px 22px),#FFF6D8;
+ --ink:#111111;--term:#111111;--sub:#4A4A4A;--mute:#8A8A8A;--line:#111111;--soft2:#FFF0B3;
+ --card:#FFFFFF;--card-bd:4px solid #111;--radius:18px;--pill:14px;
+ --shadow:10px 10px 0 #111;--shadow-s:6px 6px 0 #111;
+ --acc:#FFD400;--acc-d:#E63B1F;--acc-s:#FFEFA0;--acc-m:#FFD400;--on-acc:#111;--hi:#FFD400;--line-acc:#111111;
+ --badge-bg:#111;--badge-fg:#FFD400;--ch-on-bg:#111;--ch-on-fg:#FFD400;
+ --note-bg:#111;--note-fg:#fff;--note-b:#FFD400;--notew-bg:#fff;--notew-fg:#111;
+ --danger:#E63B1F;--mk:#E63B1F;--cam-bd:4px solid #111;
+ --qbg:#FFD400;--qfg:#111;--qem:#E63B1F;--qsub:#5A4A00;--qradius:18px;--qbd:5px solid #111;--qshadow:16px 16px 0 #111;
+ --dim:rgba(255,246,216,.84);
+ --sub-fg:#111;--sub-k:#111;--sub-kbg:#FFD400;
+ --bot-ink:#111111;--bot-face:#FFD400;--bot-eye:#111111;--skin:#F5C9A0;
+ --font:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;
+ --font-t:var(--font);--font-q:var(--font);
+}
+.term,.h-huge{letter-spacing:-2px;font-weight:900}
+.lbl{display:inline-block;background:#111;color:#FFD400;padding:4px 16px;border-radius:8px}
+.note.w,.pill,.chip,.ch{border:3px solid #111}
+.ch.done{background:#FFEFA0;color:#111}
+.who{border:4px solid #111;box-shadow:6px 6px 0 #111;background:#FFEFA0}
+.who b{color:#111}
+.mk{border-width:8px;border-radius:12px}
+.chip i{background:#E63B1F}
+.mark{color:#111}
+#sub k{padding:0 4px}

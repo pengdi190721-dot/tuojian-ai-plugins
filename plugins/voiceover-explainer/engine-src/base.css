@@ -1,0 +1,128 @@
+/* 口播科普动画 · 基础样式 v1.0.0
+   颜色、字体全部来自风格表里的变量，这里只管位置和形状。
+   横版 body.H = 1920×1080，竖版 body.V = 1080×1920。 */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow:hidden;background:var(--bg)}
+body.H,body.H #stage{width:1920px;height:1080px}
+body.V,body.V #stage{width:1080px;height:1920px}
+body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased}
+#stage{position:relative;overflow:hidden;background:var(--stage-bg)}
+.a{position:absolute}
+.el{visibility:hidden}
+.sec{position:absolute;left:0;top:0;width:100%;height:100%}
+
+/* ---------- 版位（横版） ---------- */
+body.H #topbar{left:100px;top:40px}
+body.H #chapters{right:60px;top:42px;width:860px}
+body.H .R-term{left:100px;top:170px;width:640px}
+body.H .R-notes{left:100px;top:500px;width:640px}
+body.H .R-frame{left:760px;top:150px;width:1060px;height:690px}
+body.H .R-wide,body.H .R-center{left:100px;top:150px;width:1720px;height:710px}
+body.H #sub{left:110px;width:1700px;top:892px;height:130px;font-size:58px}
+body.H .quote{left:240px;width:1440px;top:290px;font-size:72px}
+/* ---------- 版位（竖版） ---------- */
+body.V #topbar{left:60px;top:70px}
+body.V #chapters{left:40px;top:150px;width:1000px}
+body.V .R-term{left:64px;top:250px;width:952px}
+body.V .R-frame{left:50px;top:560px;width:980px;height:638px}
+body.V .R-notes{left:64px;top:1236px;width:952px}
+body.V .R-wide,body.V .R-center{left:40px;top:250px;width:1000px;height:1320px}
+body.V #sub{left:60px;width:960px;top:1610px;height:210px;font-size:54px}
+body.V .quote{left:60px;width:960px;top:600px;font-size:60px}
+body.V .term{font-size:118px}
+
+/* ---------- 顶栏、进度条、字幕、淡入淡出 ---------- */
+#topbar{position:absolute;display:flex;align-items:center;gap:18px;z-index:20}
+.badge{background:var(--badge-bg);color:var(--badge-fg);border-radius:999px;padding:10px 26px;font-size:30px;font-weight:900;letter-spacing:2px}
+.series{font-size:30px;font-weight:700;color:var(--sub)}
+#chapters{position:absolute;display:flex;gap:8px;opacity:0;z-index:20}
+.ch{flex:1;height:54px;border-radius:27px;background:var(--card);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:25px;font-weight:800;color:var(--mute);white-space:nowrap}
+.ch.done{background:var(--acc-s);border-color:var(--acc-m);color:var(--acc-d)}
+.ch.on{background:var(--ch-on-bg);border-color:var(--ch-on-bg);color:var(--ch-on-fg)}
+#sub{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900;line-height:1.3;color:var(--sub-fg);opacity:0;z-index:30}
+#sub k{color:var(--sub-k);background:linear-gradient(transparent 62%,var(--sub-kbg) 62%)}
+#fade{position:absolute;left:0;top:0;width:100%;height:100%;background:var(--bg);z-index:50}
+
+/* ---------- 主讲词块 ---------- */
+.R-term{position:absolute}
+.lbl{font-size:36px;font-weight:900;color:var(--acc-d);letter-spacing:3px}
+.term{font-family:var(--font-t);font-size:132px;font-weight:900;line-height:1.08;letter-spacing:2px;color:var(--term)}
+.eq{font-size:52px;font-weight:900;color:var(--sub);margin-top:6px}
+.R-notes{position:absolute;display:flex;flex-direction:column;align-items:flex-start;gap:22px}
+body.V .R-notes{gap:18px}
+
+/* ---------- 标签 ---------- */
+.note{display:inline-flex;align-items:center;gap:12px;background:var(--note-bg);color:var(--note-fg);border-radius:var(--pill);padding:14px 30px;font-size:36px;font-weight:900;white-space:nowrap;box-shadow:var(--shadow-s)}
+.note b{color:var(--note-b)}
+.note.w{background:var(--notew-bg);color:var(--notew-fg);border:2px solid var(--line);box-shadow:var(--shadow-s)}
+.note.w b{color:var(--acc-d)}
+.note.bad{background:var(--danger);color:#fff}
+.note.bad b{color:#fff}
+.badge2{display:inline-block;background:var(--badge-bg);color:var(--badge-fg);border-radius:999px;padding:10px 24px;font-size:30px;font-weight:900;white-space:nowrap}
+.badge2.g{background:var(--acc);color:var(--on-acc)}
+.badge2.r{background:var(--danger);color:#fff}
+.mark{background-image:linear-gradient(var(--acc-m),var(--acc-m));background-repeat:no-repeat;background-position:0 92%;background-size:100% 34%;color:var(--acc-d);padding:0 6px;white-space:nowrap}
+
+/* ---------- 卡片 ---------- */
+.card{background:var(--card);border-radius:var(--radius);border:var(--card-bd);box-shadow:var(--shadow)}
+.callout{width:270px;padding:18px 26px 20px}
+.callout span{display:block;font-size:28px;font-weight:800;color:var(--sub)}
+.callout b{font-size:50px;font-weight:900;color:var(--acc-d)}
+.pill{background:var(--card);border:2px solid var(--line);border-radius:999px;padding:16px 30px;font-size:34px;font-weight:800;color:var(--sub);white-space:nowrap}
+.pill b{color:var(--ink);font-weight:900}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;width:100%}
+.chip{display:inline-flex;align-items:baseline;gap:10px;background:var(--card);border:2px solid var(--line);border-radius:999px;padding:20px 34px 22px 28px;font-size:46px;font-weight:900;box-shadow:var(--shadow-s)}
+.chip i{width:16px;height:16px;border-radius:50%;background:var(--acc);align-self:center;margin-right:4px;display:block}
+.chip small{font-size:28px;font-weight:900;color:var(--acc-d)}
+.job{width:300px;height:150px;padding:18px 32px;display:flex;flex-direction:column;justify-content:center}
+.job span{font-size:26px;font-weight:800;color:var(--mute)}
+.job b{font-size:56px;font-weight:900;line-height:1.2}
+.who{width:520px;height:150px;padding:18px 30px;display:flex;align-items:center;gap:22px;background:var(--acc-s);border:2px solid var(--acc-m);border-radius:var(--radius)}
+.who span{display:block;font-size:26px;font-weight:800;color:var(--acc-d)}
+.who b{font-size:46px;font-weight:900;line-height:1.2}
+.item{left:30px;width:1000px;height:72px;border-radius:18px;display:flex;align-items:center;gap:20px;padding:0 24px;font-size:34px;font-weight:800}
+.item.msg{background:var(--acc-s)}
+.item.doc{background:var(--soft2)}
+.item svg{flex:none}
+.rl{display:flex;align-items:center;gap:22px;padding:22px 0;border-top:2px dashed var(--line);font-size:44px;font-weight:800}
+.rl i{flex:none;width:62px;height:62px;border-radius:50%;background:var(--badge-bg);color:var(--badge-fg);font-style:normal;font-size:32px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.node{width:300px;padding:22px 26px;text-align:center;font-size:40px;font-weight:900}
+.panel{width:500px;height:600px;padding:30px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px}
+.panel h3{font-family:var(--font-t);font-size:64px;font-weight:900}
+.panel p{font-size:34px;font-weight:800;color:var(--sub)}
+.tiles{position:absolute;left:0;top:100px;width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:28px 40px}
+body.V .tiles{grid-template-columns:repeat(2,1fr);top:120px}
+.tile{position:relative;height:240px;padding:30px 36px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.tile span{font-size:32px;font-weight:800;color:var(--sub)}
+.tile b{font-family:var(--font-t);font-size:68px;font-weight:900}
+.door{display:inline-block;width:24px;height:36px;border:5px solid var(--ink);border-radius:4px;position:relative;margin-right:4px}
+.door::after{content:'';position:absolute;right:3px;top:13px;width:5px;height:5px;border-radius:50%;background:var(--ink)}
+.center-col{position:absolute;left:0;top:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;text-align:center}
+.h-small{font-size:58px;font-weight:800;color:var(--sub)}
+.h-huge{font-family:var(--font-t);font-size:124px;font-weight:900;line-height:1.15;color:var(--term)}
+body.V .h-huge{font-size:104px}
+.h-mid{font-size:56px;font-weight:900}
+
+/* ---------- 截图镜头 ---------- */
+.R-frame,.R-wide,.R-center{position:absolute}
+.R-frame>.inner{position:absolute;left:0;top:0;width:1060px;height:690px;transform-origin:0 0}
+.cam{border-radius:var(--radius);overflow:hidden;background:#fff;border:var(--cam-bd);box-shadow:var(--shadow)}
+.cam img{position:absolute;left:0;top:0;transform-origin:0 0}
+.mk{position:absolute;border:6px solid var(--mk);border-radius:18px;visibility:hidden}
+.mk.bar{border:none;border-left:10px solid var(--mk);background:color-mix(in srgb,var(--mk) 18%,transparent);border-radius:6px}
+
+/* ---------- 金句卡 ---------- */
+.dim{left:0;top:0;width:100%;height:100%;background:var(--dim)}
+.quote{position:absolute;background:var(--qbg);color:var(--qfg);border-radius:var(--qradius);border:var(--qbd);padding:52px 70px 60px;font-family:var(--font-q);font-weight:900;line-height:1.38;box-shadow:var(--qshadow);z-index:10}
+.quote em{font-style:normal;color:var(--qem)}
+.quote small{display:block;font-family:var(--font);font-size:30px;font-weight:800;color:var(--qsub);letter-spacing:5px;margin-bottom:12px}
+
+/* ---------- 角色配色（小机器人、AI员工、老板） ---------- */
+.f-ink{fill:var(--bot-ink)}.f-face{fill:var(--bot-face)}.f-eye{fill:var(--bot-eye)}.f-acc{fill:var(--acc)}.f-card{fill:var(--card)}.f-mute{fill:var(--mute)}.f-hi{fill:var(--hi)}.f-skin{fill:var(--skin)}
+.s-ink{stroke:var(--bot-ink)}.s-acc{stroke:var(--acc)}.s-face{stroke:var(--bot-face)}.s-eye{stroke:var(--bot-eye)}
+.stroke-acc{stroke:var(--line-acc)}
+.t-ink{fill:var(--ink)}
+.ec{visibility:hidden}
+.swing{transform-box:fill-box}
+.bubble{position:absolute;background:var(--card);border:var(--card-bd);border-radius:28px;padding:18px 28px;font-size:36px;font-weight:900;box-shadow:var(--shadow-s);white-space:nowrap}
+.bubble::after{content:'';position:absolute;left:40px;bottom:-18px;border:12px solid transparent;border-top:18px solid var(--card)}

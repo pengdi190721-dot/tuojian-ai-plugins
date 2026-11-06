@@ -1,0 +1,42 @@
+{
+  "name": "voiceover-explainer",
+  "version": "1.0.0",
+  "description": "老板录口播，AI配动画：把口播和软件截图做成带圈注、标签、金句卡、字幕和音效的科普视频，横版竖版都能出，四种画面风格可选。五步：收想法和截图、确认口播稿、录音、看样片选风格、出片。",
+  "author": {
+    "name": "彭迪",
+    "url": "https://github.com/pengdi190721-dot"
+  },
+  "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/voiceover-explainer",
+  "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+  "license": "MIT",
+  "keywords": [
+    "口播",
+    "科普视频",
+    "动画",
+    "字幕",
+    "软件教程",
+    "大屏"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "口播科普动画",
+    "shortDescription": "老板录口播，AI用代码配动画、字幕和音效",
+    "longDescription": "老板发来想讲的内容和截图，先写口播稿，每段附画面对照，缺的截图请老板补；稿子定了老板自己录音；收到录音后听写对稿、调好节奏，用老板的声音做出四种风格的样片，老板选好风格和横竖版；最后按每句话说到的词卡准圈注、标签、图解和金句卡，配上字幕和音效，逐句自查后出成片和字幕文件。",
+    "developerName": "彭迪",
+    "category": "Productivity",
+    "capabilities": [
+      "Storyboarding",
+      "Animation",
+      "Subtitles",
+      "Audio alignment",
+      "Video rendering"
+    ],
+    "brandColor": "#12C08A",
+    "defaultPrompt": [
+      "请用口播科普动画。我想做一条讲清楚某个软件的科普视频，大致内容和截图发你，先帮我写口播稿，告诉我还缺哪些截图。",
+      "稿子我改好了，截图也补齐了，告诉我怎么录。",
+      "录音发你了，先出四种风格的样片给我挑。",
+      "就用黑金、横版，做全片，做完自己逐句检查再给我。"
+    ]
+  }
+}

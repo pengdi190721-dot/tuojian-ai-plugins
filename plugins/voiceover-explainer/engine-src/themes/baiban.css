@@ -1,0 +1,33 @@
+/* 风格三：手绘白板 —— 点阵白板、马克笔线条、便利贴，像老师在白板上讲，亲切好懂 */
+:root{
+ --bg:#FBFAF6;
+ --stage-bg:radial-gradient(#D8D4C8 1.5px,transparent 1.7px) 0 0/36px 36px,#FBFAF6;
+ --ink:#1F2A44;--term:#1F2A44;--sub:#5B6478;--mute:#9AA1AE;--line:#C9CDD6;--soft2:#EEF1F6;
+ --card:#FFFFFF;--card-bd:none;--radius:22px;--pill:16px;
+ --shadow:none;--shadow-s:none;
+ --acc:#2563EB;--acc-d:#1D4ED8;--acc-s:#E6EEFF;--acc-m:#FFE27A;--on-acc:#fff;--hi:#FFE27A;--line-acc:#E5484D;
+ --badge-bg:#1F2A44;--badge-fg:#fff;--ch-on-bg:#1F2A44;--ch-on-fg:#fff;
+ --note-bg:#FFE27A;--note-fg:#1F2A44;--note-b:#C2410C;--notew-bg:#fff;--notew-fg:#1F2A44;
+ --danger:#E5484D;--mk:#E5484D;--cam-bd:none;
+ --qbg:#FFFFFF;--qfg:#1F2A44;--qem:#E5484D;--qsub:#9AA1AE;--qradius:22px;--qbd:none;--qshadow:none;
+ --dim:rgba(251,250,246,.84);
+ --sub-fg:#1F2A44;--sub-k:#1F2A44;--sub-kbg:#FFE27A;
+ --bot-ink:#1F2A44;--bot-face:#FFFFFF;--bot-eye:#1F2A44;--skin:#F2D2B6;
+ --font:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;
+ --font-t:var(--font);--font-q:var(--font);
+}
+/* 马克笔边框：用一层抖动的描边代替直线边框，文字本身不抖 */
+:where(.card,.quote,.note.w,.pill,.chip,.cam,.who,.ch){isolation:isolate;position:relative}
+:where(.quote){position:absolute}
+.card::before,.quote::before,.note.w::before,.pill::before,.chip::before,.cam::after,.who::before,.ch::before{content:'';position:absolute;inset:0;border:3.5px solid #1F2A44;border-radius:inherit;filter:url(#rough);pointer-events:none}
+.card::before,.quote::before,.note.w::before,.pill::before,.chip::before,.who::before,.ch::before{z-index:-1;background:inherit}
+.card,.quote,.note.w,.pill,.chip,.who,.ch{border:none!important}
+.cam::after{z-index:5;border-width:4px}
+.quote::before{border-width:5px}
+.note{transform-origin:left center;box-shadow:3px 4px 0 rgba(31,42,68,.12);border-radius:6px}
+.R-notes .note:nth-child(odd){rotate:-1.2deg}.R-notes .note:nth-child(even){rotate:.8deg}
+.mk{filter:url(#rough);border-width:6px;border-radius:28px}
+.mk.bar{filter:none;background:rgba(255,226,122,.55);border-left:10px solid #E5484D}
+.ch.done{background:#E6EEFF;color:#1D4ED8}
+.term,.h-huge{text-decoration:underline;text-decoration-color:#FFE27A;text-decoration-thickness:22px;text-underline-offset:-8px;text-decoration-skip-ink:none}
+.quote em{background:linear-gradient(transparent 62%,#FFE27A 62%);color:#C2410C}

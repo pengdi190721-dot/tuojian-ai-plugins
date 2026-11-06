@@ -1,0 +1,21 @@
+{
+  "name": "voiceover-explainer",
+  "version": "1.0.0",
+  "description": "老板录口播，AI配动画：把口播和软件截图做成带圈注、标签、金句卡、字幕和音效的科普视频，横版竖版都能出，四种画面风格可选。五步：收想法和截图、确认口播稿、录音、看样片选风格、出片。",
+  "author": {
+    "name": "彭迪",
+    "url": "https://github.com/pengdi190721-dot"
+  },
+  "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/voiceover-explainer",
+  "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+  "license": "MIT",
+  "keywords": [
+    "口播",
+    "科普视频",
+    "动画",
+    "字幕",
+    "软件教程",
+    "大屏"
+  ],
+  "skills": "./skills/"
+}

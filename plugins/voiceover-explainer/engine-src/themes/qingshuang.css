@@ -1,0 +1,18 @@
+/* 风格一：清爽薄荷 —— 白底、薄荷绿，干净耐看，适合日常科普、讲软件界面 */
+:root{
+ --bg:#F4F5F7;
+ --stage-bg:radial-gradient(1100px 620px at 92% -10%,#DDF6EA 0%,rgba(221,246,234,0) 70%),radial-gradient(900px 600px at -8% 110%,#E9F8F1 0%,rgba(233,248,241,0) 70%),#F4F5F7;
+ --ink:#111318;--term:#111318;--sub:#6B717B;--mute:#A3A8B0;--line:#E6E8EC;--soft2:#F1F3F6;
+ --card:#FFFFFF;--card-bd:1px solid #EAECEF;--radius:32px;--pill:999px;
+ --shadow:0 26px 64px rgba(17,19,24,.09),0 3px 8px rgba(17,19,24,.04);--shadow-s:0 12px 28px rgba(17,19,24,.10);
+ --acc:#12C08A;--acc-d:#079A6C;--acc-s:#E4F7EF;--acc-m:#C8EFDD;--on-acc:#fff;--hi:#3EE0A8;--line-acc:#12C08A;
+ --badge-bg:#111318;--badge-fg:#fff;--ch-on-bg:#111318;--ch-on-fg:#fff;
+ --note-bg:#111318;--note-fg:#fff;--note-b:#3EE0A8;--notew-bg:#fff;--notew-fg:#111318;
+ --danger:#E5484D;--mk:#12C08A;--cam-bd:1px solid #E5E7EA;
+ --qbg:#111318;--qfg:#fff;--qem:#3EE0A8;--qsub:#8C929B;--qradius:44px;--qbd:none;--qshadow:0 40px 90px rgba(17,19,24,.28);
+ --dim:rgba(244,245,247,.80);
+ --sub-fg:#111318;--sub-k:#079A6C;--sub-kbg:#C8EFDD;
+ --bot-ink:#111318;--bot-face:#FFFFFF;--bot-eye:#111318;--skin:#F2D2B6;
+ --font:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;
+ --font-t:var(--font);--font-q:var(--font);
+}

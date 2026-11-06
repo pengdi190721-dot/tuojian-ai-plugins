@@ -1,0 +1,6 @@
+interface:
+  display_name: "口播科普动画"
+  short_description: "老板录口播，AI用代码配动画、字幕和音效，四种风格可选"
+  default_prompt: "请使用 $voiceover-explainer。我想做一条科普视频，大致内容和截图发你，先帮我写口播稿，告诉我还缺哪些截图。"
+policy:
+  allow_implicit_invocation: true
