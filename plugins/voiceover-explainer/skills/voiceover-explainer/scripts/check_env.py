@@ -8,7 +8,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from common import MODELS
 
-PKGS = {'numpy': 'numpy', 'PIL': 'pillow', 'playwright': 'playwright', 'sherpa_onnx': 'sherpa-onnx', 'imageio_ffmpeg': 'imageio-ffmpeg'}
+PKGS = {'numpy': 'numpy', 'PIL': 'pillow', 'playwright': 'playwright', 'sherpa_onnx': 'sherpa-onnx', 'imageio_ffmpeg': 'imageio-ffmpeg',
+        'cv2': 'opencv-python-headless<5'}   # 剪真人口播（A 线）要用 opencv 找人脸；5.x 去掉了人脸检测文件，所以装 4.x
 MIRROR = 'https://pypi.tuna.tsinghua.edu.cn/simple'
 MODEL_NAME = 'sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17'
 MODEL_URLS = [
@@ -25,7 +26,12 @@ def check():
     miss = []
     for mod, pkg in PKGS.items():
         try:
-            importlib.import_module(mod); print(f'  ✓ {pkg}')
+            m = importlib.import_module(mod)
+            if mod == 'cv2':
+                face = Path(getattr(getattr(m, 'data', None), 'haarcascades', '') or '.') / 'haarcascade_frontalface_default.xml'
+                if not face.exists():
+                    raise ImportError('opencv 里没有人脸检测文件')
+            print(f'  ✓ {pkg}')
         except Exception:
             print(f'  ✗ {pkg}（没装）'); miss.append(pkg)
     ff = shutil.which('ffmpeg')

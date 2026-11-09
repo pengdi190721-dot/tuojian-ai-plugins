@@ -327,6 +327,367 @@ ENGINE_JS = r'''/* 口播科普动画 · 引擎 v1.0.0
 })();
 '''
 
+KOUBO_PAGE = r'''<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+/* 口播剪辑包装页：人像全屏 / 圆角方形小窗 两种版式，片头、动态字幕、要点卡、三步卡、截图、金句卡、大字、对比字、片尾。
+   四种风格写在 body[data-theme] 里，横竖版写在 body.H / body.V 里。 */
+:root{--font:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;--fontt:var(--font)}
+body[data-theme=qingshuang]{
+ --stage:radial-gradient(900px 620px at 92% -6%,#DDF6EA 0%,rgba(221,246,234,0) 70%),radial-gradient(900px 700px at -10% 108%,#E9F8F1 0%,rgba(233,248,241,0) 70%),#F4F5F7;
+ --ink:#111318;--sub:#6B717B;--acc:#12C08A;--hi:#3EE0A8;--danger:#E5484D;--good:#079A6C;--goodbg:#E4F7EF;--badbg:#FDECEC;--bad:#B4232A;
+ --card:#fff;--cardbd:1px solid #EAECEF;--radius:40px;--shadow:0 26px 64px rgba(17,19,24,.10);
+ --tagbg:#111318;--tagfg:#fff;--tagdot:#3EE0A8;
+ --t1:#fff;--t2:#3EE0A8;--tsh:0 6px 24px rgba(0,0,0,.45);
+ --sfg:#fff;--sst:rgba(0,0,0,.55);--sk:#111318;--skbg:#3EE0A8;--sbox:transparent;--sfg2:#111318;
+ --ring:#fff;--rowbg:#F4F5F7;--rowon:#111318;--rowonfg:#fff;--num:#12C08A;--numfg:#fff;
+ --qbg:#111318;--qfg:#fff;--qem:#3EE0A8;--stbg:#fff;--stfg:#111318;--ctabg:#111318;--ctafg:#fff;--ctai:#3EE0A8;
+ --dim:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.58) 100%);}
+body[data-theme=heijin]{
+ --stage:radial-gradient(900px 640px at 85% -10%,rgba(201,164,92,.22) 0%,rgba(201,164,92,0) 70%),linear-gradient(180deg,#111114,#0A0A0C);
+ --ink:#F2EDE3;--sub:#A8A196;--acc:#C9A45C;--hi:#F0D59A;--danger:#D9534F;--good:#E2C58A;--goodbg:#241F15;--badbg:#2A1716;--bad:#E8867F;
+ --card:#17171B;--cardbd:1px solid #3A3226;--radius:30px;--shadow:0 30px 70px rgba(0,0,0,.55);
+ --tagbg:linear-gradient(135deg,#EBD39C,#B8913F);--tagfg:#141210;--tagdot:#141210;
+ --t1:#F2EDE3;--t2:#F0D59A;--tsh:0 6px 30px rgba(0,0,0,.7);
+ --sfg:#F2EDE3;--sst:rgba(0,0,0,.7);--sk:#141210;--skbg:#E2C58A;--sbox:transparent;--sfg2:#F2EDE3;
+ --ring:#C9A45C;--rowbg:#1F1F24;--rowon:linear-gradient(135deg,#EBD39C,#B8913F);--rowonfg:#141210;--num:#C9A45C;--numfg:#141210;
+ --qbg:linear-gradient(160deg,#18181C,#0E0E11);--qfg:#F2EDE3;--qem:#F0D59A;--stbg:#17171B;--stfg:#F2EDE3;--ctabg:linear-gradient(135deg,#EBD39C,#B8913F);--ctafg:#141210;--ctai:#141210;
+ --dim:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.75) 100%);
+ --fontt:"Noto Serif CJK SC","Songti SC","STSong",serif;}
+body[data-theme=baiban]{
+ --stage:radial-gradient(#D8D4C8 2px,transparent 2.4px) 0 0/40px 40px,#FBFAF6;
+ --ink:#1F2A44;--sub:#5B6478;--acc:#2563EB;--hi:#FFE27A;--danger:#E5484D;--good:#1D4ED8;--goodbg:#E6EEFF;--badbg:#FDECEC;--bad:#C2410C;
+ --card:#fff;--cardbd:none;--radius:26px;--shadow:none;
+ --tagbg:#FFE27A;--tagfg:#1F2A44;--tagdot:#E5484D;
+ --t1:#1F2A44;--t2:#E5484D;--tsh:none;
+ --sfg:#1F2A44;--sst:transparent;--sk:#1F2A44;--skbg:#FFE27A;--sbox:#fff;--sfg2:#1F2A44;
+ --ring:#1F2A44;--rowbg:#fff;--rowon:#FFE27A;--rowonfg:#1F2A44;--num:#1F2A44;--numfg:#fff;
+ --qbg:#fff;--qfg:#1F2A44;--qem:#E5484D;--stbg:#fff;--stfg:#1F2A44;--ctabg:#FFE27A;--ctafg:#1F2A44;--ctai:#1F2A44;
+ --dim:linear-gradient(180deg,rgba(0,0,0,0) 60%,rgba(0,0,0,.25) 100%);}
+body[data-theme=dazibao]{
+ --stage:repeating-linear-gradient(-45deg,rgba(17,17,17,.04) 0 2px,transparent 2px 24px),#FFF6D8;
+ --ink:#111;--sub:#4A4A4A;--acc:#FFD400;--hi:#FFD400;--danger:#E63B1F;--good:#111;--goodbg:#FFEFA0;--badbg:#FFE1DA;--bad:#E63B1F;
+ --card:#fff;--cardbd:5px solid #111;--radius:20px;--shadow:12px 12px 0 #111;
+ --tagbg:#111;--tagfg:#FFD400;--tagdot:#E63B1F;
+ --t1:#111;--t2:#E63B1F;--tsh:none;
+ --sfg:#111;--sst:transparent;--sk:#111;--skbg:#FFD400;--sbox:#fff;--sfg2:#111;
+ --ring:#111;--rowbg:#fff;--rowon:#FFD400;--rowonfg:#111;--num:#111;--numfg:#FFD400;
+ --qbg:#FFD400;--qfg:#111;--qem:#E63B1F;--stbg:#fff;--stfg:#111;--ctabg:#111;--ctafg:#FFD400;--ctai:#FFD400;
+ --dim:linear-gradient(180deg,rgba(0,0,0,0) 60%,rgba(0,0,0,.25) 100%);}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow:hidden;background:#000}
+body{font-family:var(--font);color:var(--ink);position:relative}
+body.V{width:1080px;height:1920px}
+body.H{width:1920px;height:1080px}
+#stage{position:absolute;inset:0;background:var(--stage)}
+#person{position:absolute;overflow:hidden;background:#000;z-index:2}
+#pimg{position:absolute;left:0;top:0;display:block}
+#dim{position:absolute;inset:0;background:var(--dim);z-index:3}
+#dim2{position:absolute;inset:0;z-index:3;background:linear-gradient(180deg,rgba(10,12,16,0) 38%,rgba(10,12,16,.72) 64%,rgba(10,12,16,.82) 100%)}
+.ov{position:absolute;z-index:5}
+#tag{display:flex;align-items:center;gap:14px;background:var(--tagbg);color:var(--tagfg);font-size:38px;font-weight:800;padding:14px 30px;border-radius:999px;letter-spacing:2px;box-shadow:0 10px 30px rgba(0,0,0,.18);white-space:nowrap}
+#tag i{width:16px;height:16px;border-radius:50%;background:var(--tagdot);display:block}
+#title{left:0;right:0;text-align:center;white-space:nowrap}
+#title .box{display:inline-block}
+#title .t1{font-family:var(--fontt);font-size:68px;font-weight:800;color:var(--t1);text-shadow:var(--tsh);line-height:1.15}
+#title .t2{font-family:var(--fontt);font-size:112px;font-weight:900;color:var(--t2);text-shadow:var(--tsh);line-height:1.15}
+#pop{left:0;right:0;text-align:center;font-family:var(--fontt);font-size:120px;font-weight:900;color:var(--t2);text-shadow:var(--tsh);white-space:nowrap}
+#sub{left:40px;right:40px;text-align:center;white-space:nowrap;z-index:6}
+#sub .in{display:inline-block;font-size:58px;font-weight:800;color:var(--sfg);-webkit-text-stroke:10px var(--sst);paint-order:stroke fill;line-height:1.3;background:var(--sbox);padding:6px 26px;border-radius:18px}
+#sub span{display:inline-block;opacity:.45}
+#sub span.lit{opacity:1}
+#sub .kwg{opacity:1!important;display:inline-block;background:var(--skbg);border-radius:12px;padding:0 10px;margin:0 4px;-webkit-text-stroke:0;transform-origin:center 60%}
+#sub .kwg span{color:var(--sk);font-size:64px;-webkit-text-stroke:0;opacity:.4}
+#sub .kwg span.lit{opacity:1}
+#sub .kwg.off{opacity:.55!important}
+#sub.onstage .in{color:var(--sfg2);-webkit-text-stroke:0}
+#sub.onstage span{opacity:.3}
+#sub.onstage .kwg span{opacity:.4}
+#sub.onstage span.lit,#sub.onstage .kwg span.lit{opacity:1}
+#card{background:var(--card);border:var(--cardbd);border-radius:var(--radius);box-shadow:var(--shadow);padding:50px 50px 32px;z-index:4}
+#card h2{font-family:var(--fontt);font-size:62px;font-weight:900;margin-bottom:30px;white-space:nowrap;color:var(--ink)}
+.row{display:flex;align-items:center;gap:26px;background:var(--rowbg);border-radius:22px;padding:18px 28px;margin-bottom:16px;line-height:1.3;font-size:50px;font-weight:700;white-space:nowrap;transform-origin:left center;position:relative}
+.row b{flex:0 0 64px;height:64px;border-radius:18px;background:var(--num);color:var(--numfg);display:flex;align-items:center;justify-content:center;font-size:40px}
+.row.on{background:var(--rowon);color:var(--rowonfg)}
+.no{display:flex;align-items:center;gap:20px;font-size:50px;font-weight:800;padding:20px 28px;border-radius:22px;background:var(--badbg);color:var(--bad);margin-bottom:26px;white-space:nowrap}
+.no .x{flex:0 0 64px;height:64px;border-radius:50%;background:var(--danger);color:#fff;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:900}
+.no .nt{position:relative}
+.no .strike{position:absolute;left:-6px;top:52%;height:6px;background:var(--bad);border-radius:3px}
+.lbl{font-size:40px;font-weight:700;color:var(--sub);margin:4px 0 14px 6px}
+.steps{display:flex;align-items:center;gap:10px;margin-bottom:24px}
+.step{flex:1;text-align:center;background:var(--rowbg);border-radius:22px;padding:24px 8px;font-size:40px;font-weight:800;white-space:nowrap;color:var(--sub);opacity:.6}
+.step.lit{background:var(--rowon);color:var(--rowonfg);opacity:1}
+.arr{font-size:40px;color:var(--sub);font-weight:900}
+.arr.lit{color:var(--acc)}
+.yes{display:flex;align-items:center;gap:20px;font-size:50px;font-weight:800;padding:20px 28px;border-radius:22px;background:var(--goodbg);color:var(--good);white-space:nowrap}
+.yes .ok{flex:0 0 64px;height:64px;border-radius:50%;background:var(--acc);color:var(--numfg);display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900}
+.shot{position:relative;overflow:hidden;border-radius:18px;background:#000}
+.shot img{position:absolute;left:0;top:0;display:block}
+.shot .mk{position:absolute;border:6px solid var(--danger);border-radius:18px;box-shadow:0 0 0 4000px rgba(0,0,0,.18)}
+#quote{background:var(--qbg);border-radius:44px;padding:44px 56px 50px;box-shadow:0 40px 90px rgba(0,0,0,.4)}
+#quote p{font-family:var(--fontt);font-size:58px;font-weight:800;color:var(--qfg);line-height:1.45;white-space:nowrap;transform-origin:left center}
+#quote p.em{font-size:84px;font-weight:900;color:var(--qem);margin-top:6px}
+#quote .bar{width:84px;height:10px;border-radius:5px;background:var(--qem);margin-bottom:24px}
+#stamp{left:0;right:0;text-align:center}
+#stamp div{display:inline-block;background:var(--stbg);color:var(--stfg);border-radius:28px;padding:22px 44px;font-size:76px;font-weight:900;box-shadow:0 24px 60px rgba(0,0,0,.35);white-space:nowrap}
+#stamp em{font-style:normal;color:var(--danger);margin:0 18px}
+#cta{left:0;right:0;text-align:center}
+#cta div{display:inline-flex;align-items:center;gap:24px;background:var(--ctabg);color:var(--ctafg);border-radius:999px;padding:30px 60px;font-size:72px;font-weight:900;box-shadow:0 30px 70px rgba(0,0,0,.4);white-space:nowrap}
+#cta i{display:block;width:72px;height:60px;background:var(--ctai);border-radius:22px 22px 22px 6px;position:relative}
+/* 手绘白板：马克笔描边 */
+body[data-theme=baiban] :is(#card,#quote,#tag,.row,#stamp div,#cta div,#sub .in){isolation:isolate}
+body[data-theme=baiban] :is(#card,#quote,#tag,.row,#stamp div,#cta div,#sub .in)::before{content:'';position:absolute;inset:0;border:4px solid #1F2A44;border-radius:inherit;filter:url(#rough);z-index:-1;background:inherit;pointer-events:none}
+body[data-theme=baiban] :is(#stamp div,#cta div,#sub .in){position:relative}
+body[data-theme=baiban] #title .box{background:#fff;border-radius:28px;padding:26px 44px 34px;rotate:-1.5deg;position:relative;isolation:isolate}
+body[data-theme=baiban] #title .box::before{content:'';position:absolute;inset:0;border:4px solid #1F2A44;border-radius:inherit;filter:url(#rough);z-index:-1;background:inherit}
+body[data-theme=baiban] #title .t2,body[data-theme=baiban] #quote p.em{background:linear-gradient(transparent 60%,#FFE27A 60%)}
+body[data-theme=baiban] #pop{color:#E5484D;text-shadow:0 0 0 #fff,4px 4px 0 #fff,-4px -4px 0 #fff,4px -4px 0 #fff,-4px 4px 0 #fff}
+body[data-theme=baiban] #quote .bar{background:#E5484D}
+/* 撞色大字报：粗黑边、硬阴影 */
+body[data-theme=dazibao] #title .box{background:#FFD400;border:6px solid #111;box-shadow:14px 14px 0 #111;border-radius:18px;padding:22px 40px 30px;rotate:-2deg}
+body[data-theme=dazibao] :is(#title .t1,#title .t2,#pop){letter-spacing:-2px;font-weight:900}
+body[data-theme=dazibao] #pop{color:#FFD400;-webkit-text-stroke:8px #111;paint-order:stroke fill;text-shadow:8px 8px 0 #111}
+body[data-theme=dazibao] #sub .in{border:5px solid #111;box-shadow:8px 8px 0 #111}
+body[data-theme=dazibao] .row{border:4px solid #111}
+body[data-theme=dazibao] .row.on{box-shadow:6px 6px 0 #111}
+body[data-theme=dazibao] :is(#tag,#stamp div,#cta div){border:4px solid #111}
+body[data-theme=dazibao] #quote{border:5px solid #111;box-shadow:16px 16px 0 #111}
+body[data-theme=dazibao] #quote .bar{background:#111}
+body[data-theme=heijin] :is(#title .t2,#card h2,#quote p.em){background:linear-gradient(180deg,#FFF3D6 0%,#E2C58A 55%,#B8913F 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
+body[data-theme=heijin] #title .t2{filter:drop-shadow(0 6px 20px rgba(0,0,0,.6))}
+/* 横版：字号整体小一点 */
+body.H #sub .in{font-size:50px}body.H #sub .kwg span{font-size:56px}
+body.H #title .t1{font-size:56px}body.H #title .t2{font-size:96px}body.H #pop{font-size:104px}
+body.H #card{padding:40px 44px 26px}body.H #card h2{font-size:52px;margin-bottom:22px}
+body.H .row{font-size:44px;padding:16px 24px;margin-bottom:14px}body.H .row b{flex-basis:56px;height:56px;font-size:34px}
+body.H #quote p{font-size:52px}body.H #quote p.em{font-size:74px}
+body.H #tag{font-size:32px;padding:12px 26px}
+</style></head>
+<body class="V" data-theme="qingshuang">
+<svg width="0" height="0" style="position:absolute"><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="6"/></filter></svg>
+<div id="stage"></div>
+<div id="card" class="ov"></div>
+<div id="person"><img id="pimg"></div>
+<div id="dim"></div>
+<div id="dim2"></div>
+<div id="tag" class="ov"><i></i><span id="tagtext"></span></div>
+<div id="title" class="ov"><div class="box"><div class="t1"></div><div class="t2"></div></div></div>
+<div id="pop" class="ov"></div>
+<div id="quote" class="ov"></div>
+<div id="stamp" class="ov"></div>
+<div id="cta" class="ov"></div>
+<div id="sub" class="ov"></div>
+<script>
+let TL = null, FACES = null, FRAMEDIR = '', LAY = null;
+const $ = id => document.getElementById(id);
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const ease = x => { x = clamp(x, 0, 1); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const back = x => { x = clamp(x, 0, 1); const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const lerp = (a, b, p) => a + (b - a) * p;
+function inout(t, t0, t1, din = .3, dout = .25) { if (t < t0 || t > t1) return 0; return Math.min(clamp((t - t0) / din, 0, 1), clamp((t1 - t) / dout, 0, 1)); }
+// 版式坐标：竖版 / 横版
+const LAYOUTS = {
+  V: {W: 1080, H: 1920, tag: [56, 150], title: 1275, pop: 1300, subFull: 1540, subPip: 1630, card: {l: 64, t: 250, w: 952}, win: {x: 280, y: 1040, w: 520, h: 520},
+      quote: {l: 70, t: 1250, w: 940}, stamp: 1290, cta: 1320, shotH: 560},
+  H: {W: 1920, H: 1080, tag: [56, 56], title: 610, pop: 640, subFull: 940, subPip: 950, card: {l: 80, t: 150, w: 1200}, win: {x: 1380, y: 300, w: 460, h: 460},
+      quote: {l: 360, t: 600, w: 1200}, stamp: 640, cta: 700, shotH: 600},
+};
+function place(el, x, y, w) { el.style.left = x + 'px'; el.style.top = y + 'px'; if (w) el.style.width = w + 'px'; }
+
+function init(tl, faces, dir) {
+  TL = tl; FACES = faces; FRAMEDIR = dir;
+  document.body.className = tl.orient; document.body.dataset.theme = tl.theme;
+  LAY = LAYOUTS[tl.orient];
+  $('tagtext').textContent = tl.column || '';
+  $('tag').style.visibility = tl.column ? 'visible' : 'hidden';
+  $('title').querySelector('.t1').textContent = tl.title ? tl.title.l1 : '';
+  $('title').querySelector('.t2').textContent = tl.title ? tl.title.l2 : '';
+  place($('tag'), LAY.tag[0], LAY.tag[1]);
+  $('title').style.top = LAY.title + 'px'; $('pop').style.top = LAY.pop + 'px';
+  place($('card'), LAY.card.l, LAY.card.t, LAY.card.w);
+  place($('quote'), LAY.quote.l, LAY.quote.t, LAY.quote.w);
+  $('stamp').style.top = LAY.stamp + 'px'; $('cta').style.top = LAY.cta + 'px';
+  const P = $('pimg'); P.width = LAY.W; P.height = LAY.H;
+}
+
+function pipP(t) { let p = 0; for (const [a, b] of TL.pip) p = Math.max(p, inout(t, a, b, .5, .5)); return ease(p); }
+
+function layoutPerson(fi, p) {
+  const f = FACES[Math.min(fi, FACES.length - 1)] || [LAY.W * .3, LAY.H * .3, LAY.W * .4, LAY.W * .4];
+  const [fx, fy, fw, fh] = f;
+  const S = Math.min(Math.max(fw * 1.9, 320), LAY.W, LAY.H);
+  const cx = fx + fw / 2, cy = fy + fh * 0.6;
+  const x0 = clamp(cx - S / 2, 0, LAY.W - S), y0 = clamp(cy - S / 2, 0, LAY.H - S);
+  const win = LAY.win;
+  const crop = {x: lerp(0, x0, p), y: lerp(0, y0, p), w: lerp(LAY.W, S, p)};
+  const rect = {x: lerp(0, win.x, p), y: lerp(0, win.y, p), w: lerp(LAY.W, win.w, p), h: lerp(LAY.H, win.h, p)};
+  const k = rect.w / crop.w;
+  const P = $('person'), I = $('pimg');
+  P.style.left = rect.x + 'px'; P.style.top = rect.y + 'px'; P.style.width = rect.w + 'px'; P.style.height = rect.h + 'px';
+  P.style.borderRadius = (48 * p) + 'px';
+  P.style.boxShadow = p > 0 ? `0 0 0 ${6 * p}px var(--ring), 0 24px 60px rgba(17,19,24,${.25 * p})` : 'none';
+  I.style.width = LAY.W * k + 'px'; I.style.height = LAY.H * k + 'px';
+  I.style.left = -crop.x * k + 'px'; I.style.top = -crop.y * k + 'px';
+}
+
+function show(el, o, tf) { el.style.opacity = o; el.style.display = o > 0.001 ? '' : 'none'; if (tf !== undefined) el.style.transform = tf; }
+
+function renderSub(t, p) {
+  const el = $('sub'), L = TL.lines;
+  let cur = null;
+  for (let i = 0; i < L.length; i++) {
+    const n = i + 1 < L.length ? L[i + 1].start : 1e9;
+    if (t >= L[i].start - 0.08 && t < Math.min(n - 0.03, L[i].end + 0.6)) cur = L[i];
+  }
+  if (!cur || TL.hide_sub.includes(cur.n)) { show(el, 0); return; }
+  const k = clamp((t - cur.start + 0.08) / 0.15, 0, 1);
+  let h = '', i = 0;
+  const C = cur.chars;
+  while (i < C.length) {
+    if (!C[i][2]) { h += `<span class="${t >= C[i][1] - 0.03 ? 'lit' : ''}">${C[i][0]}</span>`; i++; continue; }
+    let j = i; while (j < C.length && C[j][2]) j++;
+    const g0 = C[i][1], lit0 = t >= g0 - 0.03;
+    const q = clamp((t - g0) / 0.22, 0, 1), sc = lit0 ? 1 + 0.16 * Math.sin(q * Math.PI) : 1;
+    h += `<span class="kwg${lit0 ? '' : ' off'}" style="transform:scale(${sc.toFixed(3)})">`;
+    for (let m = i; m < j; m++) h += `<span class="${t >= C[m][1] - 0.03 ? 'lit' : ''}">${C[m][0]}</span>`;
+    h += '</span>'; i = j;
+  }
+  el.innerHTML = `<div class="in">${h}</div>`;
+  el.className = 'ov' + (p > .5 ? ' onstage' : '');
+  el.style.top = (p > .5 ? LAY.subPip : LAY.subFull) + 'px';
+  show(el, k, `translateY(${(1 - k) * 18}px)`);
+}
+
+function cardRows(c, t) {
+  let h = '', act = -1;
+  c.rows.forEach(([r, rt], i) => { if (t >= rt - .05) act = i; });
+  c.rows.forEach(([r, rt], i) => {
+    if (t < rt - .05) { h += `<div class="row" style="opacity:0"><b>${i + 1}</b>${r}</div>`; return; }
+    const q = clamp((t - rt + .05) / .25, 0, 1);
+    h += `<div class="row${i === act ? ' on' : ''}" style="opacity:${q};transform:translateX(${(1 - q) * -30}px) scale(${i === act ? 1.03 : 1})"><b>${i + 1}</b>${r}</div>`;
+  });
+  return h;
+}
+
+function cardSteps(c, t) {
+  let h = '';
+  if (c.no) {
+    const [nt, ntime] = c.no;
+    const q = clamp((t - ntime) / .25, 0, 1), w = clamp((t - ntime - .25) / .3, 0, 1);
+    h += `<div class="no" style="opacity:${q};transform:scale(${lerp(.92, 1, back(q))})"><span class="x">✕</span><span class="nt">${nt}<span class="strike" style="width:calc(${(w * 100).toFixed(1)}% + 12px)"></span></span></div>`;
+  }
+  const any = t >= c.steps[0][1] - .1;
+  h += `<div class="lbl" style="opacity:${any ? 1 : 0}">${c.label || '要拆成：'}</div><div class="steps">`;
+  c.steps.forEach(([s, st], i) => {
+    const lit = t >= st - .05, q = clamp((t - st) / .2, 0, 1);
+    if (i) h += `<span class="arr${lit ? ' lit' : ''}" style="opacity:${any ? 1 : 0}">→</span>`;
+    h += `<div class="step${lit ? ' lit' : ''}" style="opacity:${any ? 1 : .0};transform:scale(${lit ? lerp(.94, 1, back(q)) : 1})">${s}</div>`;
+  });
+  h += '</div>';
+  if (c.yes) {
+    const [yt, ytime] = c.yes, q = clamp((t - ytime) / .25, 0, 1);
+    h += `<div class="yes" style="opacity:${q};transform:scale(${lerp(.92, 1, back(q))})"><span class="ok">✓</span>${yt}</div>`;
+  }
+  return h;
+}
+
+function cardShot(c, t) {
+  // 截图：先给全貌，到圈注的时间推近到那个位置并圈出来
+  const W = LAY.card.w - 100, H = LAY.shotH;
+  const [iw, ih] = c.size;
+  const k0 = Math.min(W / iw, H / ih);
+  let k = k0, ox = (W - iw * k0) / 2, oy = (H - ih * k0) / 2, mk = '';
+  const m = [...(c.marks || [])].reverse().find(m => t >= m[4] - .05);
+  if (m) {
+    const [mx, my, mw, mh, mt] = m;
+    const q = ease(clamp((t - mt) / .6, 0, 1));
+    const kz = Math.min(W / (mw * 1.8), H / (mh * 1.8), k0 * 2.4);
+    const k1 = Math.max(k0, kz);
+    const cx = mx + mw / 2, cy = my + mh / 2;
+    let ox1 = W / 2 - cx * k1, oy1 = H / 2 - cy * k1;
+    ox1 = clamp(ox1, W - iw * k1, 0); oy1 = clamp(oy1, H - ih * k1, 0);
+    if (iw * k1 < W) ox1 = (W - iw * k1) / 2; if (ih * k1 < H) oy1 = (H - ih * k1) / 2;
+    k = lerp(k0, k1, q); ox = lerp(ox, ox1, q); oy = lerp(oy, oy1, q);
+    const mq = clamp((t - mt - .45) / .25, 0, 1);
+    mk = `<div class="mk" style="left:${ox + mx * k - 8}px;top:${oy + my * k - 8}px;width:${mw * k + 16}px;height:${mh * k + 16}px;opacity:${mq}"></div>`;
+  }
+  return `<div class="shot" style="width:${W}px;height:${H}px"><img src="${c.src}" style="width:${iw * k}px;height:${ih * k}px;left:${ox}px;top:${oy}px">${mk}</div>`;
+}
+
+function renderCard(t, p) {
+  const el = $('card');
+  const c = TL.cards.find(c => t >= c.t0 && t <= c.t1);
+  if (!c || p < 0.01) { show(el, 0); return; }
+  const o = inout(t, c.t0, c.t1, .35, .2) * clamp(p * 1.5, 0, 1);
+  let h = c.title ? `<h2>${c.title}</h2>` : '';
+  if (c.kind === 'steps') h += cardSteps(c, t);
+  else if (c.kind === 'shot') h += cardShot(c, t);
+  else h += cardRows(c, t);
+  el.innerHTML = h;
+  show(el, o, `translateY(${(1 - o) * 40}px)`);
+}
+
+function renderQuote(t) {
+  const el = $('quote');
+  const qd = TL.quotes.find(q => t >= q.t0 && t <= q.t1);
+  if (!qd) { show(el, 0); return 0; }
+  const o = inout(t, qd.t0, qd.t1, .35, .25);
+  let h = '<div class="bar"></div>';
+  for (const [txt, pt, em] of qd.parts) {
+    const q = clamp((t - pt + .05) / .3, 0, 1);
+    h += `<p class="${em ? 'em' : ''}" style="opacity:${q};transform:translateY(${(1 - q) * 16}px) scale(${em ? lerp(.9, 1, back(q)) : 1})">${txt}</p>`;
+  }
+  el.innerHTML = h;
+  show(el, o, `translateY(${(1 - o) * 50}px)`);
+  return o;
+}
+
+function render(t, fi) {
+  const p = pipP(t);
+  layoutPerson(fi, p);
+  show($('stage'), p > 0 ? 1 : 0);
+  const tg = clamp((t - .15) / .3, 0, 1);
+  show($('tag'), tg, `translateX(${(1 - tg) * -40}px)`);
+  if (TL.title) {
+    const ti = TL.title, to = inout(t, ti.t0, ti.t1, .35, .25);
+    show($('title'), to, `translateY(${(1 - to) * 30}px)`);
+    const t2 = $('title').querySelector('.t2'), q2 = clamp((t - ti.t0 - .25) / .3, 0, 1);
+    t2.style.transform = `scale(${lerp(.7, 1, back(q2))})`; t2.style.opacity = q2;
+  } else show($('title'), 0);
+  const pp = TL.pops.find(x => t >= x.t0 && t <= x.t1);
+  if (pp) { $('pop').textContent = pp.text; show($('pop'), inout(t, pp.t0, pp.t1, .25, .2), `scale(${lerp(.6, 1, back(clamp((t - pp.t0) / .3, 0, 1)))})`); }
+  else show($('pop'), 0);
+  const qo = renderQuote(t);
+  const s = TL.stamps.find(x => t >= x.t0 && t <= x.t1);
+  if (s) { $('stamp').innerHTML = `<div>${s.a}<em>≠</em>${s.b}</div>`; show($('stamp'), inout(t, s.t0, s.t1, .2, .2), `scale(${lerp(1.5, 1, back(clamp((t - s.t0) / .25, 0, 1)))}) rotate(-4deg)`); }
+  else show($('stamp'), 0);
+  let co = 0;
+  if (TL.cta) {
+    const c = TL.cta; co = inout(t, c.t0, c.t1 + 1, .35, .2);
+    $('cta').innerHTML = `<div><i></i>${c.text}</div>`;
+    show($('cta'), co, `translateY(${(1 - co) * 40}px) scale(${lerp(.9, 1, back(clamp((t - c.t0) / .35, 0, 1)))})`);
+  } else show($('cta'), 0);
+  show($('dim'), 1 - p);
+  show($('dim2'), Math.max(qo, co) * (1 - p));
+  renderCard(t, p);
+  renderSub(t, p);
+}
+
+async function frame(fi) {
+  const t = fi / TL.fps;
+  const vf = Math.min(fi, TL.video_frames - 1);
+  const I = $('pimg');
+  const src = FRAMEDIR + String(vf).padStart(5, '0') + '.jpg';
+  if (!I.src.endsWith(src)) { I.src = src; await I.decode(); }
+  const imgs = [...document.querySelectorAll('#card img')];
+  render(t, vf);
+  for (const im of document.querySelectorAll('#card img')) { if (!im.complete) await im.decode().catch(() => 0); }
+  return t;
+}
+</script>
+</body></html>
+'''
+
 THEMES_CSS = {
     'baiban': r'''/* 风格三：手绘白板 —— 点阵白板、马克笔线条、便利贴，像老师在白板上讲，亲切好懂 */
 :root{

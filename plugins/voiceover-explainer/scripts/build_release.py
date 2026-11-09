@@ -23,7 +23,8 @@ def require(ok, msg):
 def embed_engine():
     src = PLUGIN / 'engine-src'
     parts = {'BASE_CSS': (src / 'base.css').read_text(encoding='utf-8'),
-             'ENGINE_JS': (src / 'engine.js').read_text(encoding='utf-8')}
+             'ENGINE_JS': (src / 'engine.js').read_text(encoding='utf-8'),
+             'KOUBO_PAGE': (src / 'koubo.html').read_text(encoding='utf-8')}
     themes = {p.stem: p.read_text(encoding='utf-8') for p in sorted((src / 'themes').glob('*.css'))}
     for k, v in list(parts.items()) + list(themes.items()):
         require("'''" not in v and not v.endswith('\\'), f'{k} 里有不能嵌入的字符')
@@ -89,7 +90,41 @@ def validate():
     return ver
 
 
+KOUBO_SMOKE = r"""
+import asyncio, json, sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+from PIL import Image
+from video_render import Renderer
+from video_templates import fake_tl
+d = Path(sys.argv[2]); (d / 'work').mkdir(parents=True, exist_ok=True)
+spec = {'标题': ['第一行', '“第二行”'], '字幕': '一句【重点】字幕',
+        '要点卡': {'标题': '要点卡标题', '要点': ['第一条', '第二条', '第三条'], '亮第几条': 2}, '小窗字幕': '小窗【字幕】'}
+async def main():
+    errs = []
+    for orient, (W, H) in (('V', (1080, 1920)), ('H', (1920, 1080))):
+        fdir = d / orient; fdir.mkdir(exist_ok=True)
+        Image.new('RGB', (W, H), (90, 90, 90)).save(fdir / '00000.jpg')
+        for kind in ('full', 'pip'):
+            tl = fake_tl({'orient': orient}, {'栏目': '老板问答'}, spec, kind)
+            for th in ('qingshuang', 'heijin', 'baiban', 'dazibao'):
+                tl['theme'] = th
+                async with Renderer(d, tl, [[W * .3, H * .3, W * .3, W * .3]], fdir) as R:
+                    R.pg.on('pageerror', lambda e: errs.append(str(e)))
+                    await R.shot(24, d / f'{orient}_{kind}_{th}.jpg')
+    print('口播剪辑页面：16 种组合', '全部正常' if not errs else '出错：' + '；'.join(errs[:3]))
+    sys.exit(1 if errs else 0)
+asyncio.run(main())
+"""
+
+
 def smoke():
+    with tempfile.TemporaryDirectory() as t:
+        f = Path(t) / 'koubo_smoke.py'
+        f.write_text(KOUBO_SMOKE, encoding='utf-8')
+        r = subprocess.run([sys.executable, str(f), str(SKILL / 'scripts'), str(Path(t) / 'k')], capture_output=True, text=True)
+        print(r.stdout[-400:], r.stderr[-800:] if r.returncode else '')
+        require(r.returncode == 0, '口播剪辑页面检查没通过')
     with tempfile.TemporaryDirectory() as t:
         ex = Path(t) / '示例'
         subprocess.run([sys.executable, str(SKILL / 'scripts/example_project.py'), str(ex)], check=True)
