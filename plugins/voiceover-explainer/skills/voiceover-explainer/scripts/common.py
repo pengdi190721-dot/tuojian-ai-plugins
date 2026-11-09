@@ -1,4 +1,4 @@
-"""口播科普动画 · 公共工具（路径、读项目、读口播稿、找剪辑工具、开浏览器）"""
+"""口播剪辑助手 · 公共工具（路径、读项目、读口播稿、找剪辑工具、开浏览器）"""
 import json, os, re, shutil, subprocess, sys
 from pathlib import Path
 

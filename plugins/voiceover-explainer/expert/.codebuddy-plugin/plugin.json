@@ -1,0 +1,73 @@
+{
+  "name": "koubo-editing-assistant",
+  "version": "2.1.0",
+  "description": "Talking-head video editor: cuts retakes and pauses, adds picture-in-picture, cards, quote cards and captions, and delivers the final video; also makes screenshot explainers.",
+  "author": {
+    "name": "彭迪",
+    "email": "398216309@qq.com"
+  },
+  "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/voiceover-explainer",
+  "license": "MIT",
+  "keywords": [
+    "口播",
+    "口播剪辑",
+    "视频包装",
+    "科普视频",
+    "字幕"
+  ],
+  "expertType": "agent",
+  "agents": [
+    "./agents/koubo-editing-assistant.md"
+  ],
+  "agentName": "koubo-editing-assistant",
+  "skills": [
+    "./skills/voiceover-explainer"
+  ],
+  "displayName": {
+    "en": "Talking-Head Edit Assistant",
+    "zh": "口播剪辑助手"
+  },
+  "profession": {
+    "en": "Talking-head Video Editor",
+    "zh": "口播视频剪辑包装师"
+  },
+  "displayDescription": {
+    "en": "Send a talking-head video and get a finished cut: retakes and pauses removed, picture-in-picture, key-point cards, quote cards and captions added. Also makes screenshot explainers.",
+    "zh": "发来出镜口播视频，自动剪掉口误和停顿，加小窗、要点卡、金句卡和字幕，直接出成片，也能做截图科普动画"
+  },
+  "avatar": "avatars/koubo-editing-assistant.png",
+  "categoryId": "06-ContentCreative",
+  "defaultInitPrompt": {
+    "en": "Here is my talking-head video. Please edit and package it, and show me the cut list and style templates first.",
+    "zh": "这是我出镜录的口播视频，帮我剪辑加包装，先给我剪辑单和模版图。"
+  },
+  "plugin": "koubo-editing-assistant",
+  "tags": [
+    {
+      "en": "Talking-head editing",
+      "zh": "口播剪辑"
+    },
+    {
+      "en": "Video packaging",
+      "zh": "视频包装"
+    },
+    {
+      "en": "Explainer animation",
+      "zh": "科普动画"
+    }
+  ],
+  "quickPrompts": [
+    {
+      "en": "Here is my talking-head video. Please edit and package it, and show me the cut list and style templates first.",
+      "zh": "这是我出镜录的口播视频，帮我剪辑加包装，先给我剪辑单和模版图。"
+    },
+    {
+      "en": "I want an explainer video about a piece of software. Here are the outline and screenshots; please write the voiceover script first.",
+      "zh": "我想做一条讲清楚某个软件的科普视频，大致内容和截图发你，先帮我写口播稿。"
+    },
+    {
+      "en": "Here are my recorded video and a few screenshots. Turn them into an explainer with annotated screenshot animations.",
+      "zh": "录好的口播视频和几张截图发你，帮我做成截图配圈注动画的科普视频。"
+    }
+  ]
+}

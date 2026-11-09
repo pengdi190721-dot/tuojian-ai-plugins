@@ -1,5 +1,5 @@
 interface:
-  display_name: "口播科普动画"
+  display_name: "口播剪辑助手"
   short_description: "口播视频剪辑加包装、科普动画，直接出成片，四种风格可选"
   default_prompt: "请使用 $voiceover-explainer。这是我出镜录的口播视频，帮我剪辑加包装，先给我剪辑单和模版图。"
 policy:

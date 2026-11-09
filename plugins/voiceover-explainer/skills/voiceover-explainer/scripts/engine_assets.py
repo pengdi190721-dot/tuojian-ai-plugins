@@ -2,7 +2,7 @@
 要改样式或动画，改插件目录 engine-src/ 里的文件，再运行 scripts/build_release.py。
 项目里想微调，用 project.json 的“自定义样式”加一个 css 文件。"""
 
-BASE_CSS = r'''/* 口播科普动画 · 基础样式 v1.0.0
+BASE_CSS = r'''/* 口播剪辑助手 · 基础样式 v1.0.0
    颜色、字体全部来自风格表里的变量，这里只管位置和形状。
    横版 body.H = 1920×1080，竖版 body.V = 1080×1920。 */
 *{box-sizing:border-box;margin:0;padding:0}
@@ -132,7 +132,7 @@ body.V .h-huge{font-size:104px}
 .bubble::after{content:'';position:absolute;left:40px;bottom:-18px;border:12px solid transparent;border-top:18px solid var(--card)}
 '''
 
-ENGINE_JS = r'''/* 口播科普动画 · 引擎 v1.0.0
+ENGINE_JS = r'''/* 口播剪辑助手 · 引擎 v1.0.0
    页面里的每个元素什么时候出现、怎么动、什么时候配音效，都由这里根据口播时间算出来。
    生成页面时，build.py 会先放入 TL（每个字的时间）、SUBS（字幕）、PROJ（段落信息），再放入本文件和画面里的脚本。 */
 (function () {

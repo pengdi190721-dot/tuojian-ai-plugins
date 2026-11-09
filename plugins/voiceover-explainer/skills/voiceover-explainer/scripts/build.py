@@ -111,7 +111,7 @@ def build(d, theme=None, orient=None, out=None, quiet=False):
     if cfg.get('自定义样式') and (d / cfg['自定义样式']).exists():
         tcss += '\n' + (d / cfg['自定义样式']).read_text(encoding='utf-8')
     html = f'''<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><base href="{d.as_uri()}/">
-<title>{cfg.get('系列名') or '口播科普动画'}</title><style>{base}</style><style>{tcss}</style></head>
+<title>{cfg.get('系列名') or '口播剪辑助手'}</title><style>{base}</style><style>{tcss}</style></head>
 <body class="{'V' if orient == '竖' else 'H'} theme-{theme}">{ROUGH}<div id="stage">
 <div id="topbar"><div class="badge">{cfg['栏目标签']}</div><div class="series">{cfg['系列名']}</div></div>
 <div id="chapters"></div>
