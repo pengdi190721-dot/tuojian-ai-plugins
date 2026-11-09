@@ -204,7 +204,8 @@ def sync_expert_rules():
     src = (SKILL / 'references' / '专家守则.md').read_text(encoding='utf-8')
     body = re.sub(r'\[([^\]]+)\]\((?!http)[^)]+\)', r'\1', src)   # 专家包里路径不同，链接改成纯文字
     body = body.replace('本技能的 SKILL.md', f'技能 {NAME} 的 SKILL.md').replace('再读 口播剪辑', '再读它的 references/口播剪辑.md')
-    ag = EXPERT / 'agents' / 'koubo-editing-assistant.md'
+    name = json.loads((EXPERT / '.codebuddy-plugin/plugin.json').read_text(encoding='utf-8'))['agentName']
+    ag = EXPERT / 'agents' / f'{name}.md'
     front = re.match(r'\A(---\n.*?\n---\n)', ag.read_text(encoding='utf-8'), re.S).group(1)
     ag.write_text(front + '\n' + body, encoding='utf-8')
 

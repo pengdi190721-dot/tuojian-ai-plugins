@@ -5,15 +5,15 @@
 - **口播剪辑加包装成片**：发来出镜口播视频，剪掉口误、念错重来和长停顿，加人像小窗、要点卡、金句卡、动态字幕和音效，直接出成片。
 - **口播科普视频成片**：发想法和截图，先写口播稿，录音后用截图配圈注动画出科普视频。
 
-专家守则在 `agents/koubo-editing-assistant.md`：分线、每条回复的格式、两条线的步骤和停顿点、一条消息定方案、硬规矩、判断规矩、默认值、交付返修、出问题怎么办。具体命令和文件写法在 `skills/voiceover-explainer/`（同仓库的“口播剪辑助手”技能）。
+专家守则在 `agents/voiceover-explainer.md`：分线、每条回复的格式、两条线的步骤和停顿点、一条消息定方案、硬规矩、判断规矩、默认值、交付返修、出问题怎么办。具体命令和文件写法在 `skills/voiceover-explainer/`（同仓库的“口播剪辑助手”技能）。
 
 ## 包里有什么
 
 ```
-koubo-editing-assistant/
+voiceover-explainer/
 ├── .codebuddy-plugin/plugin.json      专家配置（标识、名称、头衔、描述、分类、标签、推荐提示词）
-├── agents/koubo-editing-assistant.md  专家守则（系统提示词）
-├── avatars/koubo-editing-assistant.png 头像，512×512
+├── agents/voiceover-explainer.md  专家守则（系统提示词）
+├── avatars/voiceover-explainer.png 头像，512×512
 ├── skills/voiceover-explainer/         技能：脚本、动画引擎、参考文档
 └── README.md
 ```

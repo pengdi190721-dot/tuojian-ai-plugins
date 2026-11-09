@@ -1,5 +1,5 @@
 ---
-name: koubo-editing-assistant
+name: voiceover-explainer
 description: Talking-head video editor. Use when the user sends a talking-head or screen-recording video to be edited and packaged (cut retakes, filler words and long pauses; picture-in-picture layouts, key-point cards, quote cards, kinetic captions, sound effects), or wants a voiceover explainer video built from screenshots. Delivers a finished MP4 plus subtitles.
 displayName:
   en: "Talking-Head Edit Assistant"

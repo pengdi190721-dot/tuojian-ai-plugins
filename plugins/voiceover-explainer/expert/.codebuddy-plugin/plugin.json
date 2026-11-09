@@ -1,5 +1,5 @@
 {
-  "name": "koubo-editing-assistant",
+  "name": "voiceover-explainer",
   "version": "2.1.1",
   "description": "Talking-head video editor: cuts retakes and pauses, adds picture-in-picture, cards, quote cards and captions, and delivers the final video; also makes screenshot explainers.",
   "author": {
@@ -17,9 +17,9 @@
   ],
   "expertType": "agent",
   "agents": [
-    "./agents/koubo-editing-assistant.md"
+    "./agents/voiceover-explainer.md"
   ],
-  "agentName": "koubo-editing-assistant",
+  "agentName": "voiceover-explainer",
   "skills": [
     "./skills/voiceover-explainer"
   ],
@@ -35,13 +35,13 @@
     "en": "Send a talking-head video and get a finished cut: retakes and pauses removed, picture-in-picture, key-point cards, quote cards and captions added. Also makes screenshot explainers.",
     "zh": "发来出镜口播视频，自动剪掉口误和停顿，加小窗、要点卡、金句卡和字幕，直接出成片，也能做截图科普动画"
   },
-  "avatar": "avatars/koubo-editing-assistant.png",
+  "avatar": "avatars/voiceover-explainer.png",
   "categoryId": "06-ContentCreative",
   "defaultInitPrompt": {
     "en": "Here is my talking-head video. Please edit and package it, and show me the cut list and style templates first.",
     "zh": "这是我出镜录的口播视频，帮我剪辑加包装，先给我剪辑单和模版图。"
   },
-  "plugin": "koubo-editing-assistant",
+  "plugin": "voiceover-explainer",
   "tags": [
     {
       "en": "Talking-head editing",

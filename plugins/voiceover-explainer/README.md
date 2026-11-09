@@ -53,7 +53,7 @@
 
 在 WorkBuddy 里自己创建的专家：上传 `output/voiceover-explainer-独立技能包-版本号.zip` 更新版本即可（守则已在技能里）。要走开放平台上架，用这里的专家包，源文件在 `expert/`：
 
-- `expert/agents/koubo-editing-assistant.md`：专家守则（正文由打包脚本从 `skills/voiceover-explainer/references/专家守则.md` 同步，改守则只改那一份）（分线、回复格式、两条线的步骤和停顿点、一条消息定方案、硬规矩、判断规矩、默认值、交付返修、出问题怎么办）
+- `expert/agents/voiceover-explainer.md`：专家守则（正文由打包脚本从 `skills/voiceover-explainer/references/专家守则.md` 同步，改守则只改那一份）（分线、回复格式、两条线的步骤和停顿点、一条消息定方案、硬规矩、判断规矩、默认值、交付返修、出问题怎么办）
 - `expert/.codebuddy-plugin/plugin.json`：专家配置（按 WorkBuddy 开放平台的专家包规范）
 - `expert/avatars/`：头像，放你自己的（512×512 的 PNG 或 JPG，不超过 500KB）；没放头像时只出技能包，不出专家包
 
