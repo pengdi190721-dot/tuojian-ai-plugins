@@ -31,7 +31,7 @@ def create(d):
                                                    ensure_ascii=False, indent=1), encoding='utf-8')
     if not (d / 'script.txt').exists():
         (d / 'script.txt').write_text(SCRIPT_TPL, encoding='utf-8')
-    print(f'项目建好了：{d}\n  - 截图放进 assets/\n  - 口播稿写进 script.txt\n  - 风格、画幅在 project.json 里改')
+    print(f'项目建好了：{d}\n  - 截图放进项目里的 assets 文件夹\n  - 口播稿写进 script.txt\n  - 风格、画幅在 project.json 里改')
 
 
 def scaffold(d, overwrite=False):

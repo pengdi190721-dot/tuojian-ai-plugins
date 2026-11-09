@@ -2,10 +2,10 @@
 name: voiceover-explainer
 description: 口播视频成片专家，干两件事——A 口播剪辑加包装成片：用户发来自己出镜的口播视频，AI 剪掉念错重来、语气词和长停顿，做人像全屏和圆角小窗切换、要点卡、金句卡、动态字幕和音效，直接出成片；B 口播科普视频成片：用户发想法和截图，AI 写口播稿，用户录音（或发录好的录音、视频），AI 用截图配圈注动画出科普视频。四种包装风格，横版竖版都行。用户说“剪一下这条口播”“口播视频加包装”“做个科普视频”“把这段口播做成动画”“用截图讲清楚某个软件”时使用。不做美颜、不加背景音乐。
 metadata:
-  version: "2.1.1"
+  version: "2.1.2"
 ---
 
-# 口播剪辑助手 v2.1.1
+# 口播剪辑助手 v2.1.2
 
 这个专家只干两件事：
 
@@ -16,7 +16,7 @@ metadata:
 
 > **每次开工前先读 [专家守则](references/专家守则.md)**：分线、每条回复的格式、哪一步停、一条消息定方案、九条硬规矩、默认值、交付返修、出问题怎么办。守则管“什么时候做什么、什么绝对不能做”，这份 SKILL.md 管“具体怎么做”；两者冲突时以守则为准。
 
-下面的 `scripts/xxx.py` 都指**本技能目录里的 scripts**，运行时用完整路径；`项目` 指这条视频的项目文件夹（用户指定的位置，没指定就在当前工作目录下建一个）。要在用户电脑上运行（WorkBuddy 选本地模式）。第一次用先跑 `python3 scripts/check_env.py --install` 和 `python3 scripts/check_env.py --download`（装程序、下语音识别模型，约 230MB，只下一次），可以在等用户回复的时候顺手装。
+下面提到的脚本都放在**本技能目录的 scripts 文件夹**里，运行时写完整路径；`项目` 指这条视频的项目文件夹（用户指定的位置，没指定就在当前工作目录下建一个）。要在用户电脑上运行（WorkBuddy 选本地模式）。第一次用先跑 `python3 scripts/check_env.py --install` 和 `python3 scripts/check_env.py --download`（装程序、下语音识别模型，约 230MB，只下一次），可以在等用户回复的时候顺手装。
 
 ---
 
@@ -98,7 +98,7 @@ B5 写全部画面 → 逐句自查 → 渲染全片 → 核对字幕
 B6 交付
 ```
 
-所有脚本用法：`python3 scripts/脚本名.py 项目目录 …`。想先看看做出来什么样：`python3 scripts/example_project.py 示例目录`，再跑 `render.py 示例目录 样片 36 60`。
+所有脚本的用法都一样：python3 加脚本的完整路径，后面跟项目目录。想先看看做出来什么样：`python3 scripts/example_project.py 示例目录`，再跑 `render.py 示例目录 样片 36 60`。
 
 ### B1 收想法和截图
 
@@ -146,7 +146,7 @@ B6 交付
 
 | 位置 | 是什么 |
 |---|---|
-| `scripts/video_*.py` | A 线：prepare 收视频听写、templates 模版图、cut 剪辑、frames 拆帧跟脸、build 时间线、render 渲染、finish 收尾 |
+| scripts 文件夹里 video_ 开头的脚本 | A 线：prepare 收视频听写、templates 模版图、cut 剪辑、frames 拆帧跟脸、build 时间线、render 渲染、finish 收尾 |
 | `scripts/jianying_draft.py` | 剪映草稿（试验，用户说要才出） |
 | `scripts/` 其余 | B 线流程脚本、环境检查（check_env）、公共工具 |
 | `scripts/engine_assets.py` | 两条线的动画引擎和四种风格（自动生成，一般不用改） |

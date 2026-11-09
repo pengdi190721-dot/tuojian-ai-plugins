@@ -28,7 +28,7 @@ def embed_engine():
     themes = {p.stem: p.read_text(encoding='utf-8') for p in sorted((src / 'themes').glob('*.css'))}
     for k, v in list(parts.items()) + list(themes.items()):
         require("'''" not in v and not v.endswith('\\'), f'{k} 里有不能嵌入的字符')
-    out = ['"""动画引擎（自动生成，不要直接改）。\n要改样式或动画，改插件目录 engine-src/ 里的文件，再运行 scripts/build_release.py。\n项目里想微调，用 project.json 的“自定义样式”加一个 css 文件。"""', '']
+    out = ['"""动画引擎（自动生成，不要直接改）。\n要改样式或动画，改插件源码里 engine-src 文件夹的文件，再运行插件的打包脚本 build_release。\n项目里想微调，用 project.json 的“自定义样式”加一个 css 文件。"""', '']
     for k, v in parts.items():
         out.append(f"{k} = r'''{v}'''\n")
     out.append('THEMES_CSS = {')
@@ -195,6 +195,7 @@ def validate_expert(ver):
     for s in re.findall(r'(?m)^  - (.+)$', fm.split('skills:')[-1]) if 'skills:' in fm else []:
         require(s.strip() == NAME, f'专家守则预加载的技能「{s}」不在包里')
     require(j.get('skills') == [f'./skills/{NAME}'], '专家包 skills 要指向 ./skills/' + NAME)
+    require(f'版本 {ver}' in (EXPERT / 'README.md').read_text(encoding='utf-8'), '专家包 README 里的版本号没跟着改')
     print(f"专家包检查通过：{j['displayName']['zh']}（{name}），描述 {n} 字")
     return j
 
@@ -203,7 +204,7 @@ def sync_expert_rules():
     """专家守则只维护一份（技能里的 references/专家守则.md），打包时同步进专家包的 agent 文件"""
     src = (SKILL / 'references' / '专家守则.md').read_text(encoding='utf-8')
     body = re.sub(r'\[([^\]]+)\]\((?!http)[^)]+\)', r'\1', src)   # 专家包里路径不同，链接改成纯文字
-    body = body.replace('本技能的 SKILL.md', f'技能 {NAME} 的 SKILL.md').replace('再读 口播剪辑', '再读它的 references/口播剪辑.md')
+    body = body.replace('本技能的 SKILL.md', f'skills/{NAME}/SKILL.md').replace('再读 口播剪辑', f'再读 skills/{NAME}/references/口播剪辑.md')
     name = json.loads((EXPERT / '.codebuddy-plugin/plugin.json').read_text(encoding='utf-8'))['agentName']
     ag = EXPERT / 'agents' / f'{name}.md'
     front = re.match(r'\A(---\n.*?\n---\n)', ag.read_text(encoding='utf-8'), re.S).group(1)
@@ -227,6 +228,15 @@ def package_expert(ver, out):
             if p.is_file() and not skip(p):
                 f.write(p, Path('skills') / NAME / p.relative_to(SKILL))
     print('已构建：', z.name, '（压缩包根目录就是 .codebuddy-plugin、agents、avatars、skills）')
+    sys.path.insert(0, str(PLUGIN / 'scripts'))
+    import check_refs
+    with tempfile.TemporaryDirectory() as t:
+        zipfile.ZipFile(z).extractall(t)
+        ps = check_refs.check(t)
+    for doc, ref, why in ps:
+        print(f'  【问题】{doc}：{why} → {ref}')
+    require(not ps, '专家包里有文档提到了包里没有的文件（平台会判“内置文件缺失”驳回）')
+    print('专家包引用检查：文档里提到的文件全部找得到')
 
 
 if __name__ == '__main__':

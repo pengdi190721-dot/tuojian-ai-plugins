@@ -180,7 +180,9 @@ def build(d):
             else:
                 img = d / it['图']
                 if not img.exists():
-                    bad(f'截图找不到：{it["图"]}（放进项目的 assets/ 文件夹，写成 "assets/文件名.png"）')
+                    img = d / 'assets' / it['图']
+                if not img.exists():
+                    bad(f'截图找不到：{it["图"]}（截图放进项目的 assets 文件夹，“图”里写截图的文件名）')
                 from PIL import Image
                 c['kind'] = 'shot'; c['src'] = img.resolve().as_uri(); c['size'] = list(Image.open(img).size)
                 c['marks'] = [[m[0], m[1], m[2], m[3], R.t(m[4])] for m in it.get('圈', [])]

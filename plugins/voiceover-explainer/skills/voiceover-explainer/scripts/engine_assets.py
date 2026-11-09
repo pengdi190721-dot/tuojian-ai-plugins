@@ -1,5 +1,5 @@
 """动画引擎（自动生成，不要直接改）。
-要改样式或动画，改插件目录 engine-src/ 里的文件，再运行 scripts/build_release.py。
+要改样式或动画，改插件源码里 engine-src 文件夹的文件，再运行插件的打包脚本 build_release。
 项目里想微调，用 project.json 的“自定义样式”加一个 css 文件。"""
 
 BASE_CSS = r'''/* 口播剪辑助手 · 基础样式 v1.0.0
