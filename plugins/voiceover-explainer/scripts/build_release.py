@@ -203,8 +203,12 @@ def validate_expert(ver):
 def sync_expert_rules():
     """专家守则只维护一份（技能里的 references/专家守则.md），打包时同步进专家包的 agent 文件"""
     src = (SKILL / 'references' / '专家守则.md').read_text(encoding='utf-8')
-    body = re.sub(r'\[([^\]]+)\]\((?!http)[^)]+\)', r'\1', src)   # 专家包里路径不同，链接改成纯文字
-    body = body.replace('本技能的 SKILL.md', f'skills/{NAME}/SKILL.md').replace('再读 口播剪辑', f'再读 skills/{NAME}/references/口播剪辑.md')
+    def link(m):   # 专家包里 agent 文件在最外层，链接改成从包的最外层写起的路径
+        text, target = m.group(1), m.group(2)
+        rel = (SKILL / 'references' / target).resolve().relative_to(SKILL.resolve()).as_posix()
+        path = f'skills/{NAME}/{rel}'
+        return path if text == Path(rel).name else f'{text}（{path}）'
+    body = re.sub(r'\[([^\]]+)\]\((?!http)([^)#]+)\)', link, src)
     name = json.loads((EXPERT / '.codebuddy-plugin/plugin.json').read_text(encoding='utf-8'))['agentName']
     ag = EXPERT / 'agents' / f'{name}.md'
     front = re.match(r'\A(---\n.*?\n---\n)', ag.read_text(encoding='utf-8'), re.S).group(1)

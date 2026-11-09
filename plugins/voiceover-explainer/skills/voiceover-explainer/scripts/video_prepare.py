@@ -139,6 +139,30 @@ def suggest(segs, dur):
     return out
 
 
+def asr_missing():
+    """听写要的东西缺什么；都齐了返回空"""
+    try:
+        import sherpa_onnx  # noqa: F401
+    except Exception:
+        return '没装 sherpa-onnx'
+    try:
+        model_paths()
+    except SystemExit:
+        return '没有语音识别模型'
+    return ''
+
+
+def no_asr(wav16, out_txt, why):
+    """装不上听写时：只按声音找出每段说话的起止时间，照样能看开头结尾空白和长停顿"""
+    y = read_wav_mono(wav16, SR16)
+    segs = [{'start': round(a, 3), 'end': round(b, 3), 'text': '', 'toks': []} for a, b in speech_segments(y, SR16)]
+    with open(out_txt, 'w', encoding='utf-8') as f:
+        f.write(f'# 听写跳过（{why}）。下面只有每段说话的起止时间，没有文字。装好后重跑 video_prepare.py 就会补上听写\n')
+        for i, s in enumerate(segs, 1):
+            f.write(f"{i:3d}  {s['start']:7.2f}–{s['end']:7.2f}  （没听写）\n")
+    return segs, len(y) / SR16
+
+
 def pauses(segs):
     return [(a['end'], b['start']) for a, b in zip(segs, segs[1:]) if b['start'] - a['end'] > 0.6]
 
@@ -170,25 +194,45 @@ def main():
     cfg['视频文件'] = meta['files']
     save_cfg(d, cfg)
     run_ff(['-i', d / 'work' / 'src.mov', '-vn', '-ac', '1', '-ar', SR16, d / 'work' / 'a16.wav'])
-    print('听写中…')
-    segs, dur = asr_file(d / 'work' / 'a16.wav', d / 'work' / 'asr_src.json', d / 'work' / '听写结果.txt')
+    miss = asr_missing()
+    if miss:
+        print(f'听写跳过（{miss}），先按声音找停顿…')
+        segs, dur = no_asr(d / 'work' / 'a16.wav', d / 'work' / '听写结果.txt', miss)
+    else:
+        print('听写中…')
+        segs, dur = asr_file(d / 'work' / 'a16.wav', d / 'work' / 'asr_src.json', d / 'work' / '听写结果.txt')
     sug = suggest(segs, dur)
     ps = pauses(segs)
     with open(d / 'work' / '剪辑建议.txt', 'w', encoding='utf-8') as f:
         f.write('# 剪辑建议（自动找的，AI 必须对照 听写结果.txt 逐条判断，同意的抄进项目目录的 剪掉.txt）\n')
+        if miss:
+            f.write(f'# 这次听写跳过了（{miss}），只找了开头结尾空白和长停顿；念错重来、语气词要等听写后才找得出来\n')
         f.write('# 剪掉.txt 每行一段：开始秒-结束秒 说明，例如：9.10-13.60 第一遍“这个要看情况”\n')
         f.write('# 时间都是原视频的秒数；超过 0.6 秒的停顿不用写，剪辑时会自动压到 0.3 秒左右\n\n')
         for a, b, why in sug:
             f.write(f'{max(0, a):.2f}-{b:.2f}  {why}\n')
-        f.write(f'\n# 另有 {len(ps)} 处超过 0.6 秒的停顿，会自动压短\n')
-    face, br = sample_frames(d, meta)
-    print(f"\n准备好了：{'、'.join(meta['files'])}，{meta['画幅']}版，{meta['fps']} 帧/秒，{dur:.1f} 秒，听写 {len(segs)} 段")
+        f.write(f'\n# 另有 {len(ps)} 处超过 0.6 秒的停顿，会自动压短：\n')
+        for a, b in ps:
+            f.write(f'#   {fmt_t(a)}–{fmt_t(b)}（{b - a:.1f} 秒）\n')
+    try:
+        face, br = sample_frames(d, meta)
+    except ImportError:
+        face = br = None
+    print(f"\n准备好了：{'、'.join(meta['files'])}，{meta['画幅']}版，{meta['fps']} 帧/秒，{dur:.1f} 秒，"
+          + (f'说话 {len(segs)} 段（没听写）' if miss else f'听写 {len(segs)} 段'))
     print(f'剪辑建议 {len(sug)} 条，长停顿 {len(ps)} 处 → 看 work/听写结果.txt 和 work/剪辑建议.txt')
-    print(f'画面：{face:.0%} 的抽帧找到人脸，平均亮度 {br:.0f}（低于 70 偏暗）→ 看 work/抽帧/')
-    if face < 0.5:
-        print('【注意】很多画面找不到人脸：可能是录屏或者人不在画面里，这条不做人像小窗，只用全屏版式')
-    if br < 70:
-        print('【注意】画面偏暗，按原样用；太暗的话在定方案时告诉用户可以考虑重拍')
+    if face is None:
+        print('画面：没装 opencv，没抽帧（运行 check_env.py --install 装上）')
+    else:
+        print(f'画面：{face:.0%} 的抽帧找到人脸，平均亮度 {br:.0f}（低于 70 偏暗）→ 看 work/抽帧/')
+        if face < 0.5:
+            print('【注意】很多画面找不到人脸：可能是录屏或者人不在画面里，这条不做人像小窗，只用全屏版式')
+        if br < 70:
+            print('【注意】画面偏暗，按原样用；太暗的话在定方案时告诉用户可以考虑重拍')
+    if miss:
+        print(f'【听写跳过】{miss}，剪辑单只能先给开头结尾空白和长停顿。照守则硬规矩第 9 条：先把能定的发给用户'
+              '（这部分剪辑单、模版图、画面情况），请他贴口播稿或逐字稿，或者在能联网的电脑上用 WorkBuddy 本地模式再发一次视频；'
+              '装好后重跑本脚本就会补上听写。')
 
 
 if __name__ == '__main__':

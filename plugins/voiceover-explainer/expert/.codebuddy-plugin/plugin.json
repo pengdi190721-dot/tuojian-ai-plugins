@@ -1,6 +1,6 @@
 {
   "name": "voiceover-explainer",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Talking-head video editor: cuts retakes and pauses, adds picture-in-picture, cards, quote cards and captions, and delivers the final video; also makes screenshot explainers.",
   "author": {
     "name": "彭迪",
@@ -38,8 +38,8 @@
   "avatar": "avatars/voiceover-explainer.png",
   "categoryId": "06-ContentCreative",
   "defaultInitPrompt": {
-    "en": "Here is my talking-head video. Please edit and package it, and show me the cut list and style templates first.",
-    "zh": "这是我出镜录的口播视频，帮我剪辑加包装，先给我剪辑单和模版图。"
+    "en": "I'm filming a talking-head video on why AI-written copy still needs a human edit at the end. Write me a script that is easy to say on camera, and mark where the key-point cards, quote cards and picture-in-picture should go.",
+    "zh": "我要拍一条出镜口播，讲“用AI写的文案为什么最后还要人工改一遍”，帮我写成好念的口播稿，标出哪里放要点卡、金句卡和小窗。"
   },
   "plugin": "voiceover-explainer",
   "tags": [
@@ -58,16 +58,16 @@
   ],
   "quickPrompts": [
     {
-      "en": "Here is my talking-head video. Please edit and package it, and show me the cut list and style templates first.",
-      "zh": "这是我出镜录的口播视频，帮我剪辑加包装，先给我剪辑单和模版图。"
+      "en": "I'm filming a talking-head video on why AI-written copy still needs a human edit at the end. Write me a script that is easy to say on camera, and mark where the key-point cards, quote cards and picture-in-picture should go.",
+      "zh": "我要拍一条出镜口播，讲“用AI写的文案为什么最后还要人工改一遍”，帮我写成好念的口播稿，标出哪里放要点卡、金句卡和小窗。"
     },
     {
-      "en": "I want an explainer video about a piece of software. Here are the outline and screenshots; please write the voiceover script first.",
-      "zh": "我想做一条讲清楚某个软件的科普视频，大致内容和截图发你，先帮我写口播稿。"
+      "en": "Tell me what to cut and how to package this talking-head take: “We're also using AI now, uh, also using AI for operations, but in the end, in the end someone still has to adjust it by hand.”",
+      "zh": "帮我判断这段口播哪里该剪、怎么包装：“我们公司现在也在用AI，呃，现在也在用AI做运营，但是最后啊，最后还是要人工再调一遍。”"
     },
     {
-      "en": "Here are my recorded video and a few screenshots. Turn them into an explainer with annotated screenshot animations.",
-      "zh": "录好的口播视频和几张截图发你，帮我做成截图配圈注动画的科普视频。"
+      "en": "I want a screenshot explainer video on how to build an order-tracking table in DingTalk Sheets. Write the voiceover script with a visual plan for each part first, then list the screenshots I need to prepare.",
+      "zh": "我想做一条截图科普视频，讲清楚“钉钉表格怎么搭订单跟进表”，先帮我写口播稿和每段的画面对照，再列出要准备哪些截图。"
     }
   ]
 }
