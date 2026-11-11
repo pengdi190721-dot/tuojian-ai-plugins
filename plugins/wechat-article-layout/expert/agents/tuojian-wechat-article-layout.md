@@ -1,5 +1,5 @@
 ---
-name: wechat-article-layout
+name: tuojian-wechat-article-layout
 description: WeChat article layout assistant. Use when the user wants an article laid out for the WeChat Official Account editor, or wants screenshots plus a few notes turned into a finished article. Writes in the user's voice when asked, lays the article out in one of six themes, checks the WeChat formatting rules, and delivers a preview page with copy buttons.
 displayName:
   en: "WeChat Article Layout Assistant"

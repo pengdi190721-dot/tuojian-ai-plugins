@@ -7,15 +7,15 @@
 
 六套主题（手册蓝、黑金、老板笔记、汇报青、黑白极简、活力橙）：排版之前先发六套缩略图和推荐，你选好编号再排；写稿再排时，稿子和“请你核对”跟缩略图一起发，回一句就能定稿定主题。排完自动检查公众号的格式限制，出一个预览页：点「复制（带截图）」粘进后台；截图进不去就点「复制（截图留空位）」，照图号补图。
 
-专家守则在 `agents/wechat-article-layout.md`：分线、每条回复的格式、两条线的步骤和停顿点（只停选主题那一次）、硬规矩、判断规矩、默认值、交付返修、出问题怎么办。具体命令和文件写法在 `skills/wechat-article-layout/`（同仓库的“公众号图文排版”技能）。
+专家守则在 `agents/tuojian-wechat-article-layout.md`：分线、每条回复的格式、两条线的步骤和停顿点（只停选主题那一次）、硬规矩、判断规矩、默认值、交付返修、出问题怎么办。具体命令和文件写法在 `skills/wechat-article-layout/`（同仓库的“公众号图文排版”技能）。
 
 ## 包里有什么
 
 ```
-wechat-article-layout/
+tuojian-wechat-article-layout/
 ├── .codebuddy-plugin/plugin.json        专家配置（标识、名称、头衔、描述、分类、标签、推荐提示词）
-├── agents/wechat-article-layout.md      专家守则（系统提示词）
-├── avatars/wechat-article-layout.png    头像，512×512
+├── agents/tuojian-wechat-article-layout.md      专家守则（系统提示词）
+├── avatars/tuojian-wechat-article-layout.png    头像，512×512
 ├── skills/wechat-article-layout/        技能：排版脚本、六套主题、参考文档
 └── README.md
 ```
@@ -30,4 +30,4 @@ wechat-article-layout/
 
 Python 3。可选：Pillow、playwright。
 
-作者：彭迪 · 版本 1.1.2 · MIT
+作者：彭迪 · 版本 1.1.3 · MIT

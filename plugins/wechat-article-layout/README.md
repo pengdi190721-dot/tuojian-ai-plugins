@@ -7,7 +7,7 @@
 
 六套主题用缩略图挑，排完自动检查，出一个预览页，点“复制”就能粘进公众号后台。
 
-版本：1.1.2 · 作者：彭迪 · 技能标识：wechat-article-layout
+版本：1.1.3 · 作者：彭迪 · 技能标识：wechat-article-layout
 
 [公开仓库](https://github.com/pengdi190721-dot/tuojian-ai-plugins) · [查看完整技能](skills/wechat-article-layout/SKILL.md)
 
@@ -95,16 +95,17 @@ codex plugin add wechat-article-layout@tuojian-ai
 
 ## WorkBuddy 专家包
 
-专家名叫“公众号图文排版助手”。在 WorkBuddy 里自己创建的专家：上传 `output/wechat-article-layout-独立技能包-版本号.zip` 更新版本即可（守则已在技能里）。要走开放平台上架，用这里的专家包，源文件在 `expert/`：
+专家名叫“公众号图文排版助手”，专家标识是 tuojian-wechat-article-layout（平台上专家标识不能和别人重名，所以加了“拓见”前缀；技能标识还是 wechat-article-layout）。在 WorkBuddy 里自己创建的专家：上传 `output/wechat-article-layout-独立技能包-版本号.zip` 更新版本即可（守则已在技能里）。要走开放平台上架，用这里的专家包，源文件在 `expert/`：
 
-- `expert/agents/wechat-article-layout.md`：专家守则（正文由打包脚本从 `skills/wechat-article-layout/references/专家守则.md` 同步，改守则只改那一份）
+- `expert/agents/tuojian-wechat-article-layout.md`：专家守则（正文由打包脚本从 `skills/wechat-article-layout/references/专家守则.md` 同步，改守则只改那一份）
 - `expert/.codebuddy-plugin/plugin.json`：专家配置（按 WorkBuddy 开放平台的专家包规范）
-- `expert/avatars/wechat-article-layout.png`：头像（512×512 的 PNG 或 JPG，不超过 500KB）；没放头像时只检查、不出专家包
+- `expert/avatars/tuojian-wechat-article-layout.png`：头像（512×512 的 PNG 或 JPG，不超过 500KB）；没放头像时只检查、不出专家包
 
 运行 `python3 scripts/build_release.py` 会按规范检查，并在仓库根目录的 `output/` 生成 `公众号图文排版助手-专家包-版本号.zip`（里面带上完整技能），拿去 WorkBuddy 开放平台上架，或在企业版后台“上传企业专家”。
 
 ## 更新记录
 
+- **1.1.3**（2026-11-11）：修专家包上传解析失败（专家标识 wechat-article-layout 在平台上已被占用）：专家标识改成 tuojian-wechat-article-layout，守则和头像文件跟着改名。技能标识和内容都没变。
 - **1.1.2**（2026-11-11）：修专家包上传解析失败（头衔“公众号图文编辑”在平台上已被别的专家用了）：专家头衔改成“公众号排版写稿编辑”，英文头衔一起换。技能内容没变。
 - **1.1.1**（2026-11-11）：改回“先选主题再排版”：排版之前一定先发六套缩略图和推荐，用户选好编号再排（用户点名了主题或说“你定”才不停）；写稿再排时，稿子全文、“请你核对”、截图对不上的、要不要加署名都放进选主题那一条消息，回一句就能定稿定主题。专家包推荐提示词跟着改；放上专家头像，出专家包。
 - **1.1.0**（2026-11-11）：新增 WorkBuddy 专家包“公众号图文排版助手”（专家守则单独成文：分线、每条回复都有能直接用的东西、两条线一口气做完、硬规矩、交付返修、出问题怎么办），守则放进技能（references/专家守则.md），自己创建的专家上传技能包就能用上。流程调整：选主题不再停下来问，没点名就按文章类型推荐一套直接排，交付时附六套缩略图，想换回编号；写稿再排不再等确认，带着“请你核对”一起交；截图对不上、署名没设也不停，放进交付消息。

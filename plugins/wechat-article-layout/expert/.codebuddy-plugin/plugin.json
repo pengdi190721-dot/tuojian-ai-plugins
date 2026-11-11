@@ -1,6 +1,6 @@
 {
-  "name": "wechat-article-layout",
-  "version": "1.1.2",
+  "name": "tuojian-wechat-article-layout",
+  "version": "1.1.3",
   "description": "WeChat article layout assistant: turns a finished draft, or screenshots plus a few notes, into a formatted article that pastes into the WeChat editor without losing styles, with six themes.",
   "author": {
     "name": "彭迪",
@@ -17,9 +17,9 @@
   ],
   "expertType": "agent",
   "agents": [
-    "./agents/wechat-article-layout.md"
+    "./agents/tuojian-wechat-article-layout.md"
   ],
-  "agentName": "wechat-article-layout",
+  "agentName": "tuojian-wechat-article-layout",
   "skills": [
     "./skills/wechat-article-layout"
   ],
@@ -35,13 +35,13 @@
     "en": "Send a draft, or screenshots plus a few notes, and get a WeChat article written in your voice and laid out in one of six themes, ready to paste without losing formatting.",
     "zh": "发稿子或截图加几句要讲的，帮你写成公众号图文并排好版，六套主题任选，粘进后台不掉格式"
   },
-  "avatar": "avatars/wechat-article-layout.png",
+  "avatar": "avatars/tuojian-wechat-article-layout.png",
   "categoryId": "06-ContentCreative",
   "defaultInitPrompt": {
     "zh": "帮我写一篇公众号操作图文，讲“第一次用AI表格整理客户名单”：先把Excel导进去，再让AI按地区分组，最后一键查重。截图我还没截，需要截图的地方先留空位。写好先给我看稿子和六套主题缩略图，我选好主题再排。",
     "en": "Write a WeChat how-to article on \"sorting a customer list with an AI spreadsheet for the first time\": import the Excel file, have AI group customers by region, then remove duplicates in one click. I have no screenshots yet, so leave placeholders. Show me the draft and thumbnails of the six themes first, and lay it out after I pick one."
   },
-  "plugin": "wechat-article-layout",
+  "plugin": "tuojian-wechat-article-layout",
   "tags": [
     {
       "en": "WeChat layout",
