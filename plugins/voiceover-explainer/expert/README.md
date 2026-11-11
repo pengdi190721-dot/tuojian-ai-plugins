@@ -29,4 +29,4 @@ voiceover-explainer/
 
 本地模式；Python 3；第一次用自动安装 numpy、pillow、playwright、sherpa-onnx、imageio-ffmpeg、opencv-python-headless 4.x（国内镜像）。
 
-作者：彭迪 · 版本 2.2.0 · MIT
+作者：彭迪 · 版本 2.3.0 · MIT
