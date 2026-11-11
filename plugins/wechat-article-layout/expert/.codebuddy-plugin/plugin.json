@@ -1,6 +1,6 @@
 {
   "name": "wechat-article-layout",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "WeChat article layout assistant: turns a finished draft, or screenshots plus a few notes, into a formatted article that pastes into the WeChat editor without losing styles, with six themes.",
   "author": {
     "name": "彭迪",
@@ -38,8 +38,8 @@
   "avatar": "avatars/wechat-article-layout.png",
   "categoryId": "06-ContentCreative",
   "defaultInitPrompt": {
-    "zh": "帮我写一篇公众号操作图文，讲“第一次用AI表格整理客户名单”：先把Excel导进去，再让AI按地区分组，最后一键查重。截图我还没截，需要截图的地方先留空位，写好直接排版给我看。",
-    "en": "Write a WeChat how-to article on \"sorting a customer list with an AI spreadsheet for the first time\": import the Excel file, have AI group customers by region, then remove duplicates in one click. I have no screenshots yet, so leave placeholders where they go, and give me the laid-out preview."
+    "zh": "帮我写一篇公众号操作图文，讲“第一次用AI表格整理客户名单”：先把Excel导进去，再让AI按地区分组，最后一键查重。截图我还没截，需要截图的地方先留空位。写好先给我看稿子和六套主题缩略图，我选好主题再排。",
+    "en": "Write a WeChat how-to article on \"sorting a customer list with an AI spreadsheet for the first time\": import the Excel file, have AI group customers by region, then remove duplicates in one click. I have no screenshots yet, so leave placeholders. Show me the draft and thumbnails of the six themes first, and lay it out after I pick one."
   },
   "plugin": "wechat-article-layout",
   "tags": [
@@ -58,16 +58,16 @@
   ],
   "quickPrompts": [
     {
-      "zh": "帮我写一篇公众号操作图文，讲“第一次用AI表格整理客户名单”：先把Excel导进去，再让AI按地区分组，最后一键查重。截图我还没截，需要截图的地方先留空位，写好直接排版给我看。",
-      "en": "Write a WeChat how-to article on \"sorting a customer list with an AI spreadsheet for the first time\": import the Excel file, have AI group customers by region, then remove duplicates in one click. I have no screenshots yet, so leave placeholders where they go, and give me the laid-out preview."
+      "zh": "帮我写一篇公众号操作图文，讲“第一次用AI表格整理客户名单”：先把Excel导进去，再让AI按地区分组，最后一键查重。截图我还没截，需要截图的地方先留空位。写好先给我看稿子和六套主题缩略图，我选好主题再排。",
+      "en": "Write a WeChat how-to article on \"sorting a customer list with an AI spreadsheet for the first time\": import the Excel file, have AI group customers by region, then remove duplicates in one click. I have no screenshots yet, so leave placeholders. Show me the draft and thumbnails of the six themes first, and lay it out after I pick one."
     },
     {
-      "zh": "这段是我写好的公众号文章，照原文帮我排成公众号图文，不要改内容：上周有个老板问我，用了AI以后员工反而更忙了，是不是哪里不对？其实问题不在AI，在流程。我们后来做了三件事：第一，先把要AI干的活写成规矩；第二，每次人工改稿都记下原因；第三，每周复盘一次。一个月后，返工明显少了。",
-      "en": "Here is an article I already wrote. Lay it out for WeChat exactly as written, without changing the content: Last week a business owner asked me why his staff got busier after adopting AI. The problem was not AI but the process. We did three things: wrote the rules for what AI should do, recorded the reason for every manual edit, and reviewed weekly. A month later, rework had clearly dropped."
+      "zh": "这段是我写好的公众号文章，用黑金主题照原文帮我排成公众号图文，不要改内容：上周有个老板问我，用了AI以后员工反而更忙了，是不是哪里不对？其实问题不在AI，在流程。我们后来做了三件事：第一，先把要AI干的活写成规矩；第二，每次人工改稿都记下原因；第三，每周复盘一次。一个月后，返工明显少了。",
+      "en": "Here is an article I already wrote. Lay it out for WeChat in the Black Gold theme exactly as written, without changing the content: Last week a business owner asked me why his staff got busier after adopting AI. The problem was not AI but the process. We did three things: wrote the rules for what AI should do, recorded the reason for every manual edit, and reviewed weekly. A month later, rework had clearly dropped."
     },
     {
-      "zh": "我要发一篇踩坑实录，讲“AI写的客服话术被客户投诉了”。先给我看六套排版主题的缩略图，推荐一套，再用推荐的主题把这篇写出来排好。",
-      "en": "I want to publish a lessons-learned post about \"customer-service replies written by AI that got a complaint\". Show me thumbnails of the six layout themes, recommend one, then write the article and lay it out in that theme."
+      "zh": "我要发一篇踩坑实录，讲“AI写的客服话术被客户投诉了”：客户问退货，AI回了一大段套话，客户觉得被敷衍。先把稿子写出来，再给我看六套排版主题的缩略图，推荐一套，我选好再排。",
+      "en": "I want to publish a lessons-learned post about customer-service replies written by AI that got a complaint: a customer asked about returns and AI replied with boilerplate, so the customer felt brushed off. Write the draft first, then show me thumbnails of the six layout themes and recommend one; lay it out after I pick."
     }
   ]
 }
