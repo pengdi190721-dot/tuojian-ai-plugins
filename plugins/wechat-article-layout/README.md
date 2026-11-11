@@ -7,7 +7,7 @@
 
 六套主题用缩略图挑，排完自动检查，出一个预览页，点“复制”就能粘进公众号后台。
 
-版本：1.0.0 · 作者：彭迪 · 技能标识：wechat-article-layout
+版本：1.1.0 · 作者：彭迪 · 技能标识：wechat-article-layout
 
 [公开仓库](https://github.com/pengdi190721-dot/tuojian-ai-plugins) · [查看完整技能](skills/wechat-article-layout/SKILL.md)
 
@@ -93,6 +93,17 @@ codex plugin add wechat-article-layout@tuojian-ai
 请用公众号图文排版。这篇稿子已经写好了，帮我照原文排成公众号图文，不要改内容。
 ```
 
+## WorkBuddy 专家包
+
+专家名叫“公众号图文排版助手”。在 WorkBuddy 里自己创建的专家：上传 `output/wechat-article-layout-独立技能包-版本号.zip` 更新版本即可（守则已在技能里）。要走开放平台上架，用这里的专家包，源文件在 `expert/`：
+
+- `expert/agents/wechat-article-layout.md`：专家守则（正文由打包脚本从 `skills/wechat-article-layout/references/专家守则.md` 同步，改守则只改那一份）
+- `expert/.codebuddy-plugin/plugin.json`：专家配置（按 WorkBuddy 开放平台的专家包规范）
+- `expert/avatars/wechat-article-layout.png`：头像（512×512 的 PNG 或 JPG，不超过 500KB）；没放头像时只检查、不出专家包
+
+运行 `python3 scripts/build_release.py` 会按规范检查，并在仓库根目录的 `output/` 生成 `公众号图文排版助手-专家包-版本号.zip`（里面带上完整技能），拿去 WorkBuddy 开放平台上架，或在企业版后台“上传企业专家”。
+
 ## 更新记录
 
+- **1.1.0**（2026-11-11）：新增 WorkBuddy 专家包“公众号图文排版助手”（专家守则单独成文：分线、每条回复都有能直接用的东西、两条线一口气做完、硬规矩、交付返修、出问题怎么办），守则放进技能（references/专家守则.md），自己创建的专家上传技能包就能用上。流程调整：选主题不再停下来问，没点名就按文章类型推荐一套直接排，交付时附六套缩略图，想换回编号；写稿再排不再等确认，带着“请你核对”一起交；截图对不上、署名没设也不停，放进交付消息。
 - **1.0.0**（2026-11-11）：首个版本。两种用法（只排版 / 写稿再排）；六套主题，用缩略图挑（现场生成，技能里不放图片）；截图编号对位，缺图留空位；原话卡、步骤、踩坑提醒、前后对比表、金句；中文标点自动转全角；排完自动检查公众号格式；预览页一键复制，截图进不去可以留空位；用户设置放自己文件夹，升级不冲掉。

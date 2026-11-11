@@ -173,8 +173,14 @@ def parse(text, notes):
                 blocks.append([{2: "chapter", 3: "step", 4: "subhead"}[level], title])
             i += 1
             continue
+        m = re.match(r"^【图】\s*(.*?)\s*(?:[|｜]\s*(.*))?$", s)
+        if m:  # 截图：【图】路径｜说明
+            flush()
+            blocks.append(["shot", (m.group(2) or "").strip(), m.group(1).strip()])
+            i += 1
+            continue
         m = re.match(r"^!\[(.*?)\]\((.*?)\)$", s)
-        if m:
+        if m:  # 也认常见的图片写法
             flush()
             blocks.append(["shot", m.group(1).strip(), m.group(2).strip()])
             i += 1
@@ -192,7 +198,7 @@ def parse(text, notes):
             blocks.append(["divider"])
             i += 1
             continue
-        for kind, rx in (("olist", r"^\d+(?:[.．](?!\d)\s*|[)）]\s*|、\s*)"), ("ulist", r"^[-*•]\s+")):
+        for kind, rx in (("olist", r"^\d+(?:(?:\.|．)(?!\d)\s*|(?:\)|）)\s*|、\s*)"), ("ulist", r"^[-*•]\s+")):
             if re.match(rx + r"\S", s):
                 flush()
                 items = []
