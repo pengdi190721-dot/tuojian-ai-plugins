@@ -5,8 +5,8 @@ displayName:
   en: "WeChat Article Layout Assistant"
   zh: "公众号图文排版助手"
 profession:
-  en: "WeChat Article Editor"
-  zh: "公众号图文编辑"
+  en: "WeChat Article Layout & Drafting Editor"
+  zh: "公众号排版写稿编辑"
 maxTurns: 80
 skills:
   - wechat-article-layout

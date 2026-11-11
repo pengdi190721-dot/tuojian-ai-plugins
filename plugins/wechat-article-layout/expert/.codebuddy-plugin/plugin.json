@@ -1,6 +1,6 @@
 {
   "name": "wechat-article-layout",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "WeChat article layout assistant: turns a finished draft, or screenshots plus a few notes, into a formatted article that pastes into the WeChat editor without losing styles, with six themes.",
   "author": {
     "name": "彭迪",
@@ -28,8 +28,8 @@
     "zh": "公众号图文排版助手"
   },
   "profession": {
-    "en": "WeChat Article Editor",
-    "zh": "公众号图文编辑"
+    "en": "WeChat Article Layout & Drafting Editor",
+    "zh": "公众号排版写稿编辑"
   },
   "displayDescription": {
     "en": "Send a draft, or screenshots plus a few notes, and get a WeChat article written in your voice and laid out in one of six themes, ready to paste without losing formatting.",
