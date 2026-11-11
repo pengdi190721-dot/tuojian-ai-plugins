@@ -1,11 +1,12 @@
 # 拓见AI学员插件市场｜安装说明
 
-当前包含四个可独立安装的插件：
+当前包含五个可独立安装的插件：
 
 - **[创始人 IP 操盘手](plugins/founder-ip-operator/README.md)**：给自媒体新手用的短视频操盘手，说的都是大白话。每做完一步都告诉你下一步。IP定位、找对标出选题（附创意拍法）、口播稿两份（拍摄版和提词器用的纯文字版）与现场提问卡、对标拆解、成片打分与口播体检、平台调性、付费投流（先教再问目标）、后台截图与视频复盘，采纳建议后用于后续新稿。原“自媒体作战室”已并入。当前版本2.4.1。
 - **[真实故事短剧化](plugins/true-story-drama/README.md)**：把平平无奇的真实故事改成大众爱看、守住事实的短剧剧本，再出人物定妆图、场景图、定帧图和按秒分段的LibTV视频提示词。当前版本1.0.0。
 - **[AI短剧导演台](plugins/ai-short-drama-director/README.md)**：从故事和人物小传，到角色造型、分镜图片、视频提示词、逐段验收和剪辑交付。素材用途说明在前，模型提示词整段可复制。
 - **[口播剪辑助手](plugins/voiceover-explainer/README.md)**：口播视频成片专家，干两件事：口播剪辑加包装成片（发来出镜口播视频，AI 剪辑、做小窗切换、要点卡、金句卡、动态字幕和音效，直接出成片），口播科普视频成片（写稿、录音、用软件截图配圈注动画）。四种包装风格，横竖版都能出。当前版本2.2.0。
+- **[公众号图文排版](plugins/wechat-article-layout/README.md)**：把稿子和截图做成能直接粘进公众号后台、粘过去不掉格式的图文。有完整稿子就只排版、不动原文；只有截图和几句要讲的，就先照你的口吻写成完整文章再排。六套主题用缩略图挑。当前版本1.0.0。
 
 ## 插件一：创始人 IP 操盘手
 
@@ -153,5 +154,35 @@ codex plugin add voiceover-explainer@tuojian-ai
 ```
 
 完整说明见[口播剪辑助手安装页](plugins/voiceover-explainer/README.md)。
+
+## 插件五：公众号图文排版
+
+做公众号图文用这一个。**有完整稿子**：只排版，不动原文，AI 判断哪段是步骤、哪句当金句、哪张截图配哪一步、每段标哪几个关键词。**只有截图和几句要讲的**：AI 先看截图，照你的口吻写成完整文章，缺的事实标成「【待补】」让你补，不编成果、不编数字。六套主题（手册蓝、黑金、老板笔记、汇报青、黑白极简、活力橙）用缩略图挑，排完自动检查公众号的格式限制，出一个预览页，点“复制”就能粘进后台。
+
+### Codex安装
+
+```bash
+codex plugin marketplace add pengdi190721-dot/tuojian-ai-plugins
+codex plugin add wechat-article-layout@tuojian-ai
+```
+
+已经添加过这个市场的，先运行 `codex plugin marketplace upgrade tuojian-ai` 再安装。
+
+### WorkBuddy安装
+
+在WorkBuddy对话或命令输入框中运行：
+
+```text
+/plugin marketplace add pengdi190721-dot/tuojian-ai-plugins
+/plugin install wechat-article-layout@tuojian-ai
+```
+
+### 第一次用
+
+```text
+请用公众号图文排版。我发几张截图和几句要讲的内容，帮我写成一篇公众号图文再排版，先给我看主题缩略图。
+```
+
+完整说明见[公众号图文排版安装页](plugins/wechat-article-layout/README.md)。
 
 项目维护者：彭迪

@@ -1,0 +1,43 @@
+{
+  "name": "wechat-article-layout",
+  "version": "1.0.0",
+  "description": "把稿子和截图做成能直接粘进微信公众号后台、粘过去不掉格式的图文。有完整稿子就只排版、不动原文；只有截图和几句要讲的，就先照你的口吻写成完整文章再排。六套主题用缩略图挑，截图自动编号对位，原话卡、步骤、踩坑提醒、前后对比表、金句都有，排完自动检查。",
+  "author": {
+    "name": "彭迪",
+    "url": "https://github.com/pengdi190721-dot"
+  },
+  "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/wechat-article-layout",
+  "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+  "license": "MIT",
+  "keywords": [
+    "公众号",
+    "图文排版",
+    "微信公众号",
+    "写稿",
+    "截图",
+    "操作教程",
+    "主题"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "公众号图文排版",
+    "shortDescription": "稿子加截图做成公众号图文，粘进后台不掉格式，六套主题用缩略图挑",
+    "longDescription": "两种用法。有完整稿子：只排版，不动原文，AI 判断哪段是步骤、哪句当金句、哪张截图配哪一步、每段标哪几个关键词。只有截图和几句要讲的：AI 先看截图，照你的口吻写成完整文章，缺的事实标成【待补】让你补，不编成果、不编数字。排版交给脚本：六套主题（手册蓝、黑金、老板笔记、汇报青、黑白极简、活力橙）用缩略图挑，排完自动检查公众号的格式限制，出一个预览页，点复制就能粘进后台；截图进不去时还能一键留空位，照图号补图。",
+    "developerName": "彭迪",
+    "category": "Productivity",
+    "capabilities": [
+      "Writing",
+      "Layout",
+      "Formatting",
+      "Screenshot ordering",
+      "HTML generation"
+    ],
+    "brandColor": "#1D4ED8",
+    "defaultPrompt": [
+      "请用公众号图文排版。我发几张截图和几句要讲的内容，帮我写成一篇公众号图文再排版，先给我看主题缩略图。",
+      "请用公众号图文排版。这篇稿子已经写好了，帮我照原文排成公众号图文，不要改内容。",
+      "给我看看六套主题的缩略图，我挑一套。",
+      "换成 3 号主题再排一版。"
+    ]
+  }
+}

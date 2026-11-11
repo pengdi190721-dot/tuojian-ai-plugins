@@ -97,6 +97,30 @@
       "source": "./plugins/voiceover-explainer",
       "category": "Productivity",
       "strict": true
+    },
+    {
+      "name": "wechat-article-layout",
+      "version": "1.0.0",
+      "description": "把稿子和截图做成能直接粘进微信公众号后台、粘过去不掉格式的图文。有完整稿子就只排版、不动原文；只有截图和几句要讲的，就先照你的口吻写成完整文章再排。六套主题用缩略图挑，截图自动编号对位，原话卡、步骤、踩坑提醒、前后对比表、金句都有，排完自动检查。",
+      "author": {
+        "name": "彭迪",
+        "url": "https://github.com/pengdi190721-dot"
+      },
+      "homepage": "https://github.com/pengdi190721-dot/tuojian-ai-plugins/tree/main/plugins/wechat-article-layout",
+      "repository": "https://github.com/pengdi190721-dot/tuojian-ai-plugins",
+      "license": "MIT",
+      "keywords": [
+        "公众号",
+        "图文排版",
+        "微信公众号",
+        "写稿",
+        "截图",
+        "操作教程",
+        "主题"
+      ],
+      "source": "./plugins/wechat-article-layout",
+      "category": "Productivity",
+      "strict": true
     }
   ]
 }
