@@ -19,13 +19,20 @@ def read_lines(d):
         bad('还没有 字幕稿.txt。先看 work/字幕稿_草稿.txt，改好后存成项目目录里的 字幕稿.txt')
     lines = [l.strip() for l in p.read_text(encoding='utf-8').splitlines()]
     lines = [l for l in lines if l and not l.startswith('//')]
+    out = []
     for i, l in enumerate(lines, 1):
-        if l.count('【') != l.count('】'):
+        # 双语字幕：竖线后面是英文，只显示、不拿去对录音
+        parts = re.split(r'\s*[|｜]\s*', l, maxsplit=1)
+        zh, en = parts[0].strip(), (parts[1].strip() if len(parts) > 1 else '')
+        if zh.count('【') != zh.count('】'):
             bad(f'字幕稿第 {i} 行【】没配对：{l}')
-        n = len(re.sub(r'[【】，。、？！：；“”‘’,.?!:; ]', '', l))
+        n = len(re.sub(r'[【】，。、？！：；“”‘’,.?!:; ]', '', zh))
         if n > 16:
-            print(f'【提醒】字幕稿第 {i} 行有 {n} 个字，超过 16 个字一行放不下，建议拆成两行：{l}')
-    return lines
+            print(f'【提醒】字幕稿第 {i} 行有 {n} 个字，超过 16 个字一行放不下，建议拆成两行：{zh}')
+        if len(en) > 48:
+            print(f'【提醒】字幕稿第 {i} 行的英文有 {len(en)} 个字母，太长一行放不下，建议缩短：{en}')
+        out.append((zh, en))
+    return out
 
 
 def chars_of(line):
@@ -51,6 +58,8 @@ def align(lines, asr):
             for c in t.lower():
                 if c.strip():
                     A.append((c, ts))
+    ens = [en for _, en in lines]
+    lines = [zh for zh, _ in lines]
     S = []
     for li, line in enumerate(lines):
         for ci, (ch, kw, key) in enumerate(chars_of(line)):
@@ -80,7 +89,7 @@ def align(lines, asr):
             chars.append([ch, round(t, 3), kw])
         # 这一行和录音的吻合度
         own = [k for k in range(len(S)) if S[k][1] == li]
-        out.append({'n': li + 1, 'text': re.sub('[【】]', '', line), 'chars': chars,
+        out.append({'n': li + 1, 'text': re.sub('[【】]', '', line), 'chars': chars, 'en': ens[li],
                     'start': round(min(tmap.values()), 3), 'end': round(max(tmap.values()) + 0.24, 3)})
     ratio = sm.ratio()
     return out, ratio
@@ -131,15 +140,26 @@ def build(d):
     has_cta = bool(P.get('片尾', cfg.get('片尾')))
     END = round(max(video_end, speech_end + (2.4 if has_cta else 0.6)), 3)
     nxt = lambda n: lines[n]['start'] if n < len(lines) else END
-    tl = {'fps': fps, 'end': END, 'video_frames': cut['frames'], 'orient': meta['orient'], 'theme': cfg['风格'],
-          'column': P.get('栏目', cfg.get('栏目', '')), 'lines': lines, 'title': None, 'pops': [], 'pip': [], 'cards': [],
+    full = cfg['风格'] in FULL_THEMES   # 模版五到八：人一直全屏，不缩小
+    tl = {'fps': fps, 'end': END, 'video_frames': cut['frames'], 'orient': meta['orient'], 'theme': cfg['风格'], 'full': full,
+          'column': P.get('栏目', cfg.get('栏目', '')), 'lines': lines, 'title': None, 'ident': [], 'pops': [], 'pip': [], 'cards': [],
           'quotes': [], 'stamps': [], 'cta': None, 'cuts': cut['cuts_at'], 'hide_sub': [], 'sfx': []}
     if P.get('片头'):
         h = P['片头']
-        if not (isinstance(h, list) and len(h) == 2):
-            bad('包装.json 的“片头”要写两行，例如 ["老员工一句", "“这个要看情况”"]')
+        if not (isinstance(h, list) and len(h) in (2, 3)):
+            bad('包装.json 的“片头”要写两行（可以再加一行英文），例如 ["老员工一句", "“这个要看情况”"]')
         later = [L['start'] for L in lines if L['start'] >= 2.8]
-        tl['title'] = {'t0': 0.15, 't1': round(max(2.5, (later[0] if later else 3.2) - 0.15), 3), 'l1': h[0], 'l2': h[1]}
+        t1 = round(max(2.5, (later[0] if later else 3.2) - 0.15), 3)
+        if full and P.get('常驻标题', True):
+            t1 = round(END - 0.05, 3)   # 全屏模版：标题从头挂到尾
+        tl['title'] = {'t0': 0.15, 't1': t1, 'l1': h[0], 'l2': h[1], 'en': h[2] if len(h) > 2 else ''}
+    if P.get('身份'):
+        idt = P['身份'] if isinstance(P['身份'], list) else [P['身份']]
+        if not 1 <= len(idt) <= 3:
+            bad('包装.json 的“身份”写 1 到 3 行，例如 ["休斯", "《爆款内容方法论》作者"]')
+        tl['ident'] = idt
+        if not full:
+            print('【提醒】“身份”只在模版五到八（全屏模版）里显示，当前模版不显示')
     windows = []
     for it in P.get('画面', []):
         k = it.get('类型')
@@ -193,7 +213,7 @@ def build(d):
     windows.sort(key=lambda c: c['t0'])
     for i, c in enumerate(windows):
         c['t1'] = windows[i + 1]['t0'] if i + 1 < len(windows) and windows[i + 1]['t0'] - c['end'] < 1.0 else c['end']
-    for c in windows:
+    for c in ([] if full else windows):   # 全屏模版不缩小人像：卡片浮在人旁边，不挡脸
         a, b = c['t0'] - 0.18, c['t1'] + 0.05
         if tl['pip'] and a - tl['pip'][-1][1] < 1.0:
             tl['pip'][-1][1] = b
@@ -223,6 +243,8 @@ def build(d):
     sfx = []
     for a, b in tl['pip']:
         sfx += [['whoosh', a], ['whoosh', b - 0.5]]
+    if full:
+        sfx += [['whoosh', c['t0']] for c in tl['cards']]
     for c in tl['cards']:
         for r in c.get('rows', []): sfx.append(['pop', r[1]])
         if c['kind'] == 'steps':
@@ -242,7 +264,8 @@ def build(d):
     with open(d / 'work' / '行号表.txt', 'w', encoding='utf-8') as f:
         for L in lines:
             f.write(f"{L['n']:3d}  {L['start']:6.2f}–{L['end']:6.2f}  {L['text']}\n")
-    print(f'时间线好了：{END:.1f} 秒，小窗 {len(tl["pip"])} 段，卡片 {len(tl["cards"])} 张，金句 {len(tl["quotes"])} 张，音效 {len(sfx)} 个')
+    print(f'时间线好了：{END:.1f} 秒，{theme_label(cfg["风格"])}，' + ('人一直全屏、卡片浮在旁边' if full else f'小窗 {len(tl["pip"])} 段') +
+          f'，卡片 {len(tl["cards"])} 张，金句 {len(tl["quotes"])} 张，音效 {len(sfx)} 个')
     return tl
 
 
