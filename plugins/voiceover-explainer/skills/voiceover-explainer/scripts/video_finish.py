@@ -43,7 +43,8 @@ def srt(d, tl):
     for i, l in enumerate(L):
         st = l['start'] - 0.05
         en = min(L[i + 1]['start'] - 0.07 if i + 1 < len(L) else tl['end'], l['end'] + 0.5)
-        out.append(f"{i + 1}\n{ts(st)} --> {ts(en)}\n{l['text']}\n")
+        text = l['text'] + (f"\n{l['en']}" if l.get('en') else '')
+        out.append(f"{i + 1}\n{ts(st)} --> {ts(en)}\n{text}\n")
     (d / 'out' / '字幕.srt').write_text('\n'.join(out), encoding='utf-8')
 
 
