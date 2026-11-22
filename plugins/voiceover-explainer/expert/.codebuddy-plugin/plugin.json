@@ -1,7 +1,7 @@
 {
   "name": "voiceover-explainer",
-  "version": "2.3.0",
-  "description": "Talking-head video editor: cuts retakes and pauses, adds picture-in-picture, cards, quote cards and captions, and delivers the final video; also makes screenshot explainers.",
+  "version": "2.4.0",
+  "description": "Talking-head video editor: cuts retakes and pauses, shows eight packaging templates to pick from, adds captions, cards and quote cards, and delivers the final video; also makes screenshot explainers.",
   "author": {
     "name": "彭迪",
     "email": "398216309@qq.com"
@@ -32,8 +32,8 @@
     "zh": "口播视频剪辑包装师"
   },
   "displayDescription": {
-    "en": "Send a talking-head video and get a finished cut: retakes and pauses removed, picture-in-picture, key-point cards, quote cards and captions added. Also makes screenshot explainers.",
-    "zh": "发来出镜口播视频，自动剪掉口误和停顿，加小窗、要点卡、金句卡和字幕，直接出成片，也能做截图科普动画"
+    "en": "Send a talking-head video and get a finished cut: retakes and pauses removed, pick one of eight templates from a preview, then captions, key-point cards and quote cards are added. Also makes screenshot explainers.",
+    "zh": "发来出镜口播视频，剪掉口误和停顿，八个模版看图挑，加字幕动效和要点卡直接出成片，也能做截图科普动画"
   },
   "avatar": "avatars/voiceover-explainer.png",
   "categoryId": "06-ContentCreative",
