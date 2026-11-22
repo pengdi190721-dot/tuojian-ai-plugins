@@ -5,6 +5,16 @@ sys.path.insert(0, str(Path(__file__).parent))
 from common import ffmpeg, THEMES, SR, MODELS, read_wav_mono, write_wav  # noqa
 
 VIDEO_EXT = ('.mp4', '.mov', '.m4v', '.MP4', '.MOV', '.M4V')
+# A 线（口播剪辑）的模版：一到四讲要点时人缩到小窗（和 B 线同一套风格），五到八人一直全屏、不缩小（只有 A 线有）
+FULL_THEMES = {'zazhi': '杂志访谈', 'jiangshi': '讲师大标题', 'kuanmu': '电影宽幕', 'huazi': '综艺花字'}
+KOUBO_THEMES = {**THEMES, **FULL_THEMES}
+NUMS = '一二三四五六七八九十'
+TEMPLATE_NAMES = {k: f'模版{NUMS[i]}' for i, k in enumerate(KOUBO_THEMES)}
+
+
+def theme_label(k):
+    """qingshuang → 模版一：清爽薄荷"""
+    return f'{TEMPLATE_NAMES[k]}：{KOUBO_THEMES[k]}'
 DEFAULT = {'类型': '口播剪辑', '风格': 'qingshuang', '画幅': '', '栏目': '', '片尾': '评论区聊聊吧', '视频文件': []}
 COLUMNS = ['老板踩坑实录', '老板问答', '部门实测', 'WorkBuddy基础应用']
 
@@ -24,8 +34,11 @@ def load_cfg(d):
     cfg = dict(DEFAULT)
     if p.exists():
         cfg.update(json.loads(p.read_text(encoding='utf-8')))
-    if cfg['风格'] not in THEMES:
-        sys.exit(f"【出错】风格「{cfg['风格']}」不存在，只能是：{'、'.join(f'{k}（{v}）' for k, v in THEMES.items())}")
+    # 也认“模版五”“杂志访谈”这种写法
+    alias = {**{v: k for k, v in KOUBO_THEMES.items()}, **{v: k for k, v in TEMPLATE_NAMES.items()}}
+    cfg['风格'] = alias.get(cfg['风格'], cfg['风格'])
+    if cfg['风格'] not in KOUBO_THEMES:
+        sys.exit(f"【出错】风格「{cfg['风格']}」不存在，只能是：{'、'.join(f'{k}（{theme_label(k)}）' for k in KOUBO_THEMES)}")
     return cfg
 
 

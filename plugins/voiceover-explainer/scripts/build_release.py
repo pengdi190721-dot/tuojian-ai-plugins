@@ -97,22 +97,23 @@ sys.path.insert(0, sys.argv[1])
 from PIL import Image
 from video_render import Renderer
 from video_templates import fake_tl
+from video_common import KOUBO_THEMES
 d = Path(sys.argv[2]); (d / 'work').mkdir(parents=True, exist_ok=True)
-spec = {'标题': ['第一行', '“第二行”'], '字幕': '一句【重点】字幕',
+spec = {'标题': ['第一行', '“第二行”', 'English line'], '字幕': '一句【重点】字幕 | One line', '身份': ['名字', '头衔'],
         '要点卡': {'标题': '要点卡标题', '要点': ['第一条', '第二条', '第三条'], '亮第几条': 2}, '小窗字幕': '小窗【字幕】'}
 async def main():
-    errs = []
+    errs, n = [], 0
     for orient, (W, H) in (('V', (1080, 1920)), ('H', (1920, 1080))):
         fdir = d / orient; fdir.mkdir(exist_ok=True)
         Image.new('RGB', (W, H), (90, 90, 90)).save(fdir / '00000.jpg')
         for kind in ('full', 'pip'):
-            tl = fake_tl({'orient': orient}, {'栏目': '老板问答'}, spec, kind)
-            for th in ('qingshuang', 'heijin', 'baiban', 'dazibao'):
-                tl['theme'] = th
+            for th in KOUBO_THEMES:
+                tl = fake_tl({'orient': orient}, {'栏目': '老板问答'}, spec, kind, th)
                 async with Renderer(d, tl, [[W * .3, H * .3, W * .3, W * .3]], fdir) as R:
                     R.pg.on('pageerror', lambda e: errs.append(str(e)))
                     await R.shot(24, d / f'{orient}_{kind}_{th}.jpg')
-    print('口播剪辑页面：16 种组合', '全部正常' if not errs else '出错：' + '；'.join(errs[:3]))
+                n += 1
+    print(f'口播剪辑页面：{n} 种组合', '全部正常' if not errs else '出错：' + '；'.join(errs[:3]))
     sys.exit(1 if errs else 0)
 asyncio.run(main())
 """

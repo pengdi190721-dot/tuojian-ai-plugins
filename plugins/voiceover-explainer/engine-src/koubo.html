@@ -126,7 +126,171 @@ body[data-theme=dazibao] #quote{border:5px solid #111;box-shadow:16px 16px 0 #11
 body[data-theme=dazibao] #quote .bar{background:#111}
 body[data-theme=heijin] :is(#title .t2,#card h2,#quote p.em){background:linear-gradient(180deg,#FFF3D6 0%,#E2C58A 55%,#B8913F 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none}
 body[data-theme=heijin] #title .t2{filter:drop-shadow(0 6px 20px rgba(0,0,0,.6))}
+/* 标题里的英文、问号大字、身份：只有全屏模版用 */
+#title .q,#title .vq,#title .en,#title .id{display:none}
+#title .t1>span,#title .t2>span,#title .en>span,#pop>span{display:inline-block}
+#sub .en{display:block;font-size:.56em;font-weight:600;line-height:1.3;opacity:1;-webkit-text-stroke-width:6px;margin-top:2px}
+#lb{display:none}
+
+/* ===== 模版五到八：人一直全屏，不缩小 ===== */
+body.full #title{right:auto;text-align:left}
+body.full #title.c{left:0!important;right:0;text-align:center}
+body.full #title .tx{display:inline-block}
+body.full #title .id{display:block}
+body.full #card{width:var(--fw);padding:36px 40px 22px}
+body.full #card h2{font-size:50px;margin-bottom:20px}
+body.full .row{font-size:44px;padding:14px 24px;margin-bottom:12px}
+body.full .row b{flex-basis:54px;height:54px;font-size:34px}
+body.full .no,body.full .yes{font-size:42px;padding:14px 24px;margin-bottom:16px}
+body.full .steps{flex-direction:column;align-items:stretch;gap:10px}
+body.full .step{text-align:left;padding:18px 28px}
+body.full .arr{display:none}
+body.full #title .en{display:block}
+body[data-theme=jiangshi] #title .en,body[data-theme=huazi] #title .en{display:none!important}
+/* 五 杂志访谈：衬线大 Q、竖排小字、双语字幕、半透明字幕条 */
+body[data-theme=zazhi]{
+ --stage:#000;--ink:#fff;--sub:rgba(255,255,255,.7);--acc:#E9CD94;--hi:#E9CD94;--danger:#E9CD94;--good:#E9CD94;--goodbg:rgba(255,255,255,.08);--badbg:rgba(255,255,255,.08);--bad:#fff;
+ --card:rgba(16,16,18,.58);--cardbd:1px solid rgba(255,255,255,.28);--radius:6px;--shadow:0 30px 70px rgba(0,0,0,.35);
+ --tagbg:rgba(0,0,0,.28);--tagfg:#fff;--tagdot:#E9CD94;
+ --t1:#fff;--t2:#fff;--tsh:0 2px 4px rgba(0,0,0,.5),0 4px 22px rgba(0,0,0,.45);
+ --sfg:#fff;--sst:transparent;--sk:#F1DDB0;--skbg:transparent;--sbox:rgba(12,12,14,.58);--sfg2:#fff;
+ --ring:#fff;--rowbg:transparent;--rowon:rgba(233,205,148,.16);--rowonfg:#F1DDB0;--num:transparent;--numfg:#E9CD94;
+ --qbg:transparent;--qfg:#fff;--qem:#F1DDB0;--stbg:rgba(0,0,0,.45);--stfg:#fff;--ctabg:rgba(0,0,0,.35);--ctafg:#fff;--ctai:#E9CD94;
+ --dim:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,.22) 22%,rgba(0,0,0,0) 34%,rgba(0,0,0,0) 62%,rgba(0,0,0,.35) 100%);
+ --fontt:"Noto Serif CJK SC","Songti SC","STSong","SimSun",serif;--fw:820px}
+body[data-theme=zazhi] #title .box{display:flex;align-items:flex-start}
+body[data-theme=zazhi] #title .q{display:block;font-family:"Noto Serif","Times New Roman","Georgia",serif;font-size:250px;line-height:.78;color:#fff;text-shadow:0 3px 6px rgba(0,0,0,.45),0 6px 26px rgba(0,0,0,.4);margin-top:6px}
+body[data-theme=zazhi] #title .vq{display:block;text-shadow:0 1px 4px rgba(0,0,0,.6);writing-mode:vertical-rl;transform:rotate(180deg);font-family:"Noto Serif","Times New Roman",serif;font-size:26px;letter-spacing:2px;color:#fff;margin:4px 14px 0 4px;white-space:nowrap}
+body[data-theme=zazhi] #title .t1{font-size:84px;font-weight:900;line-height:1.08}
+body[data-theme=zazhi] #title .en{font-family:"Snell Roundhand","Apple Chancery","Segoe Script","Brush Script MT","URW Chancery L","Noto Serif",serif;font-style:italic;font-size:44px;color:#fff;line-height:1.2;text-shadow:0 1px 3px rgba(0,0,0,.6),0 2px 12px rgba(0,0,0,.45);margin:2px 0 0 6px}
+body[data-theme=zazhi] #title .t2{font-family:var(--font);font-size:74px;font-weight:400;line-height:1.25;letter-spacing:2px;text-shadow:0 2px 4px rgba(0,0,0,.55),0 4px 22px rgba(0,0,0,.45)}
+body[data-theme=zazhi] #title .id{margin:18px 0 0 6px;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+body[data-theme=zazhi] #title .id .nm{font-family:var(--fontt);font-size:40px;font-weight:700;letter-spacing:4px}
+body[data-theme=zazhi] #title .id .ln{font-size:26px;font-weight:400;opacity:.9;letter-spacing:1px}
+body[data-theme=zazhi] #sub .in{font-size:62px;font-weight:400;-webkit-text-stroke:0;text-shadow:0 1px 3px rgba(0,0,0,.5);border-radius:0;padding:8px 30px;letter-spacing:2px}
+body[data-theme=zazhi] #sub span{opacity:.7}
+body[data-theme=zazhi] #sub .kwg{border-radius:0;padding:0 4px;box-shadow:inset 0 -4px 0 rgba(233,205,148,.75)}
+body[data-theme=zazhi] #sub .kwg span{font-size:64px;font-weight:500}
+body[data-theme=zazhi] #sub .en{font-size:34px;font-weight:300;letter-spacing:.5px;margin-top:4px;-webkit-text-stroke:0}
+body[data-theme=zazhi] #pop{font-weight:900;color:#fff;letter-spacing:14px;text-shadow:0 6px 30px rgba(0,0,0,.45)}
+body[data-theme=zazhi] #quote{box-shadow:none;text-align:center;padding:0}
+body[data-theme=zazhi] #quote .bar{width:120px;height:3px;margin:0 auto 26px}
+body[data-theme=zazhi] #quote p{font-weight:600;text-shadow:0 4px 20px rgba(0,0,0,.45);transform-origin:center}
+body[data-theme=zazhi] #card{backdrop-filter:blur(14px)}
+body[data-theme=zazhi] #card h2{font-weight:700;color:#fff;font-size:54px}
+body[data-theme=zazhi] .row{border-bottom:1px solid rgba(255,255,255,.22);border-radius:0;font-weight:400;color:#fff;font-size:46px}
+body[data-theme=zazhi] .row b{font-family:"Noto Serif","Times New Roman",serif;font-weight:400;font-size:44px;flex-basis:54px}
+body[data-theme=zazhi] .row.on{color:#F1DDB0}
+body[data-theme=zazhi] #tag{font-weight:500;border:1px solid rgba(255,255,255,.6);box-shadow:none;font-size:32px;letter-spacing:4px}
+body[data-theme=zazhi] #cta div{border:2px solid rgba(255,255,255,.75);box-shadow:none;font-weight:500;letter-spacing:4px}
+/* 六 讲师大标题：粗宋体立体大标题常驻、身份条、白字幕、大字关键词 */
+body[data-theme=jiangshi]{
+ --stage:#000;--ink:#fff;--sub:rgba(255,255,255,.75);--acc:#FFE7A3;--hi:#FFE7A3;--danger:#FF6B57;--good:#FFE7A3;--goodbg:rgba(255,255,255,.1);--badbg:rgba(255,255,255,.1);--bad:#fff;
+ --card:rgba(12,12,14,.5);--cardbd:2px solid rgba(255,255,255,.85);--radius:14px;--shadow:0 26px 60px rgba(0,0,0,.35);
+ --tagbg:rgba(0,0,0,.35);--tagfg:#fff;--tagdot:#FFE7A3;
+ --t1:#fff;--t2:#fff;--tsh:1px 1px 0 #b3b3b3,2px 2px 0 #9c9c9c,3px 3px 0 #868686,4px 4px 0 #727272,5px 5px 0 #5e5e5e,6px 6px 0 #4c4c4c,7px 8px 0 #3a3a3a,10px 14px 22px rgba(0,0,0,.45);
+ --sfg:#fff;--sst:transparent;--sk:#FFE7A3;--skbg:transparent;--sbox:transparent;--sfg2:#fff;
+ --ring:#fff;--rowbg:rgba(255,255,255,.08);--rowon:#fff;--rowonfg:#111;--num:transparent;--numfg:#fff;
+ --qbg:transparent;--qfg:#fff;--qem:#FFE7A3;--stbg:#fff;--stfg:#111;--ctabg:#fff;--ctafg:#111;--ctai:#111;
+ --dim:linear-gradient(180deg,rgba(0,0,0,.42) 0%,rgba(0,0,0,.16) 22%,rgba(0,0,0,0) 34%,rgba(0,0,0,0) 60%,rgba(0,0,0,.3) 100%);
+ --fontt:"Noto Serif CJK SC","Songti SC","STSong","SimSun",serif;--fw:820px}
+body[data-theme=jiangshi] #title .t1,body[data-theme=jiangshi] #title .t2{font-size:104px;font-weight:900;letter-spacing:8px;line-height:1.24}
+body[data-theme=jiangshi] #title .id{margin:26px 0 0 92px;color:#fff;font-family:var(--fontt);text-shadow:1px 1px 0 #777,2px 2px 0 #555,3px 4px 10px rgba(0,0,0,.45)}
+body[data-theme=jiangshi] #title .id .nm{font-size:44px;font-weight:900;letter-spacing:6px;margin-bottom:4px}
+body[data-theme=jiangshi] #title .id .ln{font-size:28px;font-weight:700;line-height:1.45}
+body[data-theme=jiangshi] #sub .in{font-size:62px;font-weight:600;-webkit-text-stroke:8px rgba(0,0,0,.72);paint-order:stroke fill;text-shadow:0 3px 10px rgba(0,0,0,.45)}
+body[data-theme=jiangshi] #sub span{opacity:.55}
+body[data-theme=jiangshi] #sub .kwg{padding:0 2px;margin:0 2px}
+body[data-theme=jiangshi] #sub .kwg span{font-size:68px;font-weight:800;-webkit-text-stroke:8px rgba(0,0,0,.72);paint-order:stroke fill}
+body[data-theme=jiangshi] #sub .en{font-size:32px;font-weight:600;-webkit-text-stroke:5px rgba(0,0,0,.72)}
+body[data-theme=jiangshi] #pop{font-size:170px;font-weight:900;color:#fff;letter-spacing:44px;text-indent:44px;text-shadow:var(--tsh)}
+body[data-theme=jiangshi] #quote{box-shadow:none;padding:0;text-align:center}
+body[data-theme=jiangshi] #quote .bar{display:none}
+body[data-theme=jiangshi] #quote p{font-weight:900;text-shadow:1px 1px 0 #999,2px 2px 0 #777,3px 3px 0 #555,6px 8px 18px rgba(0,0,0,.45);transform-origin:center}
+body[data-theme=jiangshi] #quote p.em{color:#fff;font-size:96px}
+body[data-theme=jiangshi] #card h2{font-weight:900;color:#fff}
+body[data-theme=jiangshi] .row{color:#fff;font-family:var(--fontt);font-weight:700}
+body[data-theme=jiangshi] .row b{border:2px solid #fff;border-radius:50%;font-family:var(--fontt)}
+body[data-theme=jiangshi] .row.on{color:#111}
+body[data-theme=jiangshi] .row.on b{border-color:#111;color:#111}
+body[data-theme=jiangshi] #tag{font-family:var(--fontt);font-weight:700;box-shadow:none}
+/* 七 电影宽幕：上下黑边、细字幕、琥珀色重点词 */
+body[data-theme=kuanmu]{
+ --stage:#000;--ink:#fff;--sub:rgba(255,255,255,.65);--acc:#E8B86B;--hi:#E8B86B;--danger:#E8B86B;--good:#E8B86B;--goodbg:rgba(255,255,255,.06);--badbg:rgba(255,255,255,.06);--bad:rgba(255,255,255,.8);
+ --card:rgba(0,0,0,.55);--cardbd:none;--radius:2px;--shadow:none;
+ --tagbg:transparent;--tagfg:rgba(255,255,255,.6);--tagdot:#E8B86B;
+ --t1:rgba(255,255,255,.72);--t2:#fff;--tsh:none;
+ --sfg:#fff;--sst:transparent;--sk:#E8B86B;--skbg:transparent;--sbox:transparent;--sfg2:#fff;
+ --ring:#fff;--rowbg:transparent;--rowon:transparent;--rowonfg:#E8B86B;--num:transparent;--numfg:#E8B86B;
+ --qbg:transparent;--qfg:#fff;--qem:#E8B86B;--stbg:transparent;--stfg:#fff;--ctabg:transparent;--ctafg:#fff;--ctai:#E8B86B;
+ --dim:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(0,0,0,0) 55%,rgba(0,0,0,.42) 100%);
+ --fontt:"Noto Serif CJK SC","Songti SC","STSong","SimSun",serif;--fw:800px;--lb:330px}
+body[data-theme=kuanmu].H{--lb:132px;--fw:740px}
+body[data-theme=kuanmu] #lb{display:block;position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(#000,#000) top/100% var(--lb) no-repeat,linear-gradient(#000,#000) bottom/100% var(--lb) no-repeat}
+body[data-theme=kuanmu] #title .t1{font-size:34px;font-weight:600;letter-spacing:14px;margin-bottom:10px}
+body[data-theme=kuanmu] #title .t2{font-size:62px;font-weight:700;letter-spacing:8px}
+body[data-theme=kuanmu] #title .en{font-family:"Noto Serif","Georgia",serif;font-style:italic;font-size:26px;color:rgba(255,255,255,.55);letter-spacing:2px;order:3;margin-top:8px}
+body[data-theme=kuanmu] #title .tx{display:flex;flex-direction:column;align-items:center}
+body[data-theme=kuanmu] #title .id{font-size:26px;color:rgba(255,255,255,.6);letter-spacing:4px;margin-top:10px}
+body[data-theme=kuanmu] #title .id .nm{display:inline;color:#E8B86B;margin-right:18px}
+body[data-theme=kuanmu] #title .id .ln{display:inline;margin-right:14px}
+body[data-theme=kuanmu] #sub .in{font-size:50px;font-weight:300;letter-spacing:4px;-webkit-text-stroke:0;padding:0}
+body[data-theme=kuanmu] #sub span{opacity:.5}
+body[data-theme=kuanmu] #sub .kwg{padding:0;margin:0 2px}
+body[data-theme=kuanmu] #sub .kwg span{font-size:52px;font-weight:500}
+body[data-theme=kuanmu] #sub .en{font-size:28px;font-weight:300;color:rgba(255,255,255,.62);letter-spacing:1px;margin-top:10px;-webkit-text-stroke:0}
+body[data-theme=kuanmu] #pop{font-size:96px;font-weight:600;color:#fff;letter-spacing:30px;text-indent:30px}
+body[data-theme=kuanmu] #pop>span{border-top:2px solid #E8B86B;border-bottom:2px solid #E8B86B;padding:6px 10px}
+body[data-theme=kuanmu] #tag{font-size:26px;font-weight:400;letter-spacing:6px;box-shadow:none;padding:0}
+body[data-theme=kuanmu] #quote{box-shadow:none;padding:0;text-align:center}
+body[data-theme=kuanmu] #quote .bar{width:2px;height:70px;margin:0 auto 26px}
+body[data-theme=kuanmu] #quote p{font-weight:500;letter-spacing:6px;transform-origin:center}
+body[data-theme=kuanmu] #card{backdrop-filter:blur(10px)}
+body[data-theme=kuanmu] #card h2{font-weight:600;color:#fff;letter-spacing:6px;font-size:50px}
+body[data-theme=kuanmu] .row{color:rgba(255,255,255,.88);font-weight:300;letter-spacing:3px;padding:14px 8px;font-size:44px}
+body[data-theme=kuanmu] .row b{font-family:"Noto Serif","Georgia",serif;font-weight:400;font-size:36px}
+body[data-theme=kuanmu] .row.on{color:#E8B86B}
+body[data-theme=kuanmu] #cta div{border-top:2px solid #E8B86B;border-bottom:2px solid #E8B86B;border-radius:0;box-shadow:none;font-weight:400;letter-spacing:10px;font-size:56px}
+body[data-theme=kuanmu] #stamp div{box-shadow:none;font-family:var(--fontt);font-weight:600}
+/* 八 综艺花字：粗描边字幕、黄色重点词弹跳、贴纸标题 */
+body[data-theme=huazi]{
+ --stage:#000;--ink:#111;--sub:#555;--acc:#FF3D7F;--hi:#FFE600;--danger:#FF3D7F;--good:#111;--goodbg:#FFF6C2;--badbg:#FFE0EA;--bad:#D61F5B;
+ --card:#fff;--cardbd:6px solid #111;--radius:28px;--shadow:12px 12px 0 #111;
+ --tagbg:#FF3D7F;--tagfg:#fff;--tagdot:#FFE600;
+ --t1:#fff;--t2:#FFE600;--tsh:none;
+ --sfg:#fff;--sst:#111;--sk:#FFE600;--skbg:transparent;--sbox:transparent;--sfg2:#fff;
+ --ring:#111;--rowbg:#FFF6C2;--rowon:#FFE600;--rowonfg:#111;--num:#FF3D7F;--numfg:#fff;
+ --qbg:#FFE600;--qfg:#111;--qem:#FF3D7F;--stbg:#fff;--stfg:#111;--ctabg:#FF3D7F;--ctafg:#fff;--ctai:#FFE600;
+ --dim:linear-gradient(180deg,rgba(0,0,0,.12) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0) 66%,rgba(0,0,0,.2) 100%);
+ --font:"Noto Sans CJK SC","PingFang SC","Microsoft YaHei",sans-serif;--fw:800px}
+body[data-theme=huazi] #title .tx{display:flex;flex-direction:column;align-items:center}
+body[data-theme=huazi] #title .t1{display:inline-block;background:#2D6BFF;color:#fff;font-size:58px;font-weight:900;padding:8px 30px 12px;border:6px solid #fff;border-radius:16px;rotate:-3deg;box-shadow:0 10px 0 rgba(0,0,0,.28)}
+body[data-theme=huazi] #title .t2{font-size:108px;font-weight:900;color:#FFE600;-webkit-text-stroke:14px #111;paint-order:stroke fill;text-shadow:0 12px 0 #FF3D7F;rotate:2deg;margin-top:14px;line-height:1.15}
+body[data-theme=huazi] #title .id{margin:18px auto 0;display:table;background:#fff;border:5px solid #111;border-radius:999px;padding:6px 28px;rotate:-1.5deg;font-size:30px;font-weight:800;color:#111}
+body[data-theme=huazi] #title .id .nm{display:inline;color:#FF3D7F;margin-right:14px}
+body[data-theme=huazi] #title .id .ln{display:inline;margin-right:10px}
+body[data-theme=huazi] #sub .in{font-size:68px;font-weight:900;-webkit-text-stroke:14px #111;text-shadow:0 7px 0 #111}
+body[data-theme=huazi] #sub span{opacity:.5}
+body[data-theme=huazi] #sub .kwg{padding:0 2px;margin:0 4px}
+body[data-theme=huazi] #sub .kwg span{font-size:80px;-webkit-text-stroke:14px #111;paint-order:stroke fill;color:#FFE600}
+body[data-theme=huazi] #sub .en{font-size:34px;-webkit-text-stroke:8px #111;text-shadow:none}
+body[data-theme=huazi] #pop{font-size:156px;font-weight:900;color:#FFE600;-webkit-text-stroke:16px #111;paint-order:stroke fill;text-shadow:10px 12px 0 #FF3D7F;rotate:-4deg}
+body[data-theme=huazi] #quote{border:6px solid #111;box-shadow:14px 14px 0 #111;rotate:-1.5deg}
+body[data-theme=huazi] #quote .bar{background:#111}
+body[data-theme=huazi] #card h2{color:#111}
+body[data-theme=huazi] .row{border:4px solid #111;font-weight:800}
+body[data-theme=huazi] .row.on{box-shadow:6px 6px 0 #111}
+body[data-theme=huazi] .step{border:4px solid #111;opacity:.75}
+body[data-theme=huazi] .step.lit{opacity:1}
+body[data-theme=huazi] :is(#tag,#stamp div,#cta div){border:5px solid #111;box-shadow:8px 8px 0 #111}
+body[data-theme=huazi] #stamp div{rotate:-3deg}
 /* 横版：字号整体小一点 */
+body.H.full #title .t1{font-size:56px}body.H.full #title .t2{font-size:72px}
+body.H[data-theme=zazhi] #title .q{font-size:170px}body.H[data-theme=zazhi] #title .vq{font-size:20px}body.H[data-theme=zazhi] #title .en{font-size:32px}
+body.H[data-theme=jiangshi] #title .t1,body.H[data-theme=jiangshi] #title .t2{font-size:78px;letter-spacing:6px}body.H[data-theme=jiangshi] #pop{font-size:130px}
+body.H[data-theme=kuanmu] #title .t1{font-size:24px;margin-bottom:4px}body.H[data-theme=kuanmu] #title .t2{font-size:44px}body.H[data-theme=kuanmu] #title .en,body.H[data-theme=kuanmu] #title .id{display:none}
+body.H[data-theme=kuanmu] #sub .in{font-size:40px}body.H[data-theme=kuanmu] #sub .kwg span{font-size:42px}body.H[data-theme=kuanmu] #sub .en{font-size:22px;margin-top:4px}body.H[data-theme=kuanmu] #pop{font-size:60px;letter-spacing:20px}
+body.H[data-theme=huazi] #title .t1{font-size:44px}body.H[data-theme=huazi] #title .t2{font-size:84px}
 body.H #sub .in{font-size:50px}body.H #sub .kwg span{font-size:56px}
 body.H #title .t1{font-size:56px}body.H #title .t2{font-size:96px}body.H #pop{font-size:104px}
 body.H #card{padding:40px 44px 26px}body.H #card h2{font-size:52px;margin-bottom:22px}
@@ -141,8 +305,9 @@ body.H #tag{font-size:32px;padding:12px 26px}
 <div id="person"><img id="pimg"></div>
 <div id="dim"></div>
 <div id="dim2"></div>
+<div id="lb"></div>
 <div id="tag" class="ov"><i></i><span id="tagtext"></span></div>
-<div id="title" class="ov"><div class="box"><div class="t1"></div><div class="t2"></div></div></div>
+<div id="title" class="ov"><div class="box"><div class="q">Q</div><div class="vq">Interview Question</div><div class="tx"><div class="t1"></div><div class="en"></div><div class="t2"></div></div></div><div class="id"></div></div>
 <div id="pop" class="ov"></div>
 <div id="quote" class="ov"></div>
 <div id="stamp" class="ov"></div>
@@ -163,22 +328,84 @@ const LAYOUTS = {
   H: {W: 1920, H: 1080, tag: [56, 56], title: 610, pop: 640, subFull: 940, subPip: 950, card: {l: 80, t: 150, w: 1200}, win: {x: 1380, y: 300, w: 460, h: 460},
       quote: {l: 360, t: 600, w: 1200}, stamp: 640, cta: 700, shotH: 600},
 };
+// 模版五到八（人一直全屏）：标题位置（左边距 0 表示居中）、字幕、大字、角标，卡片能放的上下范围
+const FULL_LAY = {
+  zazhi:    {V: {title: [50, 260], sub: 1460, pop: 1360, tag: [56, 150], area: [215, 1420]}, H: {title: [60, 110], sub: 880, pop: 800, tag: [60, 36], area: [110, 850]}},
+  jiangshi: {V: {title: [76, 270], sub: 1460, pop: 1330, tag: [56, 150], area: [215, 1420]}, H: {title: [80, 110], sub: 880, pop: 780, tag: [60, 36], area: [110, 850]}},
+  kuanmu:   {V: {title: [0, 150], sub: 1652, pop: 1625, tag: [56, 1850], area: [360, 1560]}, H: {title: [0, 22], sub: 962, pop: 958, tag: [56, 52], area: [160, 920]}},
+  huazi:    {V: {title: [0, 250], sub: 1470, pop: 1350, tag: [56, 150], area: [215, 1420]}, H: {title: [0, 70], sub: 880, pop: 790, tag: [60, 36], area: [110, 850]}},
+};
+let FL = null, TB = 0;
 function place(el, x, y, w) { el.style.left = x + 'px'; el.style.top = y + 'px'; if (w) el.style.width = w + 'px'; }
+// 一行字放不下就整体缩小字号（不换行、不出画）
+function setFit(el, text, maxW) {
+  el.innerHTML = ''; if (!text) return;
+  const s = document.createElement('span'); s.textContent = text; el.appendChild(s);
+  el.style.fontSize = '';
+  const w = s.offsetWidth;
+  if (w > maxW) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * maxW / w).toFixed(1) + 'px';
+}
 
 function init(tl, faces, dir) {
   TL = tl; FACES = faces; FRAMEDIR = dir;
-  document.body.className = tl.orient; document.body.dataset.theme = tl.theme;
+  const full = !!tl.full && FULL_LAY[tl.theme];
+  document.body.className = tl.orient + (full ? ' full' : ''); document.body.dataset.theme = tl.theme;
   LAY = LAYOUTS[tl.orient];
+  FL = full ? FULL_LAY[tl.theme][tl.orient] : null;
   $('tagtext').textContent = tl.column || '';
   $('tag').style.visibility = tl.column ? 'visible' : 'hidden';
-  $('title').querySelector('.t1').textContent = tl.title ? tl.title.l1 : '';
-  $('title').querySelector('.t2').textContent = tl.title ? tl.title.l2 : '';
-  place($('tag'), LAY.tag[0], LAY.tag[1]);
-  $('title').style.top = LAY.title + 'px'; $('pop').style.top = LAY.pop + 'px';
-  place($('card'), LAY.card.l, LAY.card.t, LAY.card.w);
+  const T = $('title'), ti = tl.title || {};
+  place($('tag'), ...(FL ? FL.tag : LAY.tag));
+  T.style.top = (FL ? FL.title[1] : LAY.title) + 'px';
+  if (FL) { T.classList.toggle('c', !FL.title[0]); if (FL.title[0]) T.style.left = FL.title[0] + 'px'; }
+  $('pop').style.top = (FL ? FL.pop : LAY.pop) + 'px';
+  const maxW = LAY.W - (FL && FL.title[0] ? FL.title[0] + 60 : 120) - (tl.theme === 'zazhi' ? (tl.orient === 'V' ? 230 : 160) : 0);
+  setFit(T.querySelector('.t1'), ti.l1 || '', maxW);
+  setFit(T.querySelector('.t2'), ti.l2 || '', maxW);
+  setFit(T.querySelector('.en'), ti.en || '', maxW);
+  T.querySelector('.en').style.display = FL && ti.en ? '' : 'none';
+  const id = T.querySelector('.id'); id.innerHTML = '';
+  (FL ? tl.ident || [] : []).forEach((s, i) => { const e = document.createElement('div'); e.className = i ? 'ln' : 'nm'; e.textContent = s; id.appendChild(e); });
+  place($('card'), LAY.card.l, LAY.card.t, FL ? null : LAY.card.w);
   place($('quote'), LAY.quote.l, LAY.quote.t, LAY.quote.w);
   $('stamp').style.top = LAY.stamp + 'px'; $('cta').style.top = LAY.cta + 'px';
+  if (FL && tl.theme === 'kuanmu') $('cta').style.top = (tl.orient === 'V' ? 1050 : 520) + 'px';
   const P = $('pimg'); P.width = LAY.W; P.height = LAY.H;
+  TB = FL && tl.title && tl.theme !== 'kuanmu' ? T.getBoundingClientRect().bottom : 0;   // 常驻标题的下沿：横版卡片放在它下面，竖版卡片压上来时标题让开
+}
+
+// 全屏模版的卡片：人不缩小，卡片放在脸的下面（放不下就放上面），横版放在脸的另一边。一张卡片定一次位置，不跟着晃
+function floatCard(el, c) {
+  if (c._pos) return c._pos;
+  const fi = Math.min(Math.round(c.t0 * TL.fps), FACES.length - 1);
+  const f = FACES[Math.max(0, fi)] || [LAY.W * .3, LAY.H * .3, LAY.W * .4, LAY.W * .4];
+  const [fx, fy, fw, fh] = f, w = el.offsetWidth, h = el.offsetHeight, [a0, a1] = FL.area;
+  let x, y, s = 1, top = false;
+  if (TL.orient === 'V') {
+    // 脸下面（下巴往下留一点）和脸上面各有多少地方；哪边放得下就放哪边，都放不下就挑地方大的一边、卡片缩小一点
+    x = (LAY.W - w) / 2;
+    const below = Math.max(fy + fh * 1.15 + 36, a0), roomB = a1 - below;
+    const aboveEnd = fy - 40, roomA = aboveEnd - a0;
+    if (h <= roomB) y = below;
+    else if (h <= roomA) { y = aboveEnd - h; top = true; }
+    else if (Math.max(roomA, roomB) >= h * .7) {
+      if (roomB >= roomA) { s = roomB / h; y = below; }
+      else { s = roomA / h; y = aboveEnd - h * s; top = true; }
+    }
+    else { s = .7; y = a1 - h * s; }   // 实在放不下：贴着字幕上沿，宁可压到下巴也不压眼睛
+    x = (LAY.W - w * s) / 2;
+  } else {
+    // 横版：放在脸的另一边（脸在中间就放右边），而且放在常驻标题下面
+    const ww = Math.min(w, LAY.W / 2 - 120);
+    if (ww < w) s = ww / w;
+    x = fx + fw / 2 <= LAY.W / 2 ? LAY.W - 80 - w * s : 80;
+    const t0 = Math.max(a0, TB ? TB + 30 : 0), room = a1 - t0;
+    if (h * s <= room) y = t0 + (room - h * s) / 2;
+    else if (room >= h * s * .72) { s *= room / (h * s); y = t0; }
+    else { y = clamp(a0 + (a1 - a0 - h * s) / 2, a0, a1 - h * s); top = true; }
+  }
+  c._pos = {x, y, w, h, s, top};
+  return c._pos;
 }
 
 function pipP(t) { let p = 0; for (const [a, b] of TL.pip) p = Math.max(p, inout(t, a, b, .5, .5)); return ease(p); }
@@ -223,9 +450,12 @@ function renderSub(t, p) {
     for (let m = i; m < j; m++) h += `<span class="${t >= C[m][1] - 0.03 ? 'lit' : ''}">${C[m][0]}</span>`;
     h += '</span>'; i = j;
   }
-  el.innerHTML = `<div class="in">${h}</div>`;
+  const en = cur.en ? `<div class="en">${cur.en.replace(/</g, '&lt;')}</div>` : '';
+  el.innerHTML = `<div class="in">${h}${en}</div>`;
+  const inn = el.firstChild, mw = LAY.W - 70;   // 一行太长就整体缩小，不出画
+  if (inn.offsetWidth > mw) { inn.style.transformOrigin = '50% 0'; inn.style.transform = `scale(${(mw / inn.offsetWidth).toFixed(3)})`; }
   el.className = 'ov' + (p > .5 ? ' onstage' : '');
-  el.style.top = (p > .5 ? LAY.subPip : LAY.subFull) + 'px';
+  el.style.top = (FL ? FL.sub : p > .5 ? LAY.subPip : LAY.subFull) + 'px';
   show(el, k, `translateY(${(1 - k) * 18}px)`);
 }
 
@@ -233,7 +463,7 @@ function cardRows(c, t) {
   let h = '', act = -1;
   c.rows.forEach(([r, rt], i) => { if (t >= rt - .05) act = i; });
   c.rows.forEach(([r, rt], i) => {
-    if (t < rt - .05) { h += `<div class="row" style="opacity:0"><b>${i + 1}</b>${r}</div>`; return; }
+    if (t < rt - .05) { h += `<div class="row" style="opacity:${FL ? .32 : 0}"><b>${i + 1}</b>${r}</div>`; return; }   // 全屏模版：没说到的先淡淡露着，免得卡片空一大块
     const q = clamp((t - rt + .05) / .25, 0, 1);
     h += `<div class="row${i === act ? ' on' : ''}" style="opacity:${q};transform:translateX(${(1 - q) * -30}px) scale(${i === act ? 1.03 : 1})"><b>${i + 1}</b>${r}</div>`;
   });
@@ -264,7 +494,7 @@ function cardSteps(c, t) {
 
 function cardShot(c, t) {
   // 截图：先给全貌，到圈注的时间推近到那个位置并圈出来
-  const W = LAY.card.w - 100, H = LAY.shotH;
+  const W = (FL ? $('card').clientWidth : LAY.card.w) - 100, H = FL ? (TL.orient === 'V' ? 460 : 400) : LAY.shotH;
   const [iw, ih] = c.size;
   const k0 = Math.min(W / iw, H / ih);
   let k = k0, ox = (W - iw * k0) / 2, oy = (H - ih * k0) / 2, mk = '';
@@ -288,14 +518,23 @@ function cardShot(c, t) {
 function renderCard(t, p) {
   const el = $('card');
   const c = TL.cards.find(c => t >= c.t0 && t <= c.t1);
-  if (!c || p < 0.01) { show(el, 0); return; }
-  const o = inout(t, c.t0, c.t1, .35, .2) * clamp(p * 1.5, 0, 1);
+  if (!c || (!FL && p < 0.01)) { show(el, 0); return null; }
+  const o = inout(t, c.t0, c.t1, .35, .2) * (FL ? 1 : clamp(p * 1.5, 0, 1));
+  if (FL) el.style.display = '';
   let h = c.title ? `<h2>${c.title}</h2>` : '';
   if (c.kind === 'steps') h += cardSteps(c, t);
   else if (c.kind === 'shot') h += cardShot(c, t);
   else h += cardRows(c, t);
   el.innerHTML = h;
+  if (FL) {
+    el.style.transform = 'none'; el.style.display = '';
+    const pos = floatCard(el, c);
+    el.style.left = pos.x + 'px'; el.style.top = pos.y + 'px'; el.style.transformOrigin = '0 0';
+    show(el, o, `translateY(${(1 - o) * 30}px) scale(${(lerp(.96, 1, o) * pos.s).toFixed(4)})`);
+    return {o, pos};
+  }
   show(el, o, `translateY(${(1 - o) * 40}px)`);
+  return null;
 }
 
 function renderQuote(t) {
@@ -314,19 +553,28 @@ function renderQuote(t) {
 }
 
 function render(t, fi) {
-  const p = pipP(t);
+  const p = FL ? 0 : pipP(t);
   layoutPerson(fi, p);
   show($('stage'), p > 0 ? 1 : 0);
   const tg = clamp((t - .15) / .3, 0, 1);
-  show($('tag'), tg, `translateX(${(1 - tg) * -40}px)`);
+  show($('tag'), tg, FL ? 'none' : `translateX(${(1 - tg) * -40}px)`);
+  const cd = renderCard(t, p);
   if (TL.title) {
-    const ti = TL.title, to = inout(t, ti.t0, ti.t1, .35, .25);
-    show($('title'), to, `translateY(${(1 - to) * 30}px)`);
+    const ti = TL.title;
+    let to = inout(t, ti.t0, ti.t1, .35, .25);
+    // 卡片放在脸上面、和标题撞上时，标题先让开
+    if (cd && cd.pos.top && TB > cd.pos.y - 10) to *= 1 - cd.o;   // 用开头量好的标题下沿，标题藏起来时量不到
+    show($('title'), to, `translateY(${(FL ? 1 - clamp((t - ti.t0) / .35, 0, 1) : 1 - to) * 30}px)`);
     const t2 = $('title').querySelector('.t2'), q2 = clamp((t - ti.t0 - .25) / .3, 0, 1);
     t2.style.transform = `scale(${lerp(.7, 1, back(q2))})`; t2.style.opacity = q2;
+    const id = $('title').querySelector('.id'), qi = clamp((t - ti.t0 - .6) / .35, 0, 1);
+    id.style.opacity = qi; id.style.transform = `translateY(${(1 - qi) * 14}px)`;
   } else show($('title'), 0);
   const pp = TL.pops.find(x => t >= x.t0 && t <= x.t1);
-  if (pp) { $('pop').textContent = pp.text; show($('pop'), inout(t, pp.t0, pp.t1, .25, .2), `scale(${lerp(.6, 1, back(clamp((t - pp.t0) / .3, 0, 1)))})`); }
+  if (pp) {
+    if ($('pop').dataset.text !== pp.text) { setFit($('pop'), pp.text, LAY.W - 100); $('pop').dataset.text = pp.text; }
+    show($('pop'), inout(t, pp.t0, pp.t1, .25, .2), `scale(${lerp(.6, 1, back(clamp((t - pp.t0) / .3, 0, 1)))})`);
+  }
   else show($('pop'), 0);
   const qo = renderQuote(t);
   const s = TL.stamps.find(x => t >= x.t0 && t <= x.t1);
@@ -340,7 +588,6 @@ function render(t, fi) {
   } else show($('cta'), 0);
   show($('dim'), 1 - p);
   show($('dim2'), Math.max(qo, co) * (1 - p));
-  renderCard(t, p);
   renderSub(t, p);
 }
 
